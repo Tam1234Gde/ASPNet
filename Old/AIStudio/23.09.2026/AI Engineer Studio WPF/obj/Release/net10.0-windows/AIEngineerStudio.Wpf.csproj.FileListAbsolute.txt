@@ -1,0 +1,70 @@
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\neural_bridge.py
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.exe
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.deps.json
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.runtimeconfig.json
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.pdb
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\MainWindow.baml
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.baml
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\MainWindow.g.cs
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.g.cs
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf_MarkupCompile.cache
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.g.resources
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfo.cs
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\refint\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.pdb
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.genruntimeconfig.cache
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\ref\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\Проекты\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngine.D5417922.Up2Date
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\neural_bridge.py
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\AIEngineerStudio.Wpf.exe
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\AIEngineerStudio.Wpf.deps.json
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\AIEngineerStudio.Wpf.runtimeconfig.json
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\AIEngineerStudio.Wpf.dll
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\AIEngineerStudio.Wpf.pdb
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\artifacts\verification\preview-test\Markdig.dll
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\src\Presentation\MainWindow.baml
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.baml
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\src\Presentation\MainWindow.g.cs
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.g.cs
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf_MarkupCompile.cache
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.g.resources
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfo.cs
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngine.D5417922.Up2Date
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.dll
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\refint\AIEngineerStudio.Wpf.dll
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.pdb
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.genruntimeconfig.cache
+C:\Users\User\Desktop\AI Engineer Studio\AI Engineer Studio WPF\obj\Release\net10.0-windows\ref\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\neural_bridge.py
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.exe
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.deps.json
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.runtimeconfig.json
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\AIEngineerStudio.Wpf.pdb
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\bin\Release\net10.0-windows\Markdig.dll
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\src\Presentation\MainWindow.baml
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.baml
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\src\Presentation\MainWindow.g.cs
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\App.g.cs
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf_MarkupCompile.cache
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.g.resources
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.AssemblyInfo.cs
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngine.D5417922.Up2Date
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\refint\AIEngineerStudio.Wpf.dll
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.pdb
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\AIEngineerStudio.Wpf.genruntimeconfig.cache
+C:\Users\user\Desktop\AIStudio\23.09.2026\AI Engineer Studio WPF\obj\Release\net10.0-windows\ref\AIEngineerStudio.Wpf.dll

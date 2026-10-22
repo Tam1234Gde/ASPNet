@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "WebStudioApi\\WebStudioApi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

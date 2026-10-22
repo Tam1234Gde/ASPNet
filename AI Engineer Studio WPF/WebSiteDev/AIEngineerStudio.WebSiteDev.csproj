@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <DefaultItemExcludes>$(DefaultItemExcludes);WebStudioApi\**</DefaultItemExcludes>
+    <AssemblyName>CORETECH.AIEngineerStudio.WebSiteDev</AssemblyName>
+    <RootNamespace>AIEngineerStudio</RootNamespace>
+    <Version>1.0.20261001.2</Version>
+    <AssemblyVersion>1.0.2026.1001</AssemblyVersion>
+    <FileVersion>1.0.2026.1001</FileVersion>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="obj\**;bin\**" />
+    <Page Remove="obj\**;bin\**" />
+    <Compile Remove="backups\**" />
+    <Page Remove="backups\**" />
+    <EmbeddedResource Remove="backups\**" />
+    <Compile Remove="artifacts\**" />
+    <Page Remove="artifacts\**" />
+    <EmbeddedResource Remove="artifacts\**" />
+    <None Remove="artifacts\backups\**" />
+    <Compile Remove="projects\BybitBot\**" />
+    <EmbeddedResource Remove="projects\BybitBot\**" />
+    <None Remove="projects\BybitBot\**" />
+    <Page Remove="projects\BybitBot\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tools\conversation_project.py" Link="conversation_project.py" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="tools\context_optimizer.py" Link="context_optimizer.py" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="tools\neural_bridge.py" Link="neural_bridge.py" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="Markdig" Version="0.38.0" />
+    <PackageReference Include="SSH.NET" Version="2026.0.0" />
+    <EmbeddedResource Include="src\Infrastructure\Services\WindowsDeployment.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="projects\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="tools\neural_bridge.py" Link="neural_bridge.py" CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="Markdig" Version="0.38.0" />
+  </ItemGroup>
+</Project>

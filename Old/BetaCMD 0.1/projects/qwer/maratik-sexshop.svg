@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">У Маратика — ночной сексшоп</title>
+  <desc id="desc">Яркий неоновый рекламный макет сексшопа У Маратика.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17002e"/>
+      <stop offset="0.48" stop-color="#450052"/>
+      <stop offset="1" stop-color="#071a45"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffef37"/><stop offset=".42" stop-color="#ff2f9c"/><stop offset="1" stop-color="#8b3dff"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#61fff1"/><stop offset="1" stop-color="#2784ff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="35"/></filter>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse" patternTransform="skewX(-18)">
+      <path d="M0 0H52M0 0V52" fill="none" stroke="#77f8ff" stroke-opacity=".16" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <ellipse cx="1040" cy="168" rx="400" ry="210" fill="#ff198b" opacity=".22" filter="url(#soft)"/>
+  <ellipse cx="288" cy="680" rx="370" ry="200" fill="#174dff" opacity=".26" filter="url(#soft)"/>
+  <rect width="1440" height="900" fill="url(#grid)"/>
+
+  <!-- decorative scribbles -->
+  <g fill="none" stroke-linecap="round" filter="url(#glow)">
+    <path d="M90 155c49-92 147-89 150 0 3 88-112 108-138 41-22-55 78-100 163-34" stroke="#61fff1" stroke-width="8"/>
+    <path d="M1215 655c55-105 166-51 107 31-51 71-148 7-101-49 36-44 106 13 139 63" stroke="#ffef37" stroke-width="7"/>
+    <path d="M111 738l48 17-32 36 54 4" stroke="#ff3da5" stroke-width="8"/>
+    <path d="M1281 153l49 31m-53 3 48-30" stroke="#61fff1" stroke-width="8"/>
+  </g>
+
+  <!-- logo / top navigation -->
+  <g font-family="Arial, Helvetica, sans-serif" fill="#fff">
+    <text x="94" y="92" font-size="24" font-weight="700" letter-spacing="4">ПОСЛЕ ЗАКАТА — НАЧИНАЕТСЯ САМОЕ ИНТЕРЕСНОЕ</text>
+    <text x="1216" y="92" font-size="22" font-weight="700" text-anchor="end" fill="#61fff1">18+</text>
+  </g>
+  <path d="M95 112h748" stroke="#ffef37" stroke-width="4" filter="url(#glow)"/>
+
+  <!-- main typography -->
+  <g font-family="Impact, Arial Black, sans-serif" font-style="italic" transform="skewX(-7)">
+    <text x="150" y="325" font-size="144" letter-spacing="-6" fill="#ffef37" stroke="#ffef37" stroke-width="12" opacity=".22" filter="url(#glow)">У</text>
+    <text x="138" y="314" font-size="144" letter-spacing="-6" fill="url(#pink)" stroke="#fff1e6" stroke-width="3">У</text>
+    <text x="256" y="314" font-size="144" letter-spacing="-7" fill="#fff" stroke="#ff2f9c" stroke-width="5">МАРАТИКА</text>
+  </g>
+  <text x="157" y="380" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="9" fill="#61fff1">СЕКСШОП • ДОСТАВКА • БЕЗ ЛИШНИХ ВОПРОСОВ</text>
+
+  <!-- sticker -->
+  <g transform="translate(955 275) rotate(12)" filter="url(#glow)">
+    <path d="M0 36 24 22 18 0l27 8L61-12l12 22 27-2-2 27 23 15-19 19 9 27-29 2-14 24-21-18-27 8 5-27-24-14 23-17z" fill="#ffef37"/>
+    <text x="50" y="47" text-anchor="middle" font-family="Arial Black, Arial" font-size="28" font-weight="900" fill="#23004a">НОЧНОЙ</text>
+    <text x="50" y="76" text-anchor="middle" font-family="Arial Black, Arial" font-size="22" font-weight="900" fill="#23004a">ДРОП</text>
+  </g>
+
+  <!-- abstract product icons -->
+  <g transform="translate(152 470)">
+    <g transform="rotate(-12 135 120)">
+      <rect x="76" y="22" width="116" height="225" rx="56" fill="url(#pink)" stroke="#fff" stroke-width="4"/>
+      <circle cx="134" cy="63" r="22" fill="#ffe94d" opacity=".9"/>
+      <path d="M88 184c33-25 70-25 94 0" fill="none" stroke="#fff" stroke-width="7" opacity=".75"/>
+    </g>
+    <text x="135" y="299" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#fff">ЯРКО</text>
+  </g>
+  <g transform="translate(472 480)">
+    <path d="M93 28c57 0 98 44 98 100 0 81-97 139-97 139S-3 210-3 128C-3 72 36 28 93 28z" fill="url(#cyan)" stroke="#fff" stroke-width="4"/>
+    <path d="M51 119c20-34 67-38 88-4" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="61" cy="98" r="8" fill="#23004a"/><circle cx="126" cy="98" r="8" fill="#23004a"/>
+    <text x="94" y="326" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#fff">СМЕЛО</text>
+  </g>
+  <g transform="translate(745 456)">
+    <path d="M85 72c0-44 70-44 70 0v64c0 38-29 79-35 89-6-10-35-51-35-89z" fill="#ffef37" stroke="#fff" stroke-width="4"/>
+    <path d="M69 106c-38-29-76 18-44 51l77 76 77-76c33-33-6-80-44-51" fill="none" stroke="#ff3da5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="120" y="326" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#fff">С ЛЮБОВЬЮ</text>
+  </g>
+
+  <!-- call to action -->
+  <g transform="translate(1005 490)">
+    <rect width="315" height="112" rx="56" fill="#ff2f9c" stroke="#fff" stroke-width="4" filter="url(#glow)"/>
+    <text x="157" y="48" text-anchor="middle" font-family="Arial Black, Arial" font-size="27" font-weight="900" fill="#fff">ЗАБРАТЬ СВОЁ</text>
+    <text x="157" y="79" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="2" fill="#ffe94d">АНОНИМНО • БЫСТРО</text>
+  </g>
+  <text x="1160" y="665" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#fff">maratik.shop  •  @u_maratika</text>
+
+  <!-- footer -->
+  <path d="M91 776H1349" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#fff">
+    <text x="95" y="831" font-size="22" font-weight="700">ТВОЙ ВАЙБ. ТВОИ ПРАВИЛА.</text>
+    <text x="1345" y="831" text-anchor="end" font-size="17" font-weight="700" fill="#ffef37">ТОЛЬКО ДЛЯ ВЗРОСЛЫХ • 18+</text>
+  </g>
+</svg>

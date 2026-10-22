@@ -1,0 +1,36 @@
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.deps.json
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.pdb
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfoInputs.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfo.cs
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.csproj.CoreCompileInputs.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\refint\WIS.WinActivator.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.pdb
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\ref\WIS.WinActivator.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinA.566FA30F.Up2Date
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.deps.json
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfo.cs
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\refint\WIS.WinActivator.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\ref\WIS.WinActivator.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinA.566FA30F.Up2Date
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.AssemblyInfo.cs
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\refint\WIS.WinActivator.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.deps.json
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\bin\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\ref\WIS.WinActivator.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\WIS.WinActivator\obj\Debug\net10.0\WIS.WinA.566FA30F.Up2Date

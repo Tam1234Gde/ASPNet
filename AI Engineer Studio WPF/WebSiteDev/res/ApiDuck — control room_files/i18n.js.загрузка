@@ -1,0 +1,122 @@
+"use strict";
+// Display-only translations. Never translate inputs, model IDs or command blocks.
+(() => {
+  const translations = {
+    "Спокойный контроль": "Effortless control",
+    "вашего API.": "of your API.",
+    "Один аккуратный экран для баланса, моделей и команд подключения. Никакого шума — только то, что нужно для работы.": "Your balance, models and setup commands in one clear view. Everything you need to get to work.",
+    "Нативная защита сессии": "Secure sessions",
+    "Добро пожаловать": "Welcome",
+    "Войти в ApiDuck": "Sign in to ApiDuck",
+    "Сервис онлайн": "Service online",
+    "Введите API-ключ, чтобы открыть ваш control room.": "Enter your API key to open your control room.",
+    "API-ключ": "API key",
+    "Войти в систему": "Sign in",
+    "Ключ хранится только в защищённой сессии": "Your key is kept for this browser tab",
+    "Главная": "Home", "Инструкции": "Instructions", "Медиа": "Media", "Перевод": "Transfer",
+    "Система онлайн": "System online", "Выйти": "Sign out",
+    "Добро пожаловать в": "Welcome to",
+    "Следите за расходом токенов и держите интеграции под рукой.": "Track token usage and keep your integrations close at hand.",
+    "Синхронизировано сейчас": "Just synced",
+    "Баланс токенов": "Token balance", "ПРОМОКОД": "PROMO CODE", "Применить": "Apply", "Обновить": "Refresh",
+    "Расход токенов": "Token usage", "стоимость запроса": "request cost", "Последние запросы": "Recent requests",
+    "Время": "Time", "Модель": "Model", "Вход": "Input", "Выход": "Output", "Кэш": "Cache", "Коэф.": "Coeff.", "Сумма": "Amount", "Мс": "Ms", "Статус": "Status", "Модели": "Models", "Нет данных": "No data",
+    "Подключение": "Setup", "по полочкам.": "made simple.",
+    "Сначала провайдер, затем приложение и система. Нужная команда всегда на третьем клике.": "Choose a provider, an app and an operating system. Your setup command is three clicks away.",
+    "приложений": "apps", "доступно": "available", "Все": "All", "Другие": "Others", "Китайские": "Chinese models",
+    "Поиск по приложениям и системам…": "Search apps and operating systems…",
+    "Команды подключения": "Setup commands", "Способ настройки": "Setup method", "Скрипт": "Script", "Вручную": "Manual", "Установка": "Install", "Удаление": "Uninstall", "Копировать": "Copy", "Конфигурация / команды": "Configuration / commands",
+    "Настройка клиента": "Client setup", "Выберите операционную систему для генерации команды": "Choose an operating system to generate the command", "Система запуска": "Operating system",
+    "Выберите систему выше, чтобы увидеть готовые команды": "Choose an operating system above to see the setup commands",
+    "Ничего не найдено": "Nothing found", "Измените запрос или фильтр системы.": "Try another search or operating system filter.",
+    "Медиа модели (Image & Audio API)": "Media models (Image & Audio API)",
+    "Вызывайте модели через OpenAI-совместимые эндпоинты ApiDuck. Статичные списания за каждое изображение или минуту аудио производятся прямо с вашего токен-баланса.": "Access models through ApiDuck's OpenAI-compatible endpoints. Charges per image or minute of audio are deducted from your token balance.",
+    "Перевод токенов между ключами": "Transfer tokens between keys",
+    "Весь баланс ключа-донора будет переведён на ключ-получатель. Ключ-донор после этого удаляется.": "The donor key's entire balance will be transferred to the recipient key. The donor key is then deleted.",
+    "Куда (ключ-получатель)": "To (recipient key)", "Откуда (ключ-донор)": "From (donor key)", "Перевести": "Transfer",
+    "Скопировано": "Copied", "Переводим…": "Transferring…", "Перевод выполнен успешно": "Transfer completed successfully", "Перевод выполнен": "Transfer completed", "Переведено токенов": "Tokens transferred", "Ключ-донор удалён": "Donor key deleted", "да": "yes", "нет": "no", "Ключ-получатель": "Recipient key", "Лимит": "Limit", "Использовано": "Used", "Обновлено": "Updated",
+    "Оба ключа должны быть в формате sk-cvc-…": "Both keys must use the sk-cvc-… format", "Ключи совпадают": "The keys must be different", "Ошибка перевода": "Transfer failed",
+    "Не удалось восстановить соединение. Повторите попытку.": "Could not reconnect. Please try again.", "Сессия истекла, войдите снова": "Your session expired. Please sign in again.", "Неверный формат ключа (ожидается sk-cvc-…)": "Invalid key format (expected sk-cvc-…)", "Не удалось войти. Проверьте ключ.": "Could not sign in. Check your key.", "Не удалось получить баланс": "Could not load the balance", "Не удалось получить историю": "Could not load request history", "Модель не найдена": "Model not found", "Копировать curl": "Copy curl", "Неверный промокод": "Invalid promo code", "Не удалось восстановить сессию": "Could not restore your session", "Сессия активна. Введите ключ, чтобы подставлять его в команды и переводы.": "Your session is active. Enter your key to insert it into commands and transfers.",
+    "Не авторизован": "Not signed in", "Неверный API-ключ": "Invalid API key", "Ключ не разрешён": "Key not allowed", "Не удалось соединиться с сервером": "Could not connect to the server", "Ошибка сервера": "Server error", "Сервер недоступен": "Server unavailable", "Сервер вернул некорректный ответ": "The server returned an invalid response", "Неверный формат промокода": "Invalid promo code format", "Промокод не найден": "Promo code not found", "Промокод уже был использован": "Promo code has already been used", "Сервис пополнения не настроен": "Top-up service is not configured", "Сервис переводов не настроен": "Transfer service is not configured", "Не удалось соединиться с сервером провайдера": "Could not connect to the provider", "Ошибка при пополнении ключа": "Could not top up the key",
+    "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Это отдельный способ доступа — независимо от чата в личном кабинете.": "Access this model through ApiDuck's OpenAI-compatible image endpoints, independently of the chat in your account.",
+    "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Улучшенная цветопередача и детализация мелких деталей.": "Access this model through ApiDuck's OpenAI-compatible image endpoints. Improved color reproduction and fine detail.",
+    "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Высокий динамический диапазон и насыщенные текстуры.": "Access this model through ApiDuck's OpenAI-compatible image endpoints. High dynamic range and rich textures.",
+    "Быстрая и экономичная генерация изображений через OpenAI image endpoint'ы ApiDuck.": "Fast, affordable image generation through ApiDuck's OpenAI-compatible image endpoints.",
+    "Генерация и редактирование изображений через xAI Grok Imagine API на ApiDuck.": "Generate and edit images through the xAI Grok Imagine API on ApiDuck.",
+    "Количество n: 1, 2 или 4 изображения за один запрос.": "Set n to 1, 2 or 4 images per request.", "Количество n: 1, 2 или 4 изображения.": "Set n to 1, 2 or 4 images.", "low (фиксированно)": "low (fixed)",
+    "Количество n: 1, 2 или 4. Редактирование: 250K за 1K или 350K за 2K, плюс 50K за каждый референс.": "Set n to 1, 2 or 4. Editing: 250K for 1K or 350K for 2K, plus 50K per reference image.",
+    "Вызывайте модель через Transcript API ApiDuck. Отправляйте multipart/form-data с WAV-файлом и model.": "Access this model through the ApiDuck Transcript API. Send multipart/form-data with a WAV file and model.",
+    "Тариф": "Rate", "Коэф. ×1": "Coeff. ×1", "Макс. размер": "Max. size", "до 25 MiB": "up to 25 MiB",
+    "Итоговое списание зависит от проверенной длительности аудиофайла. Сейчас принимается WAV до 25 MiB. Модель upstream выбирается сервером.": "The final charge depends on the verified audio duration. WAV files up to 25 MiB are currently accepted. The server selects the upstream model.",
+    "С указанием языка (опциональный language)": "Specify a language (optional language parameter)"
+  };
+  let language = "ru";
+  try { if (sessionStorage.getItem("apiduck.language") === "en") language = "en"; } catch {}
+  const sources = new WeakMap();
+  function t(text) {
+    if (language === "ru") return text;
+    if (translations[text]) return translations[text];
+    return text
+      .replace(/^Другие · /, "Others · ")
+      .replace(/^(\d+) приложения · выберите среду запуска$/, "$1 apps · choose a client")
+      .replace(/^(\d+) доступных систем$/, "$1 operating systems")
+      .replace(/^макс (.+) токенов$/, "max $1 tokens")
+      .replace(/^\+(.+) токенов добавлено!$/, "+$1 tokens added!")
+      .replace(/^Промокод активирован: \+(.+)$/, "Promo code redeemed: +$1")
+      .replace(/^Генерация картинки /, "Image generation ")
+      .replace(/^Редактирование картинки /, "Image editing ")
+      .replace(/^Базовая транскрибация /, "Basic transcription ");
+  }
+  function translateNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      if (!node.parentElement || node.parentElement.closest("script,style,pre,code,textarea,.model-name,.model-id,#logs-table tbody,.instruction-manual-text")) return;
+      const previous = sources.get(node);
+      const source = previous && previous.output === node.nodeValue ? previous.source : node.nodeValue;
+      const output = source.replace(/\S[\s\S]*\S|\S/, value => t(value));
+      sources.set(node, {source, output});
+      if (node.nodeValue !== output) node.nodeValue = output;
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.matches("script,style,pre,code,textarea")) return;
+      for (const attr of ["placeholder", "title", "aria-label"]) {
+        const value = node.getAttributeNode(attr);
+        if (!value) continue;
+        const previous = sources.get(value);
+        const source = previous && previous.output === value.value ? previous.source : value.value;
+        const output = t(source);
+        sources.set(value, {source, output});
+        if (value.value !== output) value.value = output;
+      }
+      for (const child of node.childNodes) translateNode(child);
+    }
+  }
+  function apply() {
+    document.documentElement.lang = language;
+    document.querySelectorAll("[data-language]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
+    translateNode(document.body);
+  }
+  window.APIDUCK_I18N = {t, get language() { return language; }, get locale() { return language === "en" ? "en-US" : "ru-RU"; }};
+  document.addEventListener("DOMContentLoaded", () => {
+    apply();
+    const observer = new MutationObserver(records => {
+      observer.disconnect();
+      for (const record of records) {
+        if (record.type === "childList") record.addedNodes.forEach(translateNode);
+        else translateNode(record.target);
+      }
+      observe();
+    });
+    function observe() { observer.observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:["placeholder","title","aria-label"]}); }
+    observe();
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-language]");
+      if (!button || button.dataset.language === language) return;
+      language = button.dataset.language === "en" ? "en" : "ru";
+      try { sessionStorage.setItem("apiduck.language", language); } catch {}
+      observer.disconnect();
+      apply();
+      document.dispatchEvent(new Event("apiduck:language"));
+      apply();
+      observe();
+    });
+  });
+})();

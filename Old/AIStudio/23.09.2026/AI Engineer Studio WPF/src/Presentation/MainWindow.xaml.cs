@@ -1,0 +1,319 @@
+using Microsoft.Win32;
+using AIEngineerStudio.Models;
+using AIEngineerStudio.Services;
+using AIEngineerStudio.UI;
+using AIEngineerStudio.Views;
+using System.IO;
+using System.Diagnostics;
+using System.Text.Json;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
+
+namespace AIEngineerStudio;
+public partial class MainWindow : Window
+{
+    readonly HashSet<string> selectedFiles = new();
+    readonly ProjectFileService fileService = new();
+    readonly NeuralBridgeService neuralService = new();
+    readonly ComputerControlService computerService = new();
+    readonly ProjectStore projectStore = new();
+    ProjectDocument? activeProject;
+    const int ProjectHistoryLoadLimit = 3;
+    readonly List<Dictionary<string,string>> history = new();
+    int loadedHistoryCount;
+    bool isWaiting;
+    string inspectorTab = "agent";
+    readonly List<AgentEvent> agentEvents = new();
+    Storyboard? waitingAnimation;
+    Border? waitingResponseCard;
+    Storyboard? responseWaitingAnimation;
+    FileSystemWatcher? previewWatcher;
+    WebBrowser? livePreviewBrowser;
+    TextBlock? previewStatus;
+
+    sealed record AgentEvent(string ToolName, string Detail, bool IsCompleted);
+    public AppSettings settings = SettingsStore.Load();
+    public string ApiKey { get => settings.ApiKey; set => settings.ApiKey = value; }
+    public string BaseUrl { get => settings.BaseUrl; set => settings.BaseUrl = value; }
+    public string Model { get => ModelBox.SelectedItem?.ToString() ?? settings.Model; set { settings.Model=value; if (ModelBox != null) ModelBox.SelectedItem = value; } }
+    public double Temperature { get => settings.Temperature; set => settings.Temperature = value; }
+    public int MaxTokens { get => settings.MaxTokens; set => settings.MaxTokens = value; }
+    public string PromptTemplate { get => settings.PromptTemplate; set => settings.PromptTemplate=value; }
+    public string PythonPath { get => settings.PythonPath; set => settings.PythonPath=value; }
+    public bool ComputerControlEnabled { get => settings.ComputerControlEnabled; set => settings.ComputerControlEnabled=value; }
+    public void SaveSettings() => SettingsStore.Save(settings);
+    string projectPath = Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.FullName ?? Environment.CurrentDirectory;
+    FileSystemWatcher? projectWatcher;
+    public MainWindow() { InitializeComponent(); Loaded += (_,_) => SelectProject(); ModelBox.ItemsSource = new[] { "gpt-5.6-terra", "gpt-5.6-luna", "claude-sonnet-4-6", "claude-opus-4-6", "deepseek-v4-flash", "deepseek-v4-pro" }; ModelBox.SelectedItem=settings.Model; if(ModelBox.SelectedIndex<0)ModelBox.SelectedIndex=0; PromptBox.ItemsSource=settings.Prompts; PromptBox.SelectedIndex=0; SetTheme(settings.Theme); RefreshTree(); ShowAgent(); AddMarkdown("Ассистент", "## Готов к работе\n\nВыберите файлы контекста слева и опишите задачу. Поддерживаются **Markdown**, `inline code` и блоки кода.", true); }
+    void TitleBar_MouseLeftButtonDown(object s, MouseButtonEventArgs e) { if(e.ClickCount==2) Maximize_Click(s,e); else DragMove(); }
+    void Minimize_Click(object s,RoutedEventArgs e)=>WindowState=WindowState.Minimized;
+    void Maximize_Click(object s,RoutedEventArgs e)=>WindowState=WindowState==WindowState.Maximized?WindowState.Normal:WindowState.Maximized;
+    void Close_Click(object s,RoutedEventArgs e)=>Close();
+    void SelectProject() { var dialog=new ProjectDialog(projectStore.Names); if(dialog.ShowDialog()!=true){Close();return;} try { if(dialog.SelectedProject!=null) activeProject=projectStore.Load(dialog.SelectedProject); else activeProject=projectStore.Create(dialog.NewName!,dialog.DirectoryPath!,dialog.Description??""); } catch(Exception ex){MessageBox.Show($"Не удалось открыть проект: {ex.Message}");return;} projectPath=activeProject.WorkingDirectory; history.Clear(); loadedHistoryCount=Math.Max(0,activeProject.History.Count-ProjectHistoryLoadLimit); history.AddRange(activeProject.History.Skip(loadedHistoryCount).Select(x=>new Dictionary<string,string>{{"role",x.Role},{"content",x.Content}})); LoadProjectMessages(); ContextPanel.Visibility=Visibility.Visible; ContextColumn.Width=new GridLength(250); ContextInfo.Text=$"{activeProject.Name}\n{activeProject.Description}"; StartProjectWatcher(); RefreshTree(); StatusText.Text=$"Проект: {activeProject.Name} · {projectPath}"; }
+     void LoadProjectMessages() {
+         ChatPanel.Children.Clear();
+         if (history.Count == 0) {
+             AddMarkdown("Ассистент", "## Готов к работе\n\nВыберите файлы контекста слева и опишите задачу. Поддерживаются **Markdown**, `inline code` и блоки кода.", true);
+             return;
+         }
+
+         try {
+             foreach (var message in history) {
+                 var role = message.TryGetValue("role", out var storedRole) ? storedRole : "assistant";
+                 var content = message.TryGetValue("content", out var storedContent) ? storedContent : string.Empty;
+                 AddMarkdown(role == "user" ? "Вы" : ModelBox.SelectedItem?.ToString() ?? "Ассистент", content, role != "user");
+             }
+         } catch (Exception exception) {
+             ChatPanel.Children.Clear();
+             AddMarkdown("Системное сообщение", "Не удалось отобразить сохранённую историю. Откройте новый чат или отправьте сообщение, чтобы продолжить работу.", true);
+             StatusText.Text = $"Ошибка загрузки истории: {exception.Message}";
+         }
+
+         Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => ChatScroll.ScrollToEnd()));
+     }
+    void StartProjectWatcher() { projectWatcher?.Dispose(); if(!Directory.Exists(projectPath))return; projectWatcher=new FileSystemWatcher(projectPath){IncludeSubdirectories=true,EnableRaisingEvents=true,NotifyFilter=NotifyFilters.FileName|NotifyFilters.DirectoryName|NotifyFilters.LastWrite}; FileSystemEventHandler refresh=(_,_)=>Dispatcher.BeginInvoke(new Action(RefreshTree)); RenamedEventHandler renamed=(_,_)=>Dispatcher.BeginInvoke(new Action(RefreshTree)); projectWatcher.Created+=refresh;projectWatcher.Deleted+=refresh;projectWatcher.Changed+=refresh;projectWatcher.Renamed+=renamed; }
+
+    void SaveProject() { if(activeProject==null)return; var recentHistory=history.Select(x=>new ChatMessage(x.TryGetValue("role",out var role)?role:"assistant",x.TryGetValue("content",out var content)?content:string.Empty)).TakeLast(ProjectHistoryLoadLimit).ToList(); activeProject.History=activeProject.History.Take(loadedHistoryCount).Concat(recentHistory).ToList(); projectStore.Save(activeProject); }
+    void RefreshTree() {
+        // TextChanged срабатывает прямо при загрузке XAML, когда нижние элементы
+        // разметки ещё не созданы. В таком случае полное обновление выполнит конструктор.
+        if (ProjectTree is null || FilterBox is null || ContextInfo is null) return;
+        ProjectTree.Items.Clear();
+        var filter=FilterBox.Text.Trim();
+        try {
+            var root=new TreeViewItem { Header=ExplorerHeader("📂", Path.GetFileName(projectPath), "#E3B341", false), IsExpanded=true, Tag=null };
+            var folders=new Dictionary<string,TreeViewItem>{{projectPath,root}};
+            foreach(var file in Directory.EnumerateFiles(projectPath,"*",SearchOption.AllDirectories).Where(p=>!p.Contains("\\.git\\")&&!p.Contains("\\bin\\")&&!p.Contains("\\obj\\")&&!p.Contains("\\node_modules\\")).Take(500)) {
+                var rel=Path.GetRelativePath(projectPath,file); if(filter.Length>0&&!rel.Contains(filter,StringComparison.OrdinalIgnoreCase)) continue;
+                var folder=Path.GetDirectoryName(file)!;
+                var chain=new Stack<string>(); for(var d=folder; d!=null && d.StartsWith(projectPath,StringComparison.OrdinalIgnoreCase) && !folders.ContainsKey(d); d=Path.GetDirectoryName(d)) chain.Push(d);
+                while(chain.Count>0) { var d=chain.Pop(); var parent=folders[Path.GetDirectoryName(d)!]; var item=new TreeViewItem{Header=ExplorerHeader("📁",Path.GetFileName(d),"#E3B341",false),Tag=null}; parent.Items.Add(item);folders[d]=item; }
+                folders[folder].Items.Add(new TreeViewItem { Header=ExplorerHeader(FileIcon(file),Path.GetFileName(file),FileColor(file),selectedFiles.Contains(file)), Tag=file });
+            }
+            ProjectTree.Items.Add(root);
+        } catch { }
+        ContextInfo.Text=activeProject==null?"":$"Рабочая папка:\n{activeProject.WorkingDirectory}";
+    }
+    StackPanel ExplorerHeader(string icon, string name, string color, bool selected) { var p=new StackPanel{Orientation=Orientation.Horizontal}; p.Children.Add(new TextBlock{Text=icon,Foreground=(Brush)new BrushConverter().ConvertFromString(color),Width=19,FontFamily=new FontFamily("Consolas")}); p.Children.Add(new TextBlock{Text=name,Foreground=(Brush)FindResource("Body")}); if(selected) p.Children.Add(new TextBlock{Text="  ✓",Foreground=(Brush)FindResource("Accent"),FontWeight=FontWeights.Bold}); return p; }
+    static string FileIcon(string path) => Path.GetExtension(path).ToLowerInvariant() switch { ".cs"=>"C#", ".xaml"=>"XAML", ".py"=>"PY", ".js" or ".ts"=>"JS", ".json"=>"{}", ".md"=>"M↓", ".xml"=>"<>" , ".css"=>"#", ".html"=>"<>" , _=>"·" };
+    static string FileColor(string path) => Path.GetExtension(path).ToLowerInvariant() switch { ".cs"=>"#9B59B6", ".xaml"=>"#5CB85C", ".py"=>"#FFD343", ".js" or ".ts"=>"#58A6FF", ".json"=>"#E3B341", ".md"=>"#79C0FF", _=>"#8B949E" };
+    void FilterBox_TextChanged(object s,TextChangedEventArgs e) { if(FilterPlaceholder!=null) FilterPlaceholder.Visibility=string.IsNullOrEmpty(FilterBox.Text)?Visibility.Visible:Visibility.Collapsed; RefreshTree(); }
+    void ProjectTree_MouseDoubleClick(object s,MouseButtonEventArgs e) { if(ProjectTree.SelectedItem is TreeViewItem i && i.Tag is string path) { try { Process.Start(new ProcessStartInfo(path){UseShellExecute=true}); } catch { } } }
+    void SwitchProject_Click(object s,RoutedEventArgs e) => SelectProject();
+    void ProjectTree_ContextMenuOpening(object s,ContextMenuEventArgs e) { if(ProjectTree.SelectedItem is not TreeViewItem item || item.Tag is not string path) { e.Handled=true; return; } var menu=new ContextMenu(); var open=new MenuItem{Header="Открыть"};open.Click+=(a,b)=>{try{Process.Start(new ProcessStartInfo(path){UseShellExecute=true});}catch{}};var copy=new MenuItem{Header="Копировать путь"};copy.Click+=(a,b)=>Clipboard.SetText(path);var locate=new MenuItem{Header="Показать в проводнике"};locate.Click+=(a,b)=>Process.Start(new ProcessStartInfo("explorer.exe",$"/select,\"{path}\""){UseShellExecute=true});menu.Items.Add(open);menu.Items.Add(copy);menu.Items.Add(locate);item.ContextMenu=menu; }
+
+    void OpenFolder_Click(object s,RoutedEventArgs e) { var dlg=new OpenFolderDialog { Title="Выберите корень проекта", InitialDirectory=projectPath }; if(dlg.ShowDialog()==true) { projectPath=dlg.FolderName; selectedFiles.Clear(); RefreshTree(); StatusText.Text=$"Проект: {projectPath}"; } }
+    void ModelBox_SelectionChanged(object s,SelectionChangedEventArgs e) { if(ModelBox.SelectedItem!=null) StatusText.Text=$"Модель: {ModelBox.SelectedItem}"; }
+    void NewChat_Click(object s,RoutedEventArgs e) { ChatPanel.Children.Clear(); AddMarkdown("Ассистент","## Новая сессия\n\nКонтекст очищен. Чем помочь?",true); }
+    void PromptInput_KeyDown(object s,KeyEventArgs e) { if(e.Key==Key.Enter && Keyboard.Modifiers==ModifierKeys.Control) { Send(); e.Handled=true; } }
+    void Send_Click(object s,RoutedEventArgs e)=>Send();
+    void SetWaiting(bool waiting) {
+        isWaiting = waiting;
+        if (waiting) ShowWaitingResponse();
+        else RemoveWaitingResponse();
+        PromptInput.IsEnabled = !waiting;
+        SendButton.IsEnabled = !waiting;
+        ComposerStatus.Text = waiting ? "  ✦ Нейросеть формирует ответ…" : "  Режим агента: Автономное внесение правок";
+        ComposerGlow.BorderBrush = waiting ? new LinearGradientBrush(new GradientStopCollection {
+            new GradientStop(Color.FromRgb(255, 92, 246), 0.0),
+            new GradientStop(Color.FromRgb(92, 217, 255), 0.25),
+            new GradientStop(Color.FromRgb(92, 255, 176), 0.5),
+            new GradientStop(Color.FromRgb(255, 228, 92), 0.75),
+            new GradientStop(Color.FromRgb(165, 108, 255), 1.0)
+        }, 0) { RelativeTransform = new RotateTransform(0, 0.5, 0.5) } : (Brush)FindResource("Accent");
+        ComposerGlow.Effect = waiting ? new System.Windows.Media.Effects.DropShadowEffect { Color = Color.FromRgb(165, 108, 255), BlurRadius = 22, ShadowDepth = 0, Opacity = 0.9 } : null;
+        if (waiting) {
+            waitingAnimation?.Stop();
+            waitingAnimation = new Storyboard();
+            var angle = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(2.2))) { RepeatBehavior = RepeatBehavior.Forever };
+            Storyboard.SetTarget(angle, ComposerGlow);
+            Storyboard.SetTargetProperty(angle, new PropertyPath("(Border.BorderBrush).(Brush.RelativeTransform).(RotateTransform.Angle)"));
+            waitingAnimation.Children.Add(angle);
+            waitingAnimation.Begin();
+        } else {
+            waitingAnimation?.Stop();
+            waitingAnimation = null;
+        }
+    }
+    void ShowWaitingResponse() {
+        RemoveWaitingResponse();
+
+        // Карточка ожидания не имитирует готовое сообщение: до ответа модели в ней только статус генерации.
+        var rainbowBorder = new LinearGradientBrush(new GradientStopCollection {
+            new GradientStop(Color.FromRgb(255, 92, 246), 0.00),
+            new GradientStop(Color.FromRgb(92, 217, 255), 0.25),
+            new GradientStop(Color.FromRgb(92, 255, 176), 0.50),
+            new GradientStop(Color.FromRgb(255, 228, 92), 0.75),
+            new GradientStop(Color.FromRgb(165, 108, 255), 1.00)
+        }, 0) { RelativeTransform = new RotateTransform(0, 0.5, 0.5) };
+
+        var card = new Border {
+            CornerRadius = new CornerRadius(10),
+            Padding = new Thickness(14),
+            Margin = new Thickness(0, 0, 0, 14),
+            BorderThickness = new Thickness(1.5),
+            BorderBrush = rainbowBorder,
+            Effect = new System.Windows.Media.Effects.DropShadowEffect {
+                Color = Color.FromRgb(150, 120, 255), BlurRadius = 18, ShadowDepth = 0, Opacity = 0.75
+            }
+        };
+        card.SetResourceReference(BackgroundProperty, "PanelBg");
+
+        var hint = new TextBlock { Text = "Нейросеть генерирует ответ…", FontSize = 12 };
+        hint.SetResourceReference(TextBlock.ForegroundProperty, "Body");
+        card.Child = hint;
+        waitingResponseCard = card;
+        ChatPanel.Children.Add(card);
+        AnimateAppearance(card);
+
+        responseWaitingAnimation = new Storyboard();
+        var rotate = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(2.4))) { RepeatBehavior = RepeatBehavior.Forever };
+        Storyboard.SetTarget(rotate, card);
+        Storyboard.SetTargetProperty(rotate, new PropertyPath("(Border.BorderBrush).(Brush.RelativeTransform).(RotateTransform.Angle)"));
+        responseWaitingAnimation.Children.Add(rotate);
+        responseWaitingAnimation.Begin();
+        ChatScroll.ScrollToEnd();
+    }
+    void RemoveWaitingResponse() { responseWaitingAnimation?.Stop(); responseWaitingAnimation = null; if (waitingResponseCard != null) { ChatPanel.Children.Remove(waitingResponseCard); waitingResponseCard = null; } }
+    async void Send() {
+        if (isWaiting) return;
+        var text=PromptInput.Text.Trim(); if(text.Length==0)return;
+        // Сначала добавляем запрос пользователя: карточка ожидания всегда должна идти следом за ним.
+        AddMarkdown("Вы", text, false);
+        PromptInput.Clear();
+        history.Add(new Dictionary<string,string>{{"role","user"},{"content",text}});
+        SetWaiting(true);
+        agentEvents.Clear();
+        StatusText.Text="● Нейросеть формирует план…"; ShowAgent();
+        try {
+            var started=Stopwatch.StartNew(); var answer=await AskNeuralNetwork(); started.Stop();
+            history.Add(new Dictionary<string,string>{{"role","assistant"},{"content",answer}}); SaveProject();
+             var version = GitVersionService.CommitRequest(projectPath, $"Запрос: {text[..Math.Min(text.Length, 72)]}");
+             AddMarkdown(ModelBox.SelectedItem?.ToString()??"Ассистент",answer,true);
+            StatusText.Text=$"● Готово · {started.Elapsed.TotalSeconds:F2} сек";
+        } catch(Exception ex) { AddToolEvent("✓ Ошибка", $"Выполнение завершилось ошибкой: {ex.Message}"); AddMarkdown("Системная ошибка",$"## Не удалось выполнить запрос\n\n`{ex.Message}`\n\nПроверьте API-ключ в Настройках и наличие Python с пакетом `openai`.",true); StatusText.Text="Ошибка запроса"; }
+        finally { SetWaiting(false); }
+    }
+    string BuildContext() => fileService.ReadContext(selectedFiles, projectPath);
+    async Task<string> AskNeuralNetwork() {
+        var bridge=Path.Combine(AppContext.BaseDirectory,"neural_bridge.py"); if(!File.Exists(bridge)) bridge=Path.Combine(projectPath,"tools","neural_bridge.py");
+        if(!File.Exists(bridge)) throw new FileNotFoundException("Не найден neural_bridge.py",bridge);
+        var system=PromptBox.SelectedItem is SystemPrompt selected ? selected.Content : PromptTemplate;
+        var payload=JsonSerializer.Serialize(new { api_key=ApiKey, base_url=BaseUrl, model=ModelBox.SelectedItem?.ToString(), temperature=Temperature, max_tokens=MaxTokens, system_prompt=system, context=BuildContext(), project_path=projectPath, computer_control_enabled=settings.ComputerControlEnabled, history });
+        var psi=new ProcessStartInfo(PythonPath, $"\"{bridge}\"") { RedirectStandardInput=true, RedirectStandardOutput=true, RedirectStandardError=true, UseShellExecute=false, CreateNoWindow=true, StandardInputEncoding=new System.Text.UTF8Encoding(false), StandardOutputEncoding=new System.Text.UTF8Encoding(false), StandardErrorEncoding=new System.Text.UTF8Encoding(false) };
+        using var process=Process.Start(psi) ?? throw new InvalidOperationException("Не удалось запустить Python bridge.");
+        await process.StandardInput.WriteAsync(payload); process.StandardInput.Close(); var outputLines=new List<string>(); string? line; while((line=await process.StandardOutput.ReadLineAsync())!=null) { outputLines.Add(line); try { using var ev=JsonDocument.Parse(line); if(ev.RootElement.TryGetProperty("event",out var kind)) { var name=kind.GetString(); if(name=="plan") Dispatcher.Invoke(()=>AddToolEvent("✓ План действий",ev.RootElement.GetProperty("content").GetString()??"План не был сформирован.")); else if(name=="tool_start") { var tool=ev.RootElement.GetProperty("name").GetString(); Dispatcher.Invoke(()=>AddToolEvent(tool!,ev.RootElement.GetProperty("args").ToString())); } else if(name=="tool_end") Dispatcher.Invoke(()=>AddToolEvent("✓ "+ev.RootElement.GetProperty("name").GetString(),ev.RootElement.GetProperty("result").GetString()??"")); } } catch { } } var output=outputLines.LastOrDefault()??""; var error=await process.StandardError.ReadToEndAsync(); await process.WaitForExitAsync();
+        if(string.IsNullOrWhiteSpace(output)) throw new InvalidOperationException(error.Length>0?error:"Bridge не вернул ответ.");
+        using var doc=JsonDocument.Parse(output); if(doc.RootElement.TryGetProperty("event",out var eventKind) && eventKind.GetString()=="final") return doc.RootElement.GetProperty("content").GetString() ?? "Пустой ответ модели."; if(doc.RootElement.TryGetProperty("ok",out var ok) && !ok.GetBoolean()) throw new InvalidOperationException(doc.RootElement.GetProperty("error").GetString()); throw new InvalidOperationException("Bridge вернул некорректный ответ.");
+    }
+    void AddMarkdown(string sender,string markdown,bool assistant) { var box=new Border { BorderThickness=new Thickness(1), CornerRadius=new CornerRadius(8), Padding=new Thickness(14), Margin=new Thickness(0,0,0,14) }; if (assistant) { box.SetResourceReference(BackgroundProperty, "PanelBg"); box.SetResourceReference(Border.BorderBrushProperty, "Border"); } else { box.Background = Brushes.Transparent; box.SetResourceReference(Border.BorderBrushProperty, "Accent"); } var p=new StackPanel(); var header=new DockPanel { LastChildFill=false, Margin=new Thickness(0,0,0,8) }; var title=new TextBlock { Text=sender, FontWeight=FontWeights.SemiBold }; title.SetResourceReference(TextBlock.ForegroundProperty, assistant ? "Accent" : "Success"); DockPanel.SetDock(title,Dock.Left); header.Children.Add(title); var copy=new Button { Content="Копировать", Padding=new Thickness(7,2,7,2), FontSize=10, ToolTip="Скопировать текст сообщения" }; copy.Click += (_,_) => Clipboard.SetText(markdown); DockPanel.SetDock(copy,Dock.Right); header.Children.Add(copy); p.Children.Add(header); p.Children.Add(MarkdownRenderer.Render(markdown)); box.Child=p; ChatPanel.Children.Add(box); AnimateAppearance(box); ChatScroll.ScrollToEnd(); }
+    void AnimateAppearance(UIElement element) { element.Opacity=0; element.RenderTransform=new TranslateTransform(0,10); var fade=new DoubleAnimation(0,1,TimeSpan.FromMilliseconds(220)); var slide=new DoubleAnimation(10,0,TimeSpan.FromMilliseconds(220)) { EasingFunction=new QuadraticEase { EasingMode=EasingMode.EaseOut } }; element.BeginAnimation(OpacityProperty,fade); ((TranslateTransform)element.RenderTransform).BeginAnimation(TranslateTransform.YProperty,slide); }
+    void AgentTab_Click(object s,RoutedEventArgs e)=>ShowAgent();
+        void DiffTab_Click(object s,RoutedEventArgs e) {
+         inspectorTab="diff"; InspectorPanel.Children.Clear(); AddInspector("ПРОСМОТР DIFF",true);
+         ComboBox fileBox=new ComboBox { MinWidth=260, Margin=new Thickness(0,0,0,10) };
+         List<string> files=Directory.EnumerateFiles(projectPath,"*",SearchOption.AllDirectories).Where(path=>!path.Contains("\\bin\\")&&!path.Contains("\\obj\\")&&!path.Contains("\\node_modules\\")).Take(200).Select(path=>Path.GetRelativePath(projectPath,path)).ToList();
+         foreach(string path in files) fileBox.Items.Add(path);
+         TextBox diffText=new TextBox { IsReadOnly=true, AcceptsReturn=true, TextWrapping=TextWrapping.NoWrap, HorizontalScrollBarVisibility=ScrollBarVisibility.Auto, VerticalScrollBarVisibility=ScrollBarVisibility.Auto, FontFamily=new FontFamily("Consolas"), FontSize=11, MinHeight=420, Padding=new Thickness(10) };
+         diffText.SetResourceReference(BackgroundProperty,"AppBg"); diffText.SetResourceReference(ForegroundProperty,"Body");
+         fileBox.SelectionChanged += (_,_) => LoadDiff(fileBox.SelectedItem?.ToString(),diffText);
+         InspectorPanel.Children.Add(fileBox); InspectorPanel.Children.Add(diffText);
+         Button refresh=new Button { Content="↻ Обновить diff", Margin=new Thickness(0,10,0,0) }; refresh.Click += (_,_) => LoadDiff(fileBox.SelectedItem?.ToString(),diffText); InspectorPanel.Children.Add(refresh);
+         if(fileBox.Items.Count>0) fileBox.SelectedIndex=0; else diffText.Text="Файлы проекта не найдены.";
+     }
+     void LoadDiff(string? relativePath,TextBox target) {
+         if(string.IsNullOrWhiteSpace(relativePath)){target.Text="Выберите файл.";return;}
+         string fullPath=Path.Combine(projectPath,relativePath);
+         try { string[] current=File.Exists(fullPath)?File.ReadAllLines(fullPath):Array.Empty<string>(); string[] baseline=GitVersionService.ReadFileFromHead(projectPath,relativePath); target.Text=BuildUnifiedDiff(relativePath,baseline,current); } catch(Exception ex){target.Text=$"Не удалось построить diff: {ex.Message}";}
+     }
+     static string BuildUnifiedDiff(string path,string[] before,string[] after) {
+         List<string> lines=new List<string>{$"--- a/{path}",$"+++ b/{path}",$"@@ -1,{before.Length} +1,{after.Length} @@"}; int max=Math.Max(before.Length,after.Length);
+         for(int index=0;index<max;index++) { if(index<before.Length&&index<after.Length&&before[index]==after[index]) lines.Add("  "+before[index]); else { if(index<before.Length) lines.Add("- "+before[index]); if(index<after.Length) lines.Add("+ "+after[index]); } }
+         return string.Join(Environment.NewLine,lines);
+     }
+     void PreviewTab_Click(object s,RoutedEventArgs e) {
+         inspectorTab="preview"; InspectorPanel.Children.Clear(); AddInspector("ЖИВОЙ ПРЕДПРОСМОТР",true);
+         StackPanel toolbar=new StackPanel{Orientation=Orientation.Horizontal,Margin=new Thickness(0,0,0,8)}; TextBox url=new TextBox{Text="http://localhost:5173",Width=220}; toolbar.Children.Add(url);
+         Button open=new Button{Content="↗ Открыть",Margin=new Thickness(6,0,0,0)}; open.Click+=(_,_)=>{try{Process.Start(new ProcessStartInfo(url.Text){UseShellExecute=true});}catch{}}; toolbar.Children.Add(open); Button reload=new Button{Content="↻ Обновить",Margin=new Thickness(6,0,0,0)}; reload.Click+=(_,_)=>livePreviewBrowser?.Refresh(); toolbar.Children.Add(reload); InspectorPanel.Children.Add(toolbar);
+         previewStatus=new TextBlock{Text="Подключение к предпросмотру…",FontSize=10,Margin=new Thickness(0,0,0,8)}; previewStatus.SetResourceReference(TextBlock.ForegroundProperty,"Muted"); InspectorPanel.Children.Add(previewStatus);
+         livePreviewBrowser=new WebBrowser{Height=500,MinWidth=320}; livePreviewBrowser.Navigated+=(_,_)=>previewStatus.Text="● Предпросмотр обновлён"; InspectorPanel.Children.Add(livePreviewBrowser); StartPreviewWatcher(); livePreviewBrowser.Navigate(url.Text);
+     }
+     void StartPreviewWatcher() { previewWatcher?.Dispose(); if(!Directory.Exists(projectPath))return; previewWatcher=new FileSystemWatcher(projectPath){IncludeSubdirectories=true,EnableRaisingEvents=true,NotifyFilter=NotifyFilters.LastWrite|NotifyFilters.FileName}; FileSystemEventHandler refresh=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{if(inspectorTab=="preview") livePreviewBrowser?.Refresh();})); previewWatcher.Changed+=refresh; previewWatcher.Created+=refresh; previewWatcher.Renamed+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{if(inspectorTab=="preview") livePreviewBrowser?.Refresh();})); }
+ void ShowAgent() {
+        inspectorTab="agent";
+        InspectorPanel.Children.Clear();
+        AddInspector("ДЕЙСТВИЯ АГЕНТА",true);
+        if(agentEvents.Count==0) AddInspector("Агент готов к выполнению задачи.",false);
+        else foreach(AgentEvent item in agentEvents) { var card=CreateToolEventCard(item); InspectorPanel.Children.Add(card); AnimateAppearance(card); }
+        Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => AgentScroll.ScrollToEnd()));
+    }
+    Border CreateToolEventCard(AgentEvent item) {
+        var card=new Border { CornerRadius=new CornerRadius(8), Padding=new Thickness(10), Margin=new Thickness(0,0,0,9), BorderThickness=new Thickness(1) };
+        card.SetResourceReference(BackgroundProperty,"CardBg");
+        card.SetResourceReference(Border.BorderBrushProperty,item.IsCompleted ? "Border" : "Accent");
+        var panel=new StackPanel();
+        var header=new DockPanel { LastChildFill=true };
+        var state=new TextBlock { Text=item.IsCompleted ? "✓" : "◌", FontSize=15, Margin=new Thickness(0,0,7,0), VerticalAlignment=VerticalAlignment.Center };
+        state.SetResourceReference(TextBlock.ForegroundProperty,item.IsCompleted ? "Success" : "Accent");
+        DockPanel.SetDock(state,Dock.Left);
+        header.Children.Add(state);
+        var title=new TextBlock { Text=ToolDisplayName(item.ToolName), FontWeight=FontWeights.SemiBold, TextWrapping=TextWrapping.Wrap, VerticalAlignment=VerticalAlignment.Center };
+        title.SetResourceReference(TextBlock.ForegroundProperty,"Text");
+        header.Children.Add(title);
+        panel.Children.Add(header);
+        var status=new TextBlock { Text=item.IsCompleted ? "Выполнено · развернуть результат" : "Выполняется…", FontSize=10, Margin=new Thickness(22,3,0,0) };
+        status.SetResourceReference(TextBlock.ForegroundProperty,item.IsCompleted ? "Muted" : "Accent");
+        panel.Children.Add(status);
+        if(!string.IsNullOrWhiteSpace(item.Detail)) {
+            var details=new Expander { Header="Показать содержимое", Margin=new Thickness(22,7,0,0), Foreground=(Brush)FindResource("Body") };
+            var content=new TextBox { Text=item.Detail, IsReadOnly=true, TextWrapping=TextWrapping.Wrap, AcceptsReturn=true, BorderThickness=new Thickness(0), Padding=new Thickness(8), FontFamily=new FontFamily("Consolas"), FontSize=10, MaxHeight=260, VerticalScrollBarVisibility=ScrollBarVisibility.Auto };
+            content.SetResourceReference(BackgroundProperty,"AppBg");
+            content.SetResourceReference(ForegroundProperty,"Body");
+            details.Content=content;
+            panel.Children.Add(details);
+        }
+        card.Child=panel;
+        return card;
+    }
+    static string ToolDisplayName(string toolName) => toolName switch {
+        "План действий" => "План действий", 
+        "list_files" => "Показать файлы",
+        "read_file" => "Прочитать файл",
+        "write_file" => "Создать или перезаписать файл",
+        "edit_file_part" => "Точечно заменить фрагмент файла",
+        "create_folder" => "Создать папку",
+        "get_project_tree" => "Показать дерево проекта",
+        "search_code" => "Поиск по коду",
+        "execute_command" => "Выполнить команду в проекте",
+        "screenshot" => "Сделать скриншот рабочего стола",
+        "mouse_position" => "Получить координаты курсора",
+        "move_mouse" => "Переместить курсор",
+        "mouse_click" => "Нажать кнопку мыши",
+        _ => toolName
+    };
+    void CompleteAgentEvent(string toolName, string detail) {
+        var index = agentEvents.FindLastIndex(item => item.ToolName == toolName && !item.IsCompleted);
+        if (index >= 0) agentEvents[index] = new AgentEvent(toolName, detail, true);
+        else agentEvents.Add(new AgentEvent(toolName, detail, true));
+        if (inspectorTab == "agent") ShowAgent();
+    }
+    void AddToolEvent(string name,string detail) {
+        var completed=name.StartsWith("✓ ",StringComparison.Ordinal);
+        var toolName=completed ? name[2..] : name;
+        var index=agentEvents.FindLastIndex(item=>item.ToolName==toolName&&!item.IsCompleted);
+        if(completed&&index>=0) agentEvents[index]=new AgentEvent(toolName,detail,true);
+        else agentEvents.Add(new AgentEvent(toolName,detail,completed));
+        if(inspectorTab=="agent") ShowAgent();
+    }
+    void AddInspector(string text,bool title) => InspectorPanel.Children.Add(new TextBlock { Text=text, TextWrapping=TextWrapping.Wrap, Foreground=(Brush)FindResource(title?"Text":"Body"), FontFamily=title?new FontFamily("Segoe UI"):new FontFamily("Consolas"), FontWeight=title?FontWeights.SemiBold:FontWeights.Normal, Margin=new Thickness(0,0,0,12), LineHeight=19 });
+    void QuickTheme_Click(object s,RoutedEventArgs e)=>SetTheme(settings.Theme=="Светлая"?"Graphite (по умолчанию)":"Светлая");
+    void Settings_Click(object s,RoutedEventArgs e)=>new SettingsWindow(this).ShowDialog();
+    void Prompts_Click(object s,RoutedEventArgs e) { var w=new PromptsWindow(this); w.ShowDialog(); PromptBox.ItemsSource=null; PromptBox.ItemsSource=settings.Prompts; PromptBox.DisplayMemberPath="Name"; PromptBox.SelectedIndex=0; }
+    public void SetTheme(string theme) { settings.Theme=theme; SettingsStore.Save(settings); var colors=theme=="Светлая" ? new[]{("AppBg","#F6F8FA"),("PanelBg","#FFFFFF"),("SubBg","#F0F2F5"),("CardBg","#FFFFFF"),("Border","#D0D7DE"),("Text","#1F2328"),("Body","#3B424A"),("Muted","#6E7781"),("Accent","#6E40C9"),("Success","#1A7F37")} : theme=="Midnight Blue" ? new[]{("AppBg","#0A1020"),("PanelBg","#111B31"),("SubBg","#070C18"),("CardBg","#1A2945"),("Border","#2C4267"),("Text","#E8F1FF"),("Body","#C2D3EE"),("Muted","#8297B8"),("Accent","#2563EB"),("Success","#34D399")} : theme=="Emerald Night" ? new[]{("AppBg","#0A1412"),("PanelBg","#11211E"),("SubBg","#07100E"),("CardBg","#1A302A"),("Border","#315046"),("Text","#ECFDF5"),("Body","#C6E4D9"),("Muted","#8FAC9F"),("Accent","#059669"),("Success","#6EE7B7")} : new[]{("AppBg","#0D1117"),("PanelBg","#161B22"),("SubBg","#090D13"),("CardBg","#21262D"),("Border","#30363D"),("Text","#F0F6FC"),("Body","#C9D1D9"),("Muted","#8B949E"),("Accent","#7C3AED"),("Success","#3FB950")}; foreach(var (key,hex) in colors) Resources[key]=new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex)); }
+}
+public static class Markdown { public static FrameworkElement Render(string md) { var panel=new StackPanel(); bool code=false; TextBlock? codeBlock=null; foreach(var raw in md.Replace("\r","").Split('\n')) { if(raw.StartsWith("```")){code=!code;if(code){codeBlock=new TextBlock{Foreground=new SolidColorBrush(Color.FromRgb(165,214,255)),FontFamily=new FontFamily("Consolas"),TextWrapping=TextWrapping.Wrap,Background=new SolidColorBrush(Color.FromRgb(10,14,20)),Padding=new Thickness(10),Margin=new Thickness(0,5,0,5)};panel.Children.Add(codeBlock);}continue;} if(code){codeBlock!.Text+=raw+"\n";continue;} var t=new TextBlock{TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,2,0,2),Foreground=(Brush)Application.Current.Resources["Body"]}; if(raw.StartsWith("## ")){t.Text=raw[3..];t.FontSize=15;t.FontWeight=FontWeights.SemiBold;t.Foreground=(Brush)Application.Current.Resources["Text"];} else if(raw.StartsWith("- ")) t.Text="• "+raw[2..]; else { var pieces=raw.Split("**"); for(int i=0;i<pieces.Length;i++) t.Inlines.Add(new Run(pieces[i]){FontWeight=i%2==1?FontWeights.Bold:FontWeights.Normal}); } panel.Children.Add(t); } return panel; } }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://apiduck.servepics.com/ -->
+<html lang="ru" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
+<title>ApiDuck — control room</title>
+<link rel="icon" type="image/svg+xml" href="https://apiduck.servepics.com/favicon.svg?v=12">
+<link rel="stylesheet" href="./ApiDuck — control room_files/styles.css">
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="login-screen" class="login-screen hidden">
+  <div class="login-orbit orbit-left" aria-hidden="true"></div><div class="login-orbit orbit-right" aria-hidden="true"></div>
+  <div class="language-switch login-language" role="group" aria-label="Language"><button type="button" data-language="ru" aria-pressed="true">RU</button><button type="button" data-language="en" aria-pressed="false">EN</button></div>
+  <div class="login-shell">
+    <section class="login-intro"><div class="brand-mark brand-mark-large"><span>🦆</span></div><div class="eyebrow">API CONTROL ROOM · 01</div><h1>Спокойный контроль<br><em>вашего API.</em></h1><p>Один аккуратный экран для баланса, моделей и команд подключения. Никакого шума — только то, что нужно для работы.</p><div class="login-perks"><span><i class="perk-dot"></i> Нативная защита сессии</span><span><i class="perk-dot"></i> OpenAI-compatible API</span></div></section>
+    <div class="login-card">
+      <div class="login-card-top"><div><p class="section-kicker">Добро пожаловать</p><h2>Войти в ApiDuck</h2></div><span class="live-dot" title="Сервис онлайн"></span></div>
+      <p class="muted login-caption">Введите API-ключ, чтобы открыть ваш control room.</p>
+      <form id="login-form" autocomplete="off"><label class="field-label" for="login-key">API-ключ</label><div class="input-with-icon"><span class="input-icon">⌁</span><input type="password" id="login-key" placeholder="sk-cvc-xxxxxxxxxxxxxxxx" spellcheck="false" required="" wfd-id="id0"></div><button type="submit" class="btn btn-primary btn-block btn-lg"><span>Войти в систему</span><b>↗</b></button></form>
+      <div id="login-error" class="alert alert-error hidden">Сессия активна. Введите ключ, чтобы подставлять его в команды и переводы.</div><div class="login-foot"><span class="secure-icon">✦</span> Ключ хранится только в защищённой сессии</div>
+    </div>
+  </div>
+  <div class="login-footer"><span>APIDUCK</span><span>Private API gateway</span><span>v2.4.0</span></div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app" class="app">
+  <header class="topbar">
+    <a class="topbar-brand" id="brand-home" href="https://apiduck.servepics.com/#" aria-label="Главная"><span class="brand-mark"><span>🦆</span></span><span class="brand-word">Api<span>Duck</span></span></a>
+    <nav class="tabs">
+      <button class="tab active" data-tab="dashboard"><span class="tab-icon">◈</span><span>Главная</span></button>
+      <button class="tab" data-tab="instructions"><span class="tab-icon">⌘</span><span>Инструкции</span></button>
+      <button class="tab" data-tab="media"><span class="tab-icon">✦</span><span>Медиа</span></button>
+      <button class="tab" data-tab="topup"><span class="tab-icon">⇄</span><span>Перевод</span></button>
+    </nav>
+    <div class="topbar-actions"><div class="language-switch" role="group" aria-label="Language"><button type="button" data-language="ru" aria-pressed="true">RU</button><button type="button" data-language="en" aria-pressed="false">EN</button></div><div class="connection-status"><span class="live-dot"></span><span class="status-label">Система онлайн</span></div><button id="btn-logout" class="btn btn-ghost btn-logout"><span>Выйти</span><span class="logout-arrow">↗</span></button></div>
+  </header>
+
+  <main class="container">
+
+    <!-- ============ DASHBOARD ============ -->
+    <section id="tab-dashboard" class="tab-panel active">
+      <div class="page-heading"><div><p class="eyebrow">OVERVIEW / 01</p><h1>Добро пожаловать в <span class="welcome-brand">Api<span>Duck</span></span></h1><p class="page-subtitle">Следите за расходом токенов и держите интеграции под рукой.</p></div><div class="heading-meta"><span class="pulse-ring"></span><span>Синхронизировано сейчас</span></div></div>
+      <div class="dashboard-grid">
+        <div class="dashboard-main">
+          <div class="card balance-card balance-hero">
+            <div class="balance-info">
+              <div class="balance-label">Баланс токенов</div>
+              <div class="balance-value" id="balance-value">—</div>
+            </div>
+            <div class="promo-box">
+              <form id="promo-form" class="promo-form" autocomplete="off">
+                <input type="text" id="promo-input" placeholder="ПРОМОКОД" maxlength="16" spellcheck="false" required="" wfd-id="id1">
+                <button type="submit" class="btn btn-primary btn-sm" id="btn-promo">Применить</button>
+              </form>
+              <div id="promo-status" class="promo-status hidden"></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="btn-refresh">Обновить</button>
+          </div>
+
+          <div class="card chart-card">
+            <div class="card-heading"><div><span class="card-overline">ACTIVITY / LAST REQUESTS</span><h2>Расход токенов</h2></div><span class="chart-legend"><i></i> стоимость запроса</span></div>
+            <canvas id="chart" height="225" width="1333" style="height: 150px;"></canvas>
+          </div>
+
+          <div class="card logs-card">
+            <div class="card-heading"><div><span class="card-overline">REQUEST LOG</span><h2>Последние запросы</h2></div><span class="count-badge">30 max</span></div>
+            <div class="table-wrap has-rows">
+              <table class="table" id="logs-table">
+                <thead>
+                  <tr>
+                    <th>Время</th><th>Модель</th><th>Вход</th><th>Выход</th>
+                    <th>Кэш</th><th>Коэф.</th><th>Сумма</th><th>Мс</th><th>Статус</th>
+                  </tr>
+                </thead>
+                <tbody><tr><td>27.09, 23:04:34</td><td>gpt-6-astra</td><td>280&nbsp;611</td><td>372</td><td>279&nbsp;296</td><td>×10</td><td>2&nbsp;809&nbsp;830</td><td>22&nbsp;570</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:04:10</td><td>gpt-6-astra</td><td>279&nbsp;648</td><td>1&nbsp;008</td><td>278&nbsp;272</td><td>×10</td><td>2&nbsp;806&nbsp;560</td><td>44&nbsp;318</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:03:24</td><td>gpt-6-astra</td><td>278&nbsp;870</td><td>62</td><td>278&nbsp;272</td><td>×10</td><td>2&nbsp;789&nbsp;320</td><td>7&nbsp;899</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:03:13</td><td>gpt-6-astra</td><td>278&nbsp;621</td><td>292</td><td>277&nbsp;248</td><td>×10</td><td>2&nbsp;789&nbsp;130</td><td>16&nbsp;730</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:02:54</td><td>gpt-6-astra</td><td>277&nbsp;634</td><td>1&nbsp;378</td><td>277&nbsp;248</td><td>×10</td><td>2&nbsp;790&nbsp;120</td><td>63&nbsp;203</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:01:49</td><td>gpt-6-astra</td><td>277&nbsp;503</td><td>197</td><td>274&nbsp;176</td><td>×10</td><td>2&nbsp;777&nbsp;000</td><td>42&nbsp;548</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:01:05</td><td>gpt-6-astra</td><td>276&nbsp;190</td><td>55</td><td>0</td><td>×10</td><td>2&nbsp;762&nbsp;450</td><td>8&nbsp;386</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:00:55</td><td>gpt-6-astra</td><td>275&nbsp;986</td><td>619</td><td>274&nbsp;176</td><td>×10</td><td>2&nbsp;766&nbsp;050</td><td>43&nbsp;964</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 23:00:08</td><td>gpt-6-astra</td><td>274&nbsp;940</td><td>46</td><td>261&nbsp;888</td><td>×10</td><td>2&nbsp;749&nbsp;860</td><td>16&nbsp;803</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:59:50</td><td>gpt-6-astra</td><td>274&nbsp;744</td><td>102</td><td>273&nbsp;152</td><td>×10</td><td>2&nbsp;748&nbsp;460</td><td>23&nbsp;884</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:59:24</td><td>gpt-6-astra</td><td>273&nbsp;604</td><td>207</td><td>272&nbsp;128</td><td>×10</td><td>2&nbsp;738&nbsp;110</td><td>18&nbsp;243</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:59:04</td><td>gpt-6-astra</td><td>273&nbsp;130</td><td>262</td><td>267&nbsp;008</td><td>×10</td><td>2&nbsp;733&nbsp;920</td><td>22&nbsp;347</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:58:40</td><td>gpt-6-astra</td><td>267&nbsp;563</td><td>244</td><td>264&nbsp;960</td><td>×10</td><td>2&nbsp;678&nbsp;070</td><td>16&nbsp;220</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:58:22</td><td>gpt-6-astra</td><td>265&nbsp;452</td><td>79</td><td>263&nbsp;936</td><td>×10</td><td>2&nbsp;655&nbsp;310</td><td>11&nbsp;316</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:58:08</td><td>gpt-6-astra</td><td>264&nbsp;060</td><td>105</td><td>259&nbsp;840</td><td>×10</td><td>2&nbsp;641&nbsp;650</td><td>10&nbsp;101</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:57:57</td><td>gpt-6-astra</td><td>262&nbsp;942</td><td>60</td><td>256&nbsp;768</td><td>×10</td><td>2&nbsp;630&nbsp;020</td><td>15&nbsp;130</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:57:39</td><td>gpt-6-astra</td><td>260&nbsp;929</td><td>46</td><td>259&nbsp;840</td><td>×10</td><td>2&nbsp;609&nbsp;750</td><td>52&nbsp;321</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:56:46</td><td>gpt-6-astra</td><td>260&nbsp;847</td><td>35</td><td>258&nbsp;816</td><td>×10</td><td>2&nbsp;608&nbsp;820</td><td>3&nbsp;287</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:56:40</td><td>gpt-6-astra</td><td>259&nbsp;092</td><td>46</td><td>252&nbsp;672</td><td>×10</td><td>2&nbsp;591&nbsp;380</td><td>3&nbsp;545</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:56:35</td><td>gpt-6-astra</td><td>257&nbsp;345</td><td>34</td><td>255&nbsp;744</td><td>×10</td><td>2&nbsp;573&nbsp;790</td><td>14&nbsp;826</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:56:18</td><td>gpt-6-astra</td><td>256&nbsp;530</td><td>46</td><td>253&nbsp;696</td><td>×10</td><td>2&nbsp;565&nbsp;760</td><td>13&nbsp;950</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:56:03</td><td>gpt-6-astra</td><td>254&nbsp;189</td><td>46</td><td>252&nbsp;672</td><td>×10</td><td>2&nbsp;542&nbsp;350</td><td>14&nbsp;230</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:55:47</td><td>gpt-6-astra</td><td>253&nbsp;410</td><td>46</td><td>1&nbsp;792</td><td>×10</td><td>2&nbsp;534&nbsp;560</td><td>5&nbsp;591</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:55:39</td><td>gpt-6-astra</td><td>252&nbsp;934</td><td>50</td><td>250&nbsp;624</td><td>×10</td><td>2&nbsp;529&nbsp;840</td><td>4&nbsp;309</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:55:34</td><td>gpt-6-astra</td><td>251&nbsp;060</td><td>53</td><td>1&nbsp;792</td><td>×10</td><td>2&nbsp;511&nbsp;130</td><td>5&nbsp;251</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:55:26</td><td>gpt-6-astra</td><td>2&nbsp;767</td><td>44</td><td>1&nbsp;792</td><td>×10</td><td>28&nbsp;110</td><td>3&nbsp;256</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:55:22</td><td>gpt-6-astra</td><td>2&nbsp;247</td><td>153</td><td>0</td><td>×10</td><td>24&nbsp;000</td><td>8&nbsp;868</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:50:43</td><td>gpt-6-astra</td><td>364&nbsp;907</td><td>98</td><td>1&nbsp;792</td><td>×10</td><td>3&nbsp;650&nbsp;050</td><td>6&nbsp;658</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:50:34</td><td>gpt-6-astra</td><td>364&nbsp;789</td><td>35</td><td>364&nbsp;288</td><td>×10</td><td>3&nbsp;648&nbsp;240</td><td>12&nbsp;477</td><td><span class="badge badge-ok">OK</span></td></tr><tr><td>27.09, 22:50:19</td><td>gpt-6-astra</td><td>364&nbsp;682</td><td>78</td><td>250&nbsp;624</td><td>×10</td><td>3&nbsp;647&nbsp;600</td><td>16&nbsp;528</td><td><span class="badge badge-ok">OK</span></td></tr></tbody>
+              </table>
+              <div class="muted empty-hint" id="logs-empty">Нет данных</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card models-card">
+          <h2>Модели</h2>
+          <div id="models-list" class="models-list"><div class="models-category"><div class="models-category-header"><h3>OpenAI (7)</h3><div class="models-subhead"><span>Коэф.</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 6 Astra</span><span class="model-id">gpt-6-astra</span></div><div class="model-right"><span class="model-coef">×10</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 6 Sol</span><span class="model-id">gpt-6-sol</span></div><div class="model-right"><span class="model-coef">×3</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 6 Luna</span><span class="model-id">gpt-6-luna</span></div><div class="model-right"><span class="model-coef">×0,38</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 5.6 Sol</span><span class="model-id">gpt-5.6-sol</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 5.6 Terra</span><span class="model-id">gpt-5.6-terra</span></div><div class="model-right"><span class="model-coef">×1,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 5.6 Luna</span><span class="model-id">gpt-5.6-luna</span></div><div class="model-right"><span class="model-coef">×0,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GPT 5.5</span><span class="model-id">gpt-5.5</span></div><div class="model-right"><span class="model-coef">×4</span></div></div></div><div class="models-category"><div class="models-category-header"><h3>Claude (10)</h3><div class="models-subhead"><span>Коэф.</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Opus 5.5</span><span class="model-id">claude-opus-5-5</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Fable 5.1</span><span class="model-id">claude-fable-5-1</span></div><div class="model-right"><span class="model-coef">×8</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Fable 5</span><span class="model-id">claude-fable-5</span></div><div class="model-right"><span class="model-coef">×8</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Opus 5</span><span class="model-id">claude-opus-5</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Opus 4.8</span><span class="model-id">claude-opus-4-8</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Opus 4.7</span><span class="model-id">claude-opus-4-7</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Opus 4.6</span><span class="model-id">claude-opus-4-6</span></div><div class="model-right"><span class="model-coef">×4</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Sonnet 5</span><span class="model-id">claude-sonnet-5</span></div><div class="model-right"><span class="model-coef">×2</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Sonnet 4.6</span><span class="model-id">claude-sonnet-4-6</span></div><div class="model-right"><span class="model-coef">×2</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Claude Haiku 4.5</span><span class="model-id">claude-haiku-4-5</span></div><div class="model-right"><span class="model-coef">×0,9</span></div></div></div><div class="models-category"><div class="models-category-header"><h3>Google (4)</h3><div class="models-subhead"><span>Коэф.</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Gemini 3.8 Flash</span><span class="model-id">gemini-3.8-flash</span></div><div class="model-right"><span class="model-coef">×2</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Gemini 3.7 Flash</span><span class="model-id">gemini-3.7-flash</span></div><div class="model-right"><span class="model-coef">×2</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Gemini 3.6 Flash</span><span class="model-id">gemini-3.6-flash</span></div><div class="model-right"><span class="model-coef">×2</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Gemini 3.1 Pro</span><span class="model-id">gemini-3.1-pro</span></div><div class="model-right"><span class="model-coef">×2</span></div></div></div><div class="models-category"><div class="models-category-header"><h3>xAI (4)</h3><div class="models-subhead"><span>Коэф.</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Grok 4.7</span><span class="model-id">grok-4.7</span></div><div class="model-right"><span class="model-coef">×0,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Grok 4.6</span><span class="model-id">grok-4.6</span></div><div class="model-right"><span class="model-coef">×0,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Grok 4.5</span><span class="model-id">grok-4.5</span></div><div class="model-right"><span class="model-coef">×0,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Composer 2.5 Fast</span><span class="model-id">composer-2.5-fast</span></div><div class="model-right"><span class="model-coef">×0,3</span></div></div></div><div class="models-category"><div class="models-category-header"><h3>Китайские (15)</h3><div class="models-subhead"><span>Коэф.</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GLM 5.3</span><span class="model-id">glm-5.3</span></div><div class="model-right"><span class="model-coef">×1,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Hy4 Preview</span><span class="model-id">hy4-preview</span></div><div class="model-right"><span class="model-coef">×1</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Kimi K3</span><span class="model-id">kimi-k3</span></div><div class="model-right"><span class="model-coef">×2,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GLM 5.3 Flash</span><span class="model-id">glm-5.3-flash</span></div><div class="model-right"><span class="model-coef">×0,3</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Qwen3.8 Max</span><span class="model-id">qwen3.8-max</span></div><div class="model-right"><span class="model-coef">×2,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Qwen3.8 Flash</span><span class="model-id">qwen3.8-flash</span></div><div class="model-right"><span class="model-coef">×0,7</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">DeepSeek V4.1 Flash</span><span class="model-id">deepseek-v4.1-flash</span></div><div class="model-right"><span class="model-coef">×0,3</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GLM 5.2</span><span class="model-id">glm-5.2</span></div><div class="model-right"><span class="model-coef">×1,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">DeepSeek V4 Pro</span><span class="model-id">deepseek-v4-pro</span></div><div class="model-right"><span class="model-coef">×0,5</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">DeepSeek V4 Flash</span><span class="model-id">deepseek-v4-flash</span></div><div class="model-right"><span class="model-coef">×0,1</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">MiniMax M3</span><span class="model-id">minimax-m3</span></div><div class="model-right"><span class="model-coef">×0,3</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">GLM 5 Turbo</span><span class="model-id">glm-5-turbo</span></div><div class="model-right"><span class="model-coef">×1</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">Kimi K2.7 Code</span><span class="model-id">kimi-k2.7-code</span></div><div class="model-right"><span class="model-coef">×0,9</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">MiMo V2.5 Pro</span><span class="model-id">mimo-v2.5-pro</span></div><div class="model-right"><span class="model-coef">×0,3</span></div></div><div class="model-row"><div class="model-left"><span class="model-name">MiMo V2.5</span><span class="model-id">mimo-v2.5</span></div><div class="model-right"><span class="model-coef">×0,05</span></div></div></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ INSTRUCTIONS ============ -->
+    <section id="tab-instructions" class="tab-panel">
+      <div class="page-heading instructions-heading"><div><p class="eyebrow">DEVELOPER PLAYBOOK / 02</p><h1>Подключение <span>по полочкам.</span></h1><p class="page-subtitle">Сначала провайдер, затем приложение и система. Нужная команда всегда на третьем клике.</p></div><div class="heading-stat"><strong id="instruction-count">13</strong><span>приложений<br>доступно</span></div></div>
+      <div class="instruction-toolbar"><div class="instruction-search-wrap"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg></span><input id="instruction-search" type="search" placeholder="Поиск по приложениям и системам…" autocomplete="off" wfd-id="id2"></div><div class="instruction-filter"><button class="instruction-filter-btn active" data-filter="all">Все</button><button class="instruction-filter-btn" data-filter="windows">Windows</button><button class="instruction-filter-btn" data-filter="macos">macOS</button><button class="instruction-filter-btn" data-filter="linux">Linux</button></div></div>
+      <div id="instruction-cards" class="instruction-cards"><section class="instruction-provider-block ">
+        <button class="instruction-provider-head" data-provider-id="chatgpt" aria-expanded="false"><span class="provider-index">01</span><span class="provider-title"><strong>ChatGPT</strong><small>3 приложения · выберите среду запуска</small></span><span class="provider-count">3<i>↗</i></span></button>
+        
+      </section><section class="instruction-provider-block ">
+        <button class="instruction-provider-head" data-provider-id="claude" aria-expanded="false"><span class="provider-index">02</span><span class="provider-title"><strong>Claude</strong><small>2 приложения · выберите среду запуска</small></span><span class="provider-count">2<i>↗</i></span></button>
+        
+      </section><section class="instruction-provider-block ">
+        <button class="instruction-provider-head" data-provider-id="others" aria-expanded="false"><span class="provider-index">03</span><span class="provider-title"><strong>Другие</strong><small>8 приложения · выберите среду запуска</small></span><span class="provider-count">8<i>↗</i></span></button>
+        
+      </section></div>
+    </section>
+
+    <!-- ============ MEDIA ============ -->
+    <section id="tab-media" class="tab-panel">
+      <div class="card">
+        <h2>Медиа модели (Image &amp; Audio API)</h2>
+        <p class="muted">Вызывайте модели через OpenAI-совместимые эндпоинты ApiDuck. Статичные списания за каждое изображение или минуту аудио производятся прямо с вашего токен-баланса.</p>
+        <div class="media-tabs" id="media-tabs">
+          <button class="media-tab active" data-media="gpt-image-2">GPT Image 2</button>
+          <button class="media-tab" data-media="gpt-image-2.5-flare">GPT Image 2.5 Flare</button>
+          <button class="media-tab" data-media="gpt-image-2.5-sunburst">GPT Image 2.5 Sunburst</button>
+          <button class="media-tab" data-media="nano-banana-2">Nano Banana 2</button>
+          <button class="media-tab" data-media="grok-imagine-image">Grok Imagine</button>
+          <button class="media-tab" data-media="gpt-4o-transcribe">gpt-4o-transcribe (Audio)</button>
+        </div>
+        <div id="media-content" class="media-content"></div>
+      </div>
+    </section>
+
+    <!-- ============ TOPUP ============ -->
+    <section id="tab-topup" class="tab-panel">
+      <div class="card topup-card">
+        <h2>Перевод токенов между ключами</h2>
+        <p class="muted">Весь баланс ключа-донора будет переведён на ключ-получатель. Ключ-донор после этого удаляется.</p>
+        <form id="transfer-form" autocomplete="off">
+          <label>Куда (ключ-получатель)
+            <input type="text" id="transfer-to" placeholder="sk-cvc-…" spellcheck="false" required="" wfd-id="id3" value="sk-cvc-1b6c31ea59c38507badec70ead406011503a560a9a8c76ec373cfc0ddb58587e">
+          </label>
+          <label>Откуда (ключ-донор)
+            <input type="text" id="transfer-from" placeholder="sk-cvc-…" spellcheck="false" required="" wfd-id="id4">
+          </label>
+          <button type="submit" class="btn btn-primary">Перевести</button>
+        </form>
+        <div id="transfer-result" class="hidden"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast" class="toast hidden">Ошибка сервера</div>
+<script src="./ApiDuck — control room_files/catalog.js.загрузка"></script>
+<script src="./ApiDuck — control room_files/media.js.загрузка"></script>
+<script src="./ApiDuck — control room_files/manuals.js.загрузка"></script>
+<script src="./ApiDuck — control room_files/i18n.js.загрузка"></script>
+<script src="./ApiDuck — control room_files/app.js.загрузка"></script>
+
+
+</body></html>

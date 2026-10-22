@@ -1,0 +1,36 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebStudioApi.Data;
+using WebStudioApi.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<IdentityData>(o => o.UseSqlite(builder.Configuration.GetConnectionString("Identity") ?? "Data Source=data/identity.db"));
+builder.Services.AddIdentityCore<IdentityUser>(o => { o.User.RequireUniqueEmail = true; o.Password.RequiredLength = 10; }).AddRoles<IdentityRole>().AddEntityFrameworkStores<IdentityData>().AddSignInManager();
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+builder.Services.AddAuthorization();
+builder.Services.AddSingleton<PathGuard>();
+builder.Services.AddSingleton<AuditService>();
+builder.Services.AddSingleton<BridgeService>();
+builder.Services.AddCors(o => o.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+var app = builder.Build();
+Directory.CreateDirectory(Path.Combine(app.Environment.ContentRootPath, "data"));
+using (var scope = app.Services.CreateScope()) { var db = scope.ServiceProvider.GetRequiredService<IdentityData>(); await db.Database.EnsureCreatedAsync(); var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>(); foreach (var role in new[]{"Администратор","Разработчик"}) if (!await roles.RoleExistsAsync(role)) await roles.CreateAsync(new IdentityRole(role)); }
+app.UseDefaultFiles(); app.UseStaticFiles(); app.UseCors(); app.UseAuthentication(); app.UseAuthorization();
+app.MapPost("/api/auth/register", async ([FromBody] RegisterRequest request, UserManager<IdentityUser> users, SignInManager<IdentityUser> signIn) => { var user = new IdentityUser { UserName = request.Email, Email = request.Email }; var result = await users.CreateAsync(user, request.Password); if (!result.Succeeded) return Results.BadRequest(result.Errors.Select(x => x.Description)); await users.AddToRoleAsync(user, "Разработчик"); await signIn.SignInAsync(user, false); return Results.Ok(new { user = user.Email, role = "Разработчик" }); });
+app.MapPost("/api/auth/login", async ([FromBody] RegisterRequest request, SignInManager<IdentityUser> signIn) => { var result = await signIn.PasswordSignInAsync(request.Email, request.Password, false, false); return result.Succeeded ? Results.Ok() : Results.Unauthorized(); });
+app.MapPost("/api/auth/logout", async (SignInManager<IdentityUser> signIn) => { await signIn.SignOutAsync(); return Results.Ok(); }).RequireAuthorization();
+app.MapGet("/api/auth/me", (HttpContext c) => Results.Ok(new { authenticated = c.User.Identity?.IsAuthenticated == true, user = c.User.Identity?.Name, roles = c.User.Claims.Where(x => x.Type.EndsWith("role")).Select(x => x.Value) }));
+var api = app.MapGroup("/api").RequireAuthorization();
+api.MapGet("/projects", (PathGuard guard) => Results.Ok(Directory.Exists(guard.Root) ? Directory.GetDirectories(guard.Root).Select(Path.GetFileName) : Array.Empty<string>()));
+api.MapPost("/projects", async ([FromBody] ProjectRequest r, PathGuard guard, AuditService audit, HttpContext http) => { if (!IsSafeName(r.Name)) return Results.BadRequest("Некорректное имя проекта."); Directory.CreateDirectory(guard.Resolve(r.Name)); await audit.WriteAsync(http,"project.create",r.Name,"ok"); return Results.Ok(); });
+api.MapGet("/files", (string project, PathGuard guard) => { var root = guard.Resolve(project); if (!Directory.Exists(root)) return Results.NotFound(); return Results.Ok(Directory.EnumerateFiles(root,"*",SearchOption.AllDirectories).Where(x=>!x.Contains(Path.DirectorySeparatorChar+".git"+Path.DirectorySeparatorChar)).Select(x=>Path.GetRelativePath(root,x))); });
+api.MapGet("/files/read", async (string project, string path, PathGuard guard, AuditService audit, HttpContext http) => { var full=guard.Resolve(Path.Combine(project,path)); if(!File.Exists(full)) return Results.NotFound(); await audit.WriteAsync(http,"file.read",project+"/"+path,"ok"); return Results.Text(await File.ReadAllTextAsync(full)); });
+api.MapPut("/files", async ([FromBody] FileRequest r, PathGuard guard, AuditService audit, HttpContext http) => { if (!IsSafeFile(r.Path)) return Results.BadRequest("Недопустимый путь."); var full=guard.Resolve(Path.Combine(r.Project,r.Path)); Directory.CreateDirectory(Path.GetDirectoryName(full)!); await File.WriteAllTextAsync(full,r.Content); await audit.WriteAsync(http,"file.write",r.Project+"/"+r.Path,"ok"); return Results.Ok(); });
+api.MapDelete("/files", async ([FromBody] FileRequest r, PathGuard guard, AuditService audit, HttpContext http) => { var full=guard.Resolve(Path.Combine(r.Project,r.Path)); if(File.Exists(full)) File.Delete(full); await audit.WriteAsync(http,"file.delete",r.Project+"/"+r.Path,"ok"); return Results.Ok(); });
+api.MapGet("/models", () => Results.Ok(new[]{"актуальный каталог должен поставляться провайдером через существующий bridge; секреты не выдаются клиенту"}));
+api.MapPost("/chat", async ([FromBody] ChatRequest r, PathGuard guard, BridgeService bridge, AuditService audit, HttpContext http, CancellationToken ct) => { var project=guard.Resolve(r.Project); if(!Directory.Exists(project)) return Results.NotFound(); var answer=await bridge.AskAsync(project,r.Message,r.Model,ct); await audit.WriteAsync(http,"chat",r.Project,"ok"); return Results.Ok(new { answer }); });
+app.Run();
+static bool IsSafeName(string s)=>!string.IsNullOrWhiteSpace(s)&&s.IndexOfAny(Path.GetInvalidFileNameChars())<0&&!s.Contains('.')&&s is not "." and not "..";
+static bool IsSafeFile(string s)=>!string.IsNullOrWhiteSpace(s)&&!Path.IsPathRooted(s)&&!s.Split('/', '\\').Any(x=>x is ".." or ".git" or "bin" or "obj");
+record RegisterRequest(string Email,string Password); record ProjectRequest(string Name); record FileRequest(string Project,string Path,string Content); record ChatRequest(string Project,string Message,string? Model);

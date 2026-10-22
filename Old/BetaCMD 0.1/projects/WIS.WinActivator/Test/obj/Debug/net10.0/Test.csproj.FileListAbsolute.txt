@@ -1,0 +1,54 @@
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\Test.exe
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\Test.deps.json
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\Test.runtimeconfig.json
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\Test.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\Test.pdb
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.pdb
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.AssemblyReference.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfoInputs.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfo.cs
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.CoreCompileInputs.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.Up2Date
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\refint\Test.dll
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.pdb
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\Test.genruntimeconfig.cache
+D:\Work\WIS_Users\MAE\WIS.WinActivator\Test\obj\Debug\net10.0\ref\Test.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.exe
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.deps.json
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.runtimeconfig.json
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.pdb
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfo.cs
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.Up2Date
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\refint\Test.dll
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.pdb
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.genruntimeconfig.cache
+C:\Users\User\Desktop\New\projects\WIS.WinActivator\Test\obj\Debug\net10.0\ref\Test.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\refint\Test.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.exe
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.deps.json
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.runtimeconfig.json
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\Test.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\bin\Debug\net10.0\WIS.WinActivator.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.AssemblyInfo.cs
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.csproj.Up2Date
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\Test.genruntimeconfig.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\WIS.WinActivator\Test\obj\Debug\net10.0\ref\Test.dll

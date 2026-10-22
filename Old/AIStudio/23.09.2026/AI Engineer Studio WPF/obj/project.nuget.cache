@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uaZqpGyzdGA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\user\\Desktop\\AIStudio\\23.09.2026\\AI Engineer Studio WPF\\AIEngineerStudio.Wpf.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\markdig\\0.38.0\\markdig.0.38.0.nupkg.sha512"
+  ],
+  "logs": []
+}

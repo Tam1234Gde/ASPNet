@@ -1,0 +1,6 @@
+MSBUILD : error MSB1008: можно указать только один проект.
+    Полная командная строка: 'C:\Program Files\dotnet\sdk\10.0.401\MSBuild.exe -maxcpucount --verbosity:m -tlp:default=auto --property:NuGetInteractive=false --restoreProperty:NuGetInteractive=false --restoreProperty:EnableDefaultCompileItems=false --restoreProperty:EnableDefaultEmbeddedResourceItems=false --restoreProperty:EnableDefaultNoneItems=false --verbosity:diag --nologo BybitBot.csproj ; exit 0 -consoleloggerparameters:Summary -restore -distributedlogger:Microsoft.DotNet.Cli.Commands.MSBuild.MSBuildLogger,C:\Program Files\dotnet\sdk\10.0.401\dotnet.dll*Microsoft.DotNet.Cli.Commands.MSBuild.MSBuildForwardingLogger,C:\Program Files\dotnet\sdk\10.0.401\dotnet.dll'
+  Параметры, добавленные файлами откликов:
+Ключ: ;
+
+Для переключения синтаксиса введите "MSBuild -help"

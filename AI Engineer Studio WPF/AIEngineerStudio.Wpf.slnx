@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AIEngineerStudio.Wpf.csproj" />
+  <Project Path="WebSiteDev/AIEngineerStudio.WebSiteDev.csproj" />
+  <Project Path="WebStudioApi/WebStudioApi.csproj" />
+</Solution>

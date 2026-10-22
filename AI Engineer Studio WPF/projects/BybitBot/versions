@@ -1,0 +1,7 @@
+# История версий
+
+## 2026.09.24.1108
+- Исправлена сборка WPF-проекта: добавлены пространства имён `System` и `System.IO` для `Path` и `File`.
+- Исключены исходники и промежуточные файлы `BybitBot.Desktop` из компиляции Worker-проекта.
+- Добавлены пространства имён `System` и `System.Linq` в тесты для `DateTimeOffset` и `Enumerable`.
+- Проверка: `dotnet build BybitBot.sln`.

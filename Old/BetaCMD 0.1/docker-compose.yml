@@ -1,0 +1,9 @@
+services:
+  client_web_server:
+    image: nginx:alpine
+    container_name: demo_client_server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./client_site:/usr/share/nginx/html
+    restart: always

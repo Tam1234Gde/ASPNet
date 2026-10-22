@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#b71938" />
+  <title>У Маратика — сладкие находки</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="floating floating--one">♥</div><div class="floating floating--two">✦</div><div class="floating floating--three">♥</div>
+  <header class="site-header wrap">
+    <a class="logo" href="#top" aria-label="У Маратика, на главную"><span>У</span> Маратика</a>
+    <nav aria-label="Основное меню"><a href="#catalog">Витрина</a><a href="#about">О нас</a><a href="#admin">Админка</a></nav>
+    <span class="age">18+</span>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero__copy">
+        <p class="eyebrow">ЛАВКА ДЛЯ ВЗРОСЛЫХ</p>
+        <h1>Добро пожаловать,<br><em>мой сладенький<br>медвежонок</em></h1>
+        <p class="lead">Тёплая, игривая витрина для особенных вечеров. Выбирай настроение — мы бережно всё упакуем.</p>
+        <a class="candy-link" href="#catalog">Выбрать настроение <span>↓</span></a>
+      </div>
+      <div class="hero__art" aria-hidden="true">
+        <div class="halo"></div><div class="heart heart--big">♥</div><div class="heart heart--small">♥</div>
+        <div class="bear"><div class="ear ear--l"></div><div class="ear ear--r"></div><div class="face"><i></i><i></i><b>♥</b></div><div class="bow">♡</div></div>
+        <p>made with<br><b>sweetness</b></p>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Преимущества"><div>НЕЖНО • АНОНИМНО • С ЛЮБОВЬЮ • НЕЖНО • АНОНИМНО • С ЛЮБОВЬЮ • </div></section>
+
+    <section class="catalog wrap" id="catalog">
+      <div class="section-head"><div><p class="eyebrow">ВИТРИНА</p><h2>Сладкие находки</h2></div><p class="catalog-count" id="catalogCount"></p></div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section class="about wrap" id="about"><div><p class="eyebrow">У МАРАТИКА</p><h2>Без стеснения.<br>С заботой.</h2></div><p>Только взрослые товары и эстетика приватного выбора. Аккуратная доставка, нейтральная упаковка и немного карамельного настроения.</p><span>18+</span></section>
+
+    <section class="admin wrap" id="admin">
+      <div class="admin__heading"><p class="eyebrow">УПРАВЛЕНИЕ ВИТРИНОЙ</p><h2>Админка товаров</h2><p>Добавляйте позиции прямо в витрину. Данные сохраняются в этом браузере.</p></div>
+      <form id="productForm" class="product-form">
+        <label>Название<input id="productName" required maxlength="44" placeholder="Например, Вишнёвый вечер" /></label>
+        <label>Описание<input id="productDescription" required maxlength="90" placeholder="Коротко и аппетитно" /></label>
+        <label>Цена, ₽<input id="productPrice" required min="1" type="number" placeholder="1990" /></label>
+        <label>Цвет карточки<select id="productColor"><option value="red">Карамельное яблоко</option><option value="pink">Пикми</option><option value="cream">Слоновая кость</option></select></label>
+        <button type="submit">Добавить на витрину <span>+</span></button>
+      </form>
+    </section>
+  </main>
+  <footer class="wrap"><a class="logo" href="#top"><span>У</span> Маратика</a><p>Только для взрослых · 18+</p><p>© <span id="year"></span> С любовью и конфиденциально</p></footer>
+  <template id="productTemplate"><article class="product-card"><div class="product-card__top"><span class="product-icon">♥</span><button class="remove" type="button" title="Удалить товар" aria-label="Удалить товар">×</button></div><div><p class="product-tag">ДЛЯ ОСОБЕННОГО ВЕЧЕРА</p><h3></h3><p class="product-description"></p></div><div class="product-card__bottom"><strong></strong><span class="mini-heart">♥</span></div></article></template>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿
+Name                                                                        FullName                                   
+----                                                                        --------                                   
+AiProjects                                                                  C:\Users\user\Desktop\AiProjects           
+BetaCMD 0.1                                                                 C:\Users\user\Desktop\BetaCMD 0.1          
+BetaCMD 1.0                                                                 C:\Users\user\Desktop\BetaCMD 1.0          
+CORETECH                                                                    C:\Users\user\Desktop\CORETECH             
+SiteErgan                                                                   C:\Users\user\Desktop\SiteErgan            
+Документы                                                                   C:\Users\user\Desktop\Документы            
+Игры                                                                        C:\Users\user\Desktop\Игры                 
+Программы                                                                   C:\Users\user\Desktop\Программы            
+Проекты                                                                     C:\Users\user\Desktop\Проекты              
+Шлак                                                                        C:\Users\user\Desktop\Шлак                 
+10.10.1.5.lnk                                                               C:\Users\user\Desktop\10.10.1.5.lnk        
+BetaCMD 1.0.lnk                                                             C:\Users\user\Desktop\BetaCMD 1.0.lnk      
+desktop.ini                                                                 C:\Users\user\Desktop\desktop.ini          
+Frame 1000005997.pdf                                                        C:\Users\user\Desktop\Frame 1000005997.pdf 
+itHelper.lnk                                                                C:\Users\user\Desktop\itHelper.lnk         
+Novy_LK_3_(С проставленными часами).docx                                    C:\Users\user\Desktop\Novy_LK_3_(С прост...
+~$FPS сборок.xlsx                                                           C:\Users\user\Desktop\~$FPS сборок.xlsx    
+~$Kalkulyator_stoimosti_zakaza_PK.xlsx                                      C:\Users\user\Desktop\~$Kalkulyator_stoi...
+~$xtCloud - Установка.docx                                                  C:\Users\user\Desktop\~$xtCloud - Устано...
+~$Спринт - Отчет за период с 25.05.2026 по 01.06.2026 - Макаркин Антон.xlsx C:\Users\user\Desktop\~$Спринт - Отчет з...
+~$Спринт на период с 13.04.2026 по 20.04.2026 - Макаркин Антон.xlsx         C:\Users\user\Desktop\~$Спринт на период...
+~$Спринт на период с 27.04.2026 по 04.05.2026 - Макаркин Антон.xlsx         C:\Users\user\Desktop\~$Спринт на период...
+План.docx                                                                   C:\Users\user\Desktop\План.docx            
+Текстовый документ.txt                                                      C:\Users\user\Desktop\Текстовый документ...
+
+

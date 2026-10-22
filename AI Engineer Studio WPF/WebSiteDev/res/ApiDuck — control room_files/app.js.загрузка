@@ -1,0 +1,912 @@
+"use strict";
+
+/**
+ * ApiDuck panel frontend.
+ *
+ * SECURITY MODEL:
+ *  - The backend NEVER sends API keys to the frontend.
+ *  - The customer key is kept in sessionStorage for this tab until logout.
+ *    It is never saved in localStorage.
+ *  - PRIMARY_API_KEY never leaves the backend; the transfer endpoint
+ *    proxies through the server.
+ */
+(() => {
+  const $ = (sel) => document.querySelector(sel);
+  const CATALOG = window.APIDUCK_CATALOG || { providers: [] };
+  const i18n = window.APIDUCK_I18N;
+
+  const state = {
+    balance: null,
+    models: null,
+    logs: []
+  };
+
+  // ---------------------------------------------------------------- helpers
+
+  async function api(path, options = {}, retry = true) {
+    const requestSessionVersion = sessionVersion;
+    const opts = {
+      credentials: "same-origin",
+      method: options.method || "GET",
+      headers: {}
+    };
+    if (options.body !== undefined) {
+      opts.headers["Content-Type"] = "application/json";
+      opts.body = JSON.stringify(options.body);
+    }
+    const res = await fetch(path, opts);
+    let data = null;
+    try {
+      data = await res.json();
+    } catch {
+      data = null;
+    }
+    if (res.status === 401 && retry && userEnteredKey && path !== "/api/login" && path !== "/api/logout") {
+      const renewed = requestSessionVersion !== sessionVersion ? { ok: true } : await renewSession();
+      if (renewed.ok) return api(path, options, false);
+      if (renewed.status !== 401 && renewed.status !== 403) return renewed;
+    }
+    return { status: res.status, ok: res.ok, data };
+  }
+
+  function fmtInt(n) {
+    if (typeof n !== "number" || !Number.isFinite(n)) return "—";
+    return n.toLocaleString(i18n.locale);
+  }
+
+  function fmtTime(iso) {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso || "—";
+    return d.toLocaleString(i18n.locale, {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  let toastTimer = null;
+  let sessionRecoveryPromise = null;
+  let sessionVersion = 0;
+  function toast(message) {
+    const el = $("#toast");
+    el.textContent = message;
+    el.classList.remove("hidden");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.add("hidden"), 2600);
+  }
+
+  async function copyText(text, btn) {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast("Скопировано");
+    } catch {
+      // Fallback for non-secure contexts.
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      toast("Скопировано");
+    }
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = "OK";
+      setTimeout(() => (btn.textContent = original), 1200);
+    }
+  }
+
+  const KEY_STORAGE = "apiduck.tab-api-key";
+  let userEnteredKey = null;
+  try {
+    const savedKey = sessionStorage.getItem(KEY_STORAGE);
+    if (/^sk-cvc-[A-Za-z0-9_-]+$/.test(savedKey || "")) userEnteredKey = savedKey;
+  } catch { /* Continue in memory if storage is unavailable. */ }
+
+  function rememberKey(key) {
+    userEnteredKey = key;
+    try {
+      if (key) sessionStorage.setItem(KEY_STORAGE, key);
+      else sessionStorage.removeItem(KEY_STORAGE);
+    } catch { /* Continue in memory if storage is unavailable. */ }
+  }
+
+  function renewSession() {
+    if (!sessionRecoveryPromise) {
+      sessionRecoveryPromise = api("/api/login", { method: "POST", body: { api_key: userEnteredKey } }, false)
+        .then((result) => {
+          if (result.ok && result.data?.success) {
+            sessionVersion++;
+            return result;
+          }
+          return { ...result, ok: false };
+        })
+        .catch(() => ({ status: 503, ok: false, data: { message: "Не удалось восстановить соединение. Повторите попытку." } }))
+        .finally(() => { sessionRecoveryPromise = null; });
+    }
+    return sessionRecoveryPromise;
+  }
+
+  function handleUnauthorized() {
+    rememberKey(null);
+    showLogin("Сессия истекла, войдите снова");
+  }
+
+  // ---------------------------------------------------------------- screens
+
+  function showLogin(errorMessage) {
+    $("#app").classList.add("hidden");
+    $("#login-screen").classList.remove("hidden");
+    const err = $("#login-error");
+    if (errorMessage) {
+      err.textContent = errorMessage;
+      err.classList.remove("hidden");
+    } else {
+      err.classList.add("hidden");
+    }
+  }
+
+  function showApp() {
+    $("#login-screen").classList.add("hidden");
+    $("#app").classList.remove("hidden");
+    renderInstructions();
+    populateTransferDefaults();
+  }
+
+  // ----------------------------------------------------------------- login
+
+  function bindLogin() {
+    $("#login-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const input = $("#login-key");
+      const key = (input.value || "").trim();
+      const err = $("#login-error");
+      err.classList.add("hidden");
+
+      if (!/^sk-cvc-[A-Za-z0-9_-]+$/.test(key)) {
+        err.textContent = "Неверный формат ключа (ожидается sk-cvc-…)";
+        err.classList.remove("hidden");
+        return;
+      }
+
+      const result = await api("/api/login", { method: "POST", body: { api_key: key } });
+      if (result.status === 200 && result.data && result.data.success) {
+        rememberKey(key);
+        sessionVersion++;
+        $("#transfer-form").reset();
+        $("#transfer-to").value = key;
+        input.value = "";
+        showApp();
+        loadDashboard();
+        return;
+      }
+
+      err.textContent =
+        (result.data && result.data.message) || "Не удалось войти. Проверьте ключ.";
+      err.classList.remove("hidden");
+    });
+
+    $("#btn-logout").addEventListener("click", async () => {
+      await api("/api/logout", { method: "POST" });
+      rememberKey(null);
+      $("#transfer-to").defaultValue = "";
+      $("#transfer-form").reset();
+      state.logs = [];
+      state.models = null;
+      showLogin();
+    });
+  }
+
+  // ------------------------------------------------------------------ tabs
+
+  function bindTabs() {
+    document.querySelectorAll(".tab").forEach((btn) => {
+      btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+    });
+    $("#brand-home")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      switchTab("dashboard");
+    });
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll(".tab").forEach((b) => {
+      b.classList.toggle("active", b.dataset.tab === tabId);
+    });
+    document.querySelectorAll(".tab-panel").forEach((p) => {
+      p.classList.toggle("active", p.id === "tab-" + tabId);
+    });
+    if (tabId === "dashboard") loadDashboard();
+    if (tabId === "instructions") renderInstructions();
+    if (tabId === "media") renderMedia();
+  }
+
+  // -------------------------------------------------------------- dashboard
+
+  async function loadDashboard() {
+    await Promise.all([loadBalance(), loadLogs(), loadModels()]);
+  }
+
+  async function loadBalance() {
+    const el = $("#balance-value");
+    el.textContent = "…";
+    const { status, ok, data } = await api("/api/balance");
+    if (status === 401) return handleUnauthorized();
+    if (!ok || !data || !data.success) {
+      el.textContent = "—";
+      toast((data && data.message) || "Не удалось получить баланс");
+      return;
+    }
+    state.balance = data.balance;
+    el.textContent = fmtInt(data.balance);
+  }
+
+  async function loadLogs() {
+    const { status, ok, data } = await api("/api/logs");
+    if (status === 401) return handleUnauthorized();
+    if (!ok || !data || !data.success) {
+      toast((data && data.message) || "Не удалось получить историю");
+      return;
+    }
+    state.logs = (data.logs || []).slice(0, 30);
+    renderLogs();
+    drawChart();
+  }
+
+  async function loadModels() {
+    if (state.models) {
+      renderModels();
+      return;
+    }
+    const res = await fetch("/api/models", { credentials: "same-origin" });
+    if (!res.ok) return;
+    try {
+      state.models = await res.json();
+      renderModels();
+      renderLogs();
+    } catch {
+      /* ignore malformed models file */
+    }
+  }
+
+  function renderLogs() {
+    const tbody = $("#logs-table tbody");
+    tbody.innerHTML = "";
+    const wrap = $("#logs-table").closest(".table-wrap");
+    wrap.classList.toggle("has-rows", state.logs.length > 0);
+
+    for (const entry of state.logs) {
+      const tr = document.createElement("tr");
+
+      const cells = [
+        fmtTime(entry.created_at),
+        entry.model || "—",
+        fmtInt(entry.input_tokens),
+        fmtInt(entry.output_tokens),
+        fmtInt(entry.cached_tokens),
+        formatCoefficient(entry),
+        fmtInt(entry.cost_tokens),
+        fmtInt(entry.latency_ms)
+      ];
+
+      for (const value of cells) {
+        const td = document.createElement("td");
+        td.textContent = String(value);
+        tr.appendChild(td);
+      }
+
+      const tdStatus = document.createElement("td");
+      const badge = document.createElement("span");
+      const success = String(entry.status || "").toLowerCase() === "success";
+      badge.className = "badge " + (success ? "badge-ok" : "badge-err");
+      badge.textContent = success ? "OK" : entry.status || "error";
+      if (!success && entry.error_message) badge.title = entry.error_message;
+      tdStatus.appendChild(badge);
+      tr.appendChild(tdStatus);
+
+      tbody.appendChild(tr);
+    }
+  }
+
+  function modelCoefficient(modelId) {
+    const model = (state.models?.categories || [])
+      .flatMap((category) => category.models || [])
+      .find((item) => item.id === modelId);
+    if (model?.coefficient == null) return null;
+    const coefficient = Number(model.coefficient);
+    return Number.isFinite(coefficient) ? coefficient : null;
+  }
+
+  function formatCoefficient(entry) {
+    const coefficient = modelCoefficient(entry.model);
+    return coefficient == null ? "—" : "×" + fmtInt(coefficient);
+  }
+
+  function drawChart() {
+    const canvas = $("#chart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+    const cssWidth = canvas.parentElement.clientWidth - 44;
+    const cssHeight = 150;
+    canvas.width = Math.max(cssWidth, 100) * dpr;
+    canvas.height = cssHeight * dpr;
+    canvas.style.height = cssHeight + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssWidth, cssHeight);
+
+    // Oldest -> newest, left -> right.
+    const data = state.logs
+      .slice()
+      .reverse()
+      .map((l) => Number(l.cost_tokens) || 0);
+
+    if (data.length === 0) {
+      ctx.fillStyle = "#8a93a8";
+      ctx.font = "13px Segoe UI, sans-serif";
+      ctx.fillText(i18n.t("Нет данных"), 8, cssHeight / 2);
+      return;
+    }
+
+    const max = Math.max(...data, 1);
+    const padTop = 12;
+    const padBottom = 20;
+    const padX = 6;
+    const chartH = cssHeight - padTop - padBottom;
+    const step = (cssWidth - padX * 2) / data.length;
+    const barW = Math.max(Math.min(step * 0.62, 26), 3);
+
+    // Grid lines.
+    ctx.strokeStyle = "rgba(138,147,168,.16)";
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 2; i++) {
+      const y = padTop + (chartH / 2) * i;
+      ctx.beginPath();
+      ctx.moveTo(padX, y + 0.5);
+      ctx.lineTo(cssWidth - padX, y + 0.5);
+      ctx.stroke();
+    }
+
+    // Bars.
+    data.forEach((value, i) => {
+      const h = Math.max((value / max) * chartH, value > 0 ? 2 : 0);
+      const x = padX + i * step + (step - barW) / 2;
+      const y = padTop + chartH - h;
+
+      const gradient = ctx.createLinearGradient(0, y, 0, padTop + chartH);
+      gradient.addColorStop(0, "#ffc73a");
+      gradient.addColorStop(1, "rgba(255,199,58,.25)");
+      ctx.fillStyle = gradient;
+
+      const r = Math.min(3, barW / 2);
+      ctx.beginPath();
+      ctx.moveTo(x, y + r);
+      ctx.arcTo(x, y, x + r, y, r);
+      ctx.arcTo(x + barW, y, x + barW, y + r, r);
+      ctx.lineTo(x + barW, padTop + chartH);
+      ctx.lineTo(x, padTop + chartH);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // Axis labels: time of the oldest and newest entries.
+    ctx.fillStyle = "#8a93a8";
+    ctx.font = "11px Segoe UI, sans-serif";
+    const first = state.logs[state.logs.length - 1];
+    const last = state.logs[0];
+    if (first && last) {
+      ctx.fillText(fmtTime(first.created_at), padX, cssHeight - 5);
+      const lastLabel = fmtTime(last.created_at);
+      const w = ctx.measureText(lastLabel).width;
+      ctx.fillText(lastLabel, cssWidth - padX - w, cssHeight - 5);
+
+      const maxLabel = i18n.t("макс " + fmtInt(max) + " токенов");
+      ctx.fillText(maxLabel, padX, padTop - 2);
+    }
+  }
+
+  function renderModels() {
+    const root = $("#models-list");
+    root.innerHTML = "";
+    if (!state.models || !Array.isArray(state.models.categories)) return;
+
+    for (const category of state.models.categories) {
+      const block = document.createElement("div");
+      block.className = "models-category";
+
+      const header = document.createElement("div");
+      header.className = "models-category-header";
+
+      const title = document.createElement("h3");
+      title.textContent = `${i18n.t(category.name)} (${(category.models || []).length})`;
+      header.appendChild(title);
+
+      const subhead = document.createElement("div");
+      subhead.className = "models-subhead";
+      subhead.innerHTML = `<span>Коэф.</span>`;
+      header.appendChild(subhead);
+
+      block.appendChild(header);
+
+      for (const model of category.models || []) {
+        const row = document.createElement("div");
+        row.className = "model-row";
+
+        const left = document.createElement("div");
+        left.className = "model-left";
+
+        const name = document.createElement("span");
+        name.className = "model-name";
+        name.textContent = model.name || model.id;
+
+        const id = document.createElement("span");
+        id.className = "model-id";
+        id.textContent = model.id;
+
+        left.appendChild(name);
+        left.appendChild(id);
+
+        const right = document.createElement("div");
+        right.className = "model-right";
+
+        const coef = document.createElement("span");
+        coef.className = "model-coef";
+        coef.textContent = "×" + fmtInt(Number(model.coefficient));
+
+        right.appendChild(coef);
+
+        row.appendChild(left);
+        row.appendChild(right);
+        block.appendChild(row);
+      }
+
+      root.appendChild(block);
+    }
+  }
+
+  // ----------------------------------------------------------- instructions
+
+  function origin() {
+    return location.origin;
+  }
+
+  function commandFor(os) {
+    const key = userEnteredKey || (i18n.language === "en" ? "<YOUR_API_KEY>" : "<ВАШ_КЛЮЧ>");
+    const url = `${origin()}/${os.install}`;
+    const install = os.auth === "bearer"
+      ? (os.shell === "powershell" ? `$h=@{Authorization='Bearer ${key}'}; iex(irm -Headers $h '${url}')` : `bash <(curl -fsSL -H 'Authorization: Bearer ${key}' '${url}') '${key}'`)
+      : (os.shell === "powershell" ? `$env:APIDUCK_API_KEY='${key}'; iex(irm '${url}')` : `bash <(curl -fsSL '${url}') '${key}'`);
+    const uninstall = os.uninstall ? (os.shell === "powershell" ? `iex(irm '${origin()}/${os.uninstall}')` : `bash <(curl -fsSL '${origin()}/${os.uninstall}')`) : null;
+    return { install, uninstall };
+  }
+
+  const osMeta = {
+    windows: { name: "Windows", icon: "▣", shell: "PowerShell", tone: "azure" },
+    macos: { name: "macOS", icon: "●", shell: "Terminal", tone: "peach" },
+    linux: { name: "Linux", icon: "◒", shell: "Bash", tone: "mint" }
+  };
+
+  function availableOsEntries(provider, app, activeFilter = "all") {
+    return Object.entries(app.os || {}).filter(([osId]) => {
+      if (osId === "linux" && app.id === "app" && ["chatgpt", "claude"].includes(provider.id)) return false;
+      return activeFilter === "all" || osId === activeFilter;
+    });
+  }
+
+  function canShowUninstall(provider, app) {
+    return (provider.id === "chatgpt" && ["app", "cli", "vscode"].includes(app.id)) ||
+      (provider.id === "claude" && ["app", "code-cli"].includes(app.id));
+  }
+
+  function instructionEntries() {
+    return CATALOG.providers.flatMap((provider) => (provider.apps || []).flatMap((app) => Object.entries(app.os || {}).map(([osId, os]) => ({ provider, app, osId, os }))));
+  }
+
+  let expandedProviderId = null;
+  let expandedAppKey = null;
+  let expandedOsKey = null;
+  let instructionMode = "script";
+
+  function appKey(provider, app) {
+    return `${provider.id}::${app.id}`;
+  }
+
+  function appIcon(appId) {
+    return ({ cli: "⌘", app: "◈", vscode: "◇", cursor: "✦" })[appId] || "◌";
+  }
+
+  function renderCommandPanel(provider, app, osId, os) {
+    const meta = osMeta[osId] || { name: osId, icon: "◌", shell: os.shell || "shell", tone: "violet" };
+    const commands = commandFor(os);
+    if (!canShowUninstall(provider, app)) commands.uninstall = null;
+    const baseId = `instruction-${provider.id}-${app.id}-${osId}`.replace(/[^a-z0-9-]/gi, "-");
+    const installId = `${baseId}-install`;
+    const uninstallId = `${baseId}-uninstall`;
+    const manual = window.APIDUCK_MANUALS?.[`${appKey(provider, app)}::${osId}`];
+    const manualActive = instructionMode === "manual" && manual?.length;
+    return `<div class="instruction-command-panel">
+      <div class="instruction-command-panel-head"><div><span class="card-overline">${meta.name} · ${meta.shell}</span><strong>Команды подключения</strong></div><span class="instruction-ready">READY</span></div>
+      ${manual?.length ? `<div class="instruction-mode-switch" role="group" aria-label="Способ настройки"><button type="button" data-instruction-mode="script" aria-pressed="${!manualActive}" class="${!manualActive ? "active" : ""}">Скрипт</button><button type="button" data-instruction-mode="manual" aria-pressed="${Boolean(manualActive)}" class="${manualActive ? "active" : ""}">Вручную</button></div>` : ""}
+      ${manualActive ? renderManualGuide(manual, baseId) : `
+      <div class="instruction-command"><div class="instruction-command-label"><span>01</span><strong>Установка</strong><button class="btn btn-sm instruction-copy" data-copy-id="${installId}">Копировать <span>⧉</span></button></div><pre id="${installId}" class="cmd">${escapeHtml(commands.install)}</pre></div>
+      ${commands.uninstall ? `<div class="instruction-command instruction-command-secondary"><div class="instruction-command-label"><span>02</span><strong>Удаление</strong><button class="btn btn-sm instruction-copy" data-copy-id="${uninstallId}">Копировать <span>⧉</span></button></div><pre id="${uninstallId}" class="cmd">${escapeHtml(commands.uninstall)}</pre></div>` : ""}
+      `}
+    </div>`;
+  }
+
+  function renderManualGuide(blocks, baseId) {
+    return `<div class="instruction-manual">${blocks.map((block, index) => {
+      const source = i18n.language === "en" && block.valueEn ? block.valueEn : block.value;
+      const value = source.replace(/ВАШ_API_КЛЮЧ/g, () => userEnteredKey || (i18n.language === "en" ? "YOUR_API_KEY" : "ВАШ_API_КЛЮЧ"))
+        .replace(/ВАШ_GUID/g, i18n.language === "en" ? "YOUR_GUID" : "ВАШ_GUID");
+      if (block.type === "text") return `<p class="instruction-manual-text">${escapeHtml(value)}</p>`;
+      const copyId = `${baseId}-manual-${index}`;
+      return `<div class="instruction-command"><div class="instruction-command-label"><strong>Конфигурация / команды</strong><button type="button" class="btn btn-sm instruction-copy" data-copy-id="${copyId}">Копировать <span>⧉</span></button></div><pre id="${copyId}" class="cmd manual-code">${escapeHtml(value)}</pre></div>`;
+    }).join("")}</div>`;
+  }
+
+  function renderAppDetail(provider, app, activeFilter) {
+    if (!app) return "";
+    const key = appKey(provider, app);
+    const osEntries = availableOsEntries(provider, app, activeFilter);
+    const selectedOs = osEntries.find(([osId]) => expandedOsKey === `${key}::${osId}`);
+    return `<div class="instruction-expanded-client">
+      <div class="instruction-expanded-head"><div><span class="card-overline">${provider.name} · ${app.name}</span><strong>Настройка клиента</strong><small>Выберите операционную систему для генерации команды</small></div><span class="expanded-client-mark">${appIcon(app.id)}</span></div>
+      <div class="instruction-os-picker"><span class="os-picker-label">Система запуска</span>${osEntries.map(([osId, os]) => { const meta = osMeta[osId] || { name: osId, icon: "◌", tone: "violet" }; const osOpen = expandedOsKey === `${key}::${osId}`; return `<button class="instruction-os-tile ${meta.tone} ${osOpen ? "active" : ""}" data-os-key="${key}::${osId}" aria-expanded="${osOpen}"><span class="os-badge"><span>${meta.icon}</span></span><span><strong>${meta.name}</strong><small>${meta.shell || os.shell || "shell"}</small></span><i>→</i></button>`; }).join("")}</div>
+      ${selectedOs ? renderCommandPanel(provider, app, selectedOs[0], selectedOs[1]) : `<div class="instruction-select-hint"><span>01</span> Выберите систему выше, чтобы увидеть готовые команды</div>`}
+    </div>`;
+  }
+
+  function renderInstructions() {
+    const root = $("#instruction-cards");
+    if (!root) return;
+    const search = $("#instruction-search")?.value.trim().toLowerCase() || "";
+    const activeFilter = document.querySelector(".instruction-filter-btn.active")?.dataset.filter || "all";
+    const allApps = CATALOG.providers.flatMap((provider) => (provider.apps || []).map((app) => ({ provider, app })));
+    const visibleProviders = CATALOG.providers.map((provider) => ({
+      provider,
+      apps: (provider.apps || []).filter((app) => {
+        const osNames = availableOsEntries(provider, app).map(([id]) => osMeta[id]?.name || id).join(" ");
+        const haystack = `${provider.name} ${i18n.t(provider.name)} ${app.name} ${osNames}`.toLowerCase();
+        const hasOs = availableOsEntries(provider, app, activeFilter).length > 0;
+        return hasOs && (!search || haystack.includes(search));
+      })
+    })).filter(({ apps }) => apps.length);
+    const count = $("#instruction-count");
+    if (count) count.textContent = String(allApps.length).padStart(2, "0");
+    if (!visibleProviders.length) {
+      root.innerHTML = `<div class="instruction-empty"><span>⌕</span><h2>Ничего не найдено</h2><p>Измените запрос или фильтр системы.</p></div>`;
+      return;
+    }
+    root.innerHTML = visibleProviders.map(({ provider, apps }) => {
+      const providerOpen = search || expandedProviderId === provider.id;
+      return `<section class="instruction-provider-block ${providerOpen ? "is-open" : ""}">
+        <button class="instruction-provider-head" data-provider-id="${provider.id}" aria-expanded="${providerOpen}"><span class="provider-index">${String(CATALOG.providers.indexOf(provider) + 1).padStart(2, "0")}</span><span class="provider-title"><strong>${provider.name}</strong><small>${apps.length} приложения · выберите среду запуска</small></span><span class="provider-count">${apps.length}<i>↗</i></span></button>
+        ${providerOpen ? `<div class="instruction-app-grid">${apps.map((app) => {
+          const key = appKey(provider, app);
+          const appOpen = search || expandedAppKey === key;
+          const osEntries = availableOsEntries(provider, app, activeFilter);
+          return `<article class="instruction-app-card ${appOpen ? "is-selected" : ""}">
+            <button class="instruction-app-head" data-app-key="${key}" aria-expanded="${appOpen}"><span class="app-icon">${appIcon(app.id)}</span><span class="instruction-card-title"><span class="instruction-provider">${provider.name}</span><h2>${app.name}</h2><span class="instruction-os-name">${osEntries.length} доступных систем</span></span><span class="app-chevron">⌄</span></button>
+          </article>`;
+        }).join("")}</div>${expandedAppKey && expandedAppKey.startsWith(`${provider.id}::`) ? renderAppDetail(provider, apps.find((app) => appKey(provider, app) === expandedAppKey), activeFilter) : ""}` : ""}
+      </section>`;
+    }).join("");
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+  }
+
+  function bindInstructions() {
+    const search = $("#instruction-search");
+    if (search) search.addEventListener("input", renderInstructions);
+    document.querySelectorAll(".instruction-filter-btn").forEach((btn) => btn.addEventListener("click", () => {
+      document.querySelectorAll(".instruction-filter-btn").forEach((item) => item.classList.remove("active"));
+      btn.classList.add("active");
+      renderInstructions();
+    }));
+    const root = $("#instruction-cards");
+    if (root) root.addEventListener("click", (event) => {
+      const modeButton = event.target.closest("[data-instruction-mode]");
+      if (modeButton) { instructionMode = modeButton.dataset.instructionMode; renderInstructions(); return; }
+      const copy = event.target.closest(".instruction-copy");
+      if (copy) { const target = document.getElementById(copy.dataset.copyId); if (target) copyText(target.textContent, copy); return; }
+      const providerButton = event.target.closest("[data-provider-id]");
+      if (providerButton) { expandedProviderId = expandedProviderId === providerButton.dataset.providerId ? null : providerButton.dataset.providerId; expandedAppKey = null; expandedOsKey = null; renderInstructions(); return; }
+      const appButton = event.target.closest("[data-app-key]");
+      if (appButton) { expandedAppKey = expandedAppKey === appButton.dataset.appKey ? null : appButton.dataset.appKey; expandedOsKey = null; expandedProviderId = appButton.dataset.appKey.split("::")[0]; renderInstructions(); return; }
+      const osButton = event.target.closest("[data-os-key]");
+      if (osButton) { expandedOsKey = expandedOsKey === osButton.dataset.osKey ? null : osButton.dataset.osKey; renderInstructions(); }
+    });
+  }
+
+  // ----------------------------------------------------------------- media
+
+  let currentMediaId = "gpt-image-2";
+
+  function bindMedia() {
+    const tabs = $("#media-tabs");
+    if (!tabs) return;
+    tabs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".media-tab");
+      if (!btn) return;
+      document.querySelectorAll(".media-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentMediaId = btn.dataset.media;
+      renderMediaDetail();
+    });
+  }
+
+  function renderMedia() {
+    renderMediaDetail();
+  }
+
+  function renderMediaDetail() {
+    const container = $("#media-content");
+    if (!container) return;
+    const list = window.APIDUCK_MEDIA_MODELS || [];
+    const item = list.find((m) => m.id === currentMediaId) || list[0];
+    if (!item) {
+      container.innerHTML = "<p class='muted'>Модель не найдена</p>";
+      return;
+    }
+
+    const key = userEnteredKey || (i18n.language === "en" ? "<YOUR_API_KEY>" : "<ВАШ_КЛЮЧ>");
+    const base = origin();
+
+    let pricingHtml = "";
+    if (item.pricing && item.pricing.length) {
+      pricingHtml = `
+        <div class="media-pricing-grid">
+          ${item.pricing.map((p) => `
+            <div class="pricing-badge">
+              <span class="p-label">${p.label}</span>
+              <span class="p-val">${p.val}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    let noteHtml = item.note ? `<p class="muted small">${item.note}</p>` : "";
+
+    let endpointsHtml = `
+      <div class="media-endpoints-list">
+        ${(item.endpoints || []).map((ep) => `
+          <div class="media-endpoint-item">
+            <span class="ep-label">${ep.label} endpoint</span>
+            <code>${base}${ep.path}</code>
+          </div>
+        `).join("")}
+        <div class="media-endpoint-item">
+          <span class="ep-label">API Key</span>
+          <code>${key}</code>
+        </div>
+      </div>
+    `;
+
+    let examplesHtml = (item.examples || []).map((ex, idx) => {
+      const codeStr = ex.code(base, key);
+      const copyId = `cmd-media-${idx}`;
+      return `
+        <div class="media-example-block cmd-block">
+          <div class="cmd-head">
+            <span>${ex.title}</span>
+            <button class="btn btn-sm" data-copy="${copyId}">Копировать curl</button>
+          </div>
+          <pre id="${copyId}" class="cmd">${codeStr.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+        </div>
+      `;
+    }).join("");
+
+    container.innerHTML = `
+      <div class="media-card-detail">
+        <div class="media-header-info">
+          <h3>${item.name}</h3>
+          <p class="muted">${item.desc}</p>
+          ${pricingHtml}
+          ${noteHtml}
+        </div>
+        ${endpointsHtml}
+        <div class="media-examples-wrap">
+          ${examplesHtml}
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-copy]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const el = document.getElementById(btn.dataset.copy);
+        if (el) copyText(el.textContent, btn);
+      });
+    });
+  }
+
+  // ----------------------------------------------------------------- topup
+
+  function populateTransferDefaults() {
+    const recipient = $("#transfer-to");
+    recipient.defaultValue = userEnteredKey || "";
+    if (!recipient.value) recipient.value = userEnteredKey || "";
+  }
+
+  function bindTopup() {
+    $("#transfer-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const fromKey = ($("#transfer-from").value || "").trim();
+      const toKey = ($("#transfer-to").value || "").trim();
+      const resultEl = $("#transfer-result");
+
+      if (!/^sk-cvc-[A-Za-z0-9_-]+$/.test(fromKey) || !/^sk-cvc-[A-Za-z0-9_-]+$/.test(toKey)) {
+        resultEl.className = "alert alert-error";
+        resultEl.textContent = "Оба ключа должны быть в формате sk-cvc-…";
+        return;
+      }
+      if (fromKey === toKey) {
+        resultEl.className = "alert alert-error";
+        resultEl.textContent = "Ключи совпадают";
+        return;
+      }
+
+      const submitBtn = event.target.querySelector("button[type=submit]");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Переводим…";
+      resultEl.className = "hidden";
+      resultEl.textContent = "";
+
+      const { status, ok, data } = await api("/api/transfer", {
+        method: "POST",
+        body: { from_key: fromKey, to_key: toKey }
+      });
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Перевести";
+
+      if (status === 401) return handleUnauthorized();
+
+      if (!ok || !data || !data.success) {
+        resultEl.className = "alert alert-error";
+        resultEl.textContent = (data && data.message) || "Ошибка перевода";
+        return;
+      }
+
+      $("#transfer-form").reset();
+      resultEl.className = "alert alert-success";
+      resultEl.innerHTML = "";
+
+      const heading = document.createElement("div");
+      heading.textContent = "Перевод выполнен успешно";
+      heading.style.fontWeight = "700";
+      heading.style.marginBottom = "10px";
+      resultEl.appendChild(heading);
+
+      const lines = [
+        ["Переведено токенов", fmtInt(data.transferred_tokens)],
+        ["Ключ-донор удалён", data.donor_deleted ? "да" : "нет"]
+      ];
+      if (data.meta) {
+        if (data.meta.key_prefix) lines.push(["Ключ-получатель", data.meta.key_prefix + "…"]);
+        if (typeof data.meta.token_limit === "number") lines.push(["Лимит", fmtInt(data.meta.token_limit)]);
+        if (typeof data.meta.tokens_used === "number") lines.push(["Использовано", fmtInt(data.meta.tokens_used)]);
+      }
+
+      for (const [label, value] of lines) {
+        const row = document.createElement("div");
+        row.className = "result-line";
+        const l = document.createElement("span");
+        l.textContent = label;
+        const v = document.createElement("span");
+        v.textContent = value;
+        row.appendChild(l);
+        row.appendChild(v);
+        resultEl.appendChild(row);
+      }
+
+      toast("Перевод выполнен");
+      loadDashboard();
+    });
+  }
+
+  // ------------------------------------------------------------------ init
+
+  function bindDashboard() {
+    $("#btn-refresh").addEventListener("click", () => {
+      loadDashboard();
+      toast("Обновлено");
+    });
+
+    const promoForm = $("#promo-form");
+    if (promoForm) {
+      promoForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const input = $("#promo-input");
+        const statusEl = $("#promo-status");
+        const btn = $("#btn-promo");
+        const code = (input.value || "").trim().toUpperCase();
+
+        if (!code) return;
+
+        btn.disabled = true;
+        btn.textContent = "…";
+        statusEl.className = "promo-status hidden";
+        statusEl.textContent = "";
+
+        const { status, ok, data } = await api("/api/redeem-promo", {
+          method: "POST",
+          body: { code }
+        });
+
+        btn.disabled = false;
+        btn.textContent = "Применить";
+
+        if (status === 401) return handleUnauthorized();
+
+        if (!ok || !data || !data.success) {
+          statusEl.className = "promo-status status-error";
+          statusEl.textContent = (data && data.message) || "Неверный промокод";
+          return;
+        }
+
+        input.value = "";
+        statusEl.className = "promo-status status-success";
+        statusEl.textContent = `+${fmtInt(data.added_tokens)} токенов добавлено!`;
+        if (typeof data.balance === "number") {
+          state.balance = data.balance;
+          $("#balance-value").textContent = fmtInt(data.balance);
+        }
+        toast(`Промокод активирован: +${fmtInt(data.added_tokens)}`);
+        loadLogs();
+      });
+    }
+
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!$("#tab-dashboard").classList.contains("active")) return;
+        drawChart();
+      }, 150);
+    });
+  }
+
+  async function init() {
+    bindLogin();
+    bindTabs();
+    bindDashboard();
+    bindInstructions();
+    bindTopup();
+    bindMedia();
+    document.addEventListener("apiduck:language", () => {
+      if (typeof state.balance === "number") $("#balance-value").textContent = fmtInt(state.balance);
+      renderLogs();
+      renderModels();
+      renderInstructions();
+      if ($("#tab-dashboard").classList.contains("active")) drawChart();
+      if ($("#media-content").hasChildNodes()) renderMediaDetail();
+    });
+
+    if (userEnteredKey) {
+      const restored = await renewSession();
+      if (restored.ok) {
+        showApp();
+        loadDashboard();
+        return;
+      }
+      if (restored.status === 401 || restored.status === 403) rememberKey(null);
+      showLogin(restored.data?.message || "Не удалось восстановить сессию");
+      return;
+    }
+
+    const me = await api("/api/me");
+    if (me.ok && me.data && me.data.authenticated) {
+      showLogin("Сессия активна. Введите ключ, чтобы подставлять его в команды и переводы.");
+    } else {
+      showLogin();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+})();

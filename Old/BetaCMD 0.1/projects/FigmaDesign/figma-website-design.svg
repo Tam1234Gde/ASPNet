@@ -1,0 +1,56 @@
+<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="150" y1="0" x2="1280" y2="1024" gradientUnits="userSpaceOnUse"><stop stop-color="#F8FAFF"/><stop offset="1" stop-color="#F2F0FF"/></linearGradient>
+    <linearGradient id="hero" x1="305" y1="225" x2="965" y2="668" gradientUnits="userSpaceOnUse"><stop stop-color="#7657FF"/><stop offset="1" stop-color="#A76CFF"/></linearGradient>
+    <linearGradient id="card" x1="814" y1="214" x2="1204" y2="632" gradientUnits="userSpaceOnUse"><stop stop-color="#26243D"/><stop offset="1" stop-color="#161526"/></linearGradient>
+    <linearGradient id="pink" x1="920" y1="290" x2="1120" y2="540" gradientUnits="userSpaceOnUse"><stop stop-color="#FF83D4"/><stop offset="1" stop-color="#A65FFF"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#39305E" flood-opacity=".16"/></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="55"/></filter>
+  </defs>
+  <!-- Canvas -->
+  <rect width="1440" height="1024" fill="url(#bg)"/>
+  <circle cx="1180" cy="130" r="230" fill="#DDD5FF" opacity=".5" filter="url(#soft)"/>
+  <circle cx="152" cy="747" r="170" fill="#CDE9FF" opacity=".5" filter="url(#soft)"/>
+  <!-- Navigation -->
+  <g transform="translate(120 30)">
+    <rect width="1200" height="72" rx="20" fill="white" fill-opacity=".72"/>
+    <g transform="translate(25 21)"><rect width="30" height="30" rx="9" fill="#6E55F6"/><path d="M8 20.5L15 9l7 11.5h-4.3L15 16.2l-2.7 4.3H8Z" fill="white"/><text x="42" y="23" fill="#1D1B32" font-family="Arial, sans-serif" font-size="20" font-weight="700">nimbus</text></g>
+    <g fill="#615E76" font-family="Arial, sans-serif" font-size="14" font-weight="600"><text x="382" y="43">Продукт</text><text x="477" y="43">Решения</text><text x="573" y="43">Ресурсы</text><text x="675" y="43">Тарифы</text></g>
+    <text x="1001" y="44" fill="#514E67" font-family="Arial, sans-serif" font-size="14" font-weight="600">Войти</text>
+    <rect x="1060" y="12" width="116" height="48" rx="14" fill="#6E55F6"/><text x="1081" y="42" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="700">Попробовать</text>
+  </g>
+  <!-- Hero copy -->
+  <g transform="translate(120 190)">
+    <rect width="212" height="32" rx="16" fill="#EEEAFE"/><circle cx="17" cy="16" r="5" fill="#7657FF"/><text x="31" y="21" fill="#6047DB" font-family="Arial, sans-serif" font-size="12" font-weight="700">НОВОЕ • AI WORKSPACE</text>
+    <text x="0" y="108" fill="#1D1B32" font-family="Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2.5">Создавайте быстрее.</text>
+    <text x="0" y="173" fill="#1D1B32" font-family="Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2.5">Вместе — лучше.</text>
+    <text x="0" y="226" fill="#69657C" font-family="Arial, sans-serif" font-size="18">Единое пространство для идей, задач и командной</text>
+    <text x="0" y="253" fill="#69657C" font-family="Arial, sans-serif" font-size="18">работы. Превратите планы в результат.</text>
+    <rect y="293" width="171" height="54" rx="15" fill="#6E55F6" filter="url(#shadow)"/><text x="24" y="327" fill="white" font-family="Arial, sans-serif" font-size="15" font-weight="700">Начать бесплатно</text><path d="M141 315h10m-5-5 5 5-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="translate(197 306)"><circle cx="18" cy="18" r="18" fill="white"/><path d="M15 12l10 6-10 6v-12Z" fill="#6E55F6"/><text x="46" y="23" fill="#514E67" font-family="Arial, sans-serif" font-size="14" font-weight="600">Смотреть демо</text></g>
+    <g transform="translate(0 390)"><g><circle cx="14" cy="14" r="14" fill="#FFB38D"/><circle cx="29" cy="14" r="14" fill="#8DCCFF"/><circle cx="44" cy="14" r="14" fill="#B7A1FF"/><circle cx="59" cy="14" r="14" fill="#99D8B8"/></g><text x="79" y="12" fill="#3B384F" font-family="Arial, sans-serif" font-size="13" font-weight="700">2 000+ команд уже с нами</text><text x="79" y="30" fill="#817D91" font-family="Arial, sans-serif" font-size="12">Без карты • 14 дней бесплатно</text></g>
+  </g>
+  <!-- Product board -->
+  <g filter="url(#shadow)">
+    <rect x="754" y="173" width="566" height="507" rx="28" fill="white"/>
+    <rect x="754" y="173" width="566" height="58" rx="28" fill="#FAFAFD"/><path d="M754 202h566v29H754z" fill="#FAFAFD"/>
+    <circle cx="786" cy="202" r="5" fill="#FF857D"/><circle cx="804" cy="202" r="5" fill="#FFC86E"/><circle cx="822" cy="202" r="5" fill="#77D69A"/>
+    <text x="852" y="207" fill="#77738B" font-family="Arial, sans-serif" font-size="12" font-weight="700">Проект «Запуск»</text>
+    <!-- sidebar --> <rect x="770" y="247" width="116" height="416" rx="14" fill="#F7F6FC"/>
+    <rect x="784" y="263" width="88" height="26" rx="8" fill="#EAE6FF"/><circle cx="798" cy="276" r="4" fill="#7657FF"/><text x="808" y="280" fill="#5E49CD" font-family="Arial, sans-serif" font-size="10" font-weight="700">Обзор</text>
+    <g fill="#8A869B" font-family="Arial, sans-serif" font-size="10" font-weight="600"><text x="792" y="318">Мои задачи</text><text x="792" y="349">Команда</text><text x="792" y="380">Документы</text><text x="792" y="411">Отчёты</text></g>
+    <g fill="#BBB7C7"><circle cx="780" cy="314" r="3"/><circle cx="780" cy="345" r="3"/><circle cx="780" cy="376" r="3"/><circle cx="780" cy="407" r="3"/></g>
+    <!-- content -->
+    <text x="912" y="276" fill="#242139" font-family="Arial, sans-serif" font-size="18" font-weight="700">Доброе утро, Анна 👋</text><text x="912" y="298" fill="#8B8799" font-family="Arial, sans-serif" font-size="11">Вот что происходит в вашей команде</text>
+    <rect x="912" y="321" width="181" height="101" rx="14" fill="url(#hero)"/><text x="928" y="348" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="600" opacity=".8">ВЫПОЛНЕНО ЗА НЕДЕЛЮ</text><text x="928" y="385" fill="white" font-family="Arial, sans-serif" font-size="30" font-weight="700">84%</text><path d="M1024 389l14-15 12 7 22-28" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1104" y="321" width="190" height="101" rx="14" fill="#F5F3FF"/><text x="1120" y="348" fill="#766DD0" font-family="Arial, sans-serif" font-size="10" font-weight="700">ЗАДАЧИ В РАБОТЕ</text><text x="1120" y="385" fill="#343047" font-family="Arial, sans-serif" font-size="30" font-weight="700">27</text><circle cx="1254" cy="370" r="23" stroke="#D9D3FF" stroke-width="7"/><path d="M1254 347a23 23 0 0121 14" stroke="#7657FF" stroke-width="7" stroke-linecap="round"/>
+    <text x="912" y="458" fill="#29263D" font-family="Arial, sans-serif" font-size="14" font-weight="700">Сегодня</text><text x="1237" y="458" fill="#6E55F6" font-family="Arial, sans-serif" font-size="11" font-weight="700">Все задачи</text>
+    <g><rect x="912" y="473" width="382" height="48" rx="10" fill="#FAFAFD"/><rect x="925" y="488" width="16" height="16" rx="5" fill="#EAE6FF"/><path d="M929 496l3 3 5-6" stroke="#7657FF" stroke-width="1.5"/><text x="953" y="502" fill="#454158" font-family="Arial, sans-serif" font-size="11" font-weight="600">Подготовить презентацию</text><circle cx="1258" cy="497" r="10" fill="#FFB38D"/></g>
+    <g><rect x="912" y="530" width="382" height="48" rx="10" fill="#FAFAFD"/><rect x="925" y="545" width="16" height="16" rx="5" fill="white" stroke="#D9D5E6"/><text x="953" y="559" fill="#454158" font-family="Arial, sans-serif" font-size="11" font-weight="600">Синхронизация с командой</text><circle cx="1258" cy="554" r="10" fill="#8DCCFF"/></g>
+    <g><rect x="912" y="587" width="382" height="48" rx="10" fill="#FAFAFD"/><rect x="925" y="602" width="16" height="16" rx="5" fill="white" stroke="#D9D5E6"/><text x="953" y="616" fill="#454158" font-family="Arial, sans-serif" font-size="11" font-weight="600">Собрать обратную связь</text><circle cx="1258" cy="611" r="10" fill="#B7A1FF"/></g>
+  </g>
+  <!-- floating card -->
+  <g filter="url(#shadow)"><rect x="690" y="585" width="222" height="103" rx="18" fill="url(#card)"/><circle cx="719" cy="616" r="14" fill="url(#pink)"/><path d="M714 616h10M719 611v10" stroke="white" stroke-width="1.5" stroke-linecap="round"/><text x="744" y="614" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="700">Новая идея</text><text x="744" y="634" fill="#BCB8D0" font-family="Arial, sans-serif" font-size="10">Добавлена в «Бэклог»</text><rect x="708" y="653" width="178" height="5" rx="2.5" fill="#44405B"/><rect x="708" y="653" width="111" height="5" rx="2.5" fill="#A87BFF"/></g>
+  <!-- Trusted row -->
+  <g transform="translate(120 778)"><path d="M0 0h1200" stroke="#E1DEEC"/><text x="480" y="45" fill="#9894A7" font-family="Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">НАМ ДОВЕРЯЮТ КОМАНДЫ ИЗ</text><g fill="#6B687B" font-family="Arial, sans-serif" font-weight="700"><text x="68" y="105" font-size="23">NORTHSTAR</text><text x="311" y="105" font-size="24">vertex</text><text x="536" y="105" font-size="25">mosaic</text><text x="758" y="105" font-size="24">LUMEN</text><text x="1020" y="105" font-size="22">orbital</text></g></g>
+</svg>

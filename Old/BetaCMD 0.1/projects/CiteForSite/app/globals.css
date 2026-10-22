@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dark-base: #0A0A0C;
+  --color-dark-deeper: #050505;
+  --color-neon-green: #00FF66;
+  --color-glass-surface: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(0, 255, 102, 0.13);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-dark-base);
+  color: #ffffff;
+  overflow-x: hidden;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.glass-panel {
+  background: var(--color-glass-surface);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 12px;
+}
+
+.glass-panel-strong {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+  border-radius: 16px;
+}
+
+.neon-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.3),
+              0 0 40px rgba(0, 255, 102, 0.15);
+}
+
+.neon-glow-strong {
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.5),
+              0 0 60px rgba(0, 255, 102, 0.3),
+              0 0 90px rgba(0, 255, 102, 0.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5),
+               0 0 20px rgba(0, 255, 102, 0.3);
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}

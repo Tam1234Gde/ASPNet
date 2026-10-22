@@ -1,0 +1,15 @@
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+  BybitBot.Desktop -> C:\Users\User\Desktop\AI Engineer Studio\BybitBot\BybitBot.Desktop\bin\Debug\net8.0-windows\BybitBot.Desktop.dll
+C:\Users\User\Desktop\AI Engineer Studio\BybitBot\Infrastructure\Bybit\BybitClient.cs(13,133): warning CS9113: Параметр "log" не прочитан. [C:\Users\User\Desktop\AI Engineer Studio\BybitBot\BybitBot.csproj]
+  BybitBot -> C:\Users\User\Desktop\AI Engineer Studio\BybitBot\bin\Debug\net8.0\BybitBot.dll
+C:\Users\User\Desktop\AI Engineer Studio\BybitBot\tests\BybitBot.Tests\Tests.cs(9,75): error CS0103: Имя "Enumerable" не существует в текущем контексте. [C:\Users\User\Desktop\AI Engineer Studio\BybitBot\tests\BybitBot.Tests\BybitBot.Tests.csproj]
+
+Ошибка сборки.
+
+C:\Users\User\Desktop\AI Engineer Studio\BybitBot\Infrastructure\Bybit\BybitClient.cs(13,133): warning CS9113: Параметр "log" не прочитан. [C:\Users\User\Desktop\AI Engineer Studio\BybitBot\BybitBot.csproj]
+C:\Users\User\Desktop\AI Engineer Studio\BybitBot\tests\BybitBot.Tests\Tests.cs(9,75): error CS0103: Имя "Enumerable" не существует в текущем контексте. [C:\Users\User\Desktop\AI Engineer Studio\BybitBot\tests\BybitBot.Tests\BybitBot.Tests.csproj]
+    Предупреждений: 1
+    Ошибок: 1
+
+Прошло времени 00:00:01.08

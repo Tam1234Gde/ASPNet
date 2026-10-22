@@ -1,0 +1,15 @@
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\bin\Debug\net8.0\CmdAutomation.exe
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\bin\Debug\net8.0\CmdAutomation.deps.json
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\bin\Debug\net8.0\CmdAutomation.runtimeconfig.json
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\bin\Debug\net8.0\CmdAutomation.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\bin\Debug\net8.0\CmdAutomation.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.AssemblyInfo.cs
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\refint\CmdAutomation.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.pdb
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutomation.genruntimeconfig.cache
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\ref\CmdAutomation.dll
+C:\Users\User\Desktop\BetaCMD 0.1\projects\Project-20260922-091955\obj\Debug\net8.0\CmdAutom.FA9A4601.Up2Date

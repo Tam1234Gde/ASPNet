@@ -1,0 +1,23 @@
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Microsoft.Win32;
+using AIEngineerStudio.Models;
+namespace AIEngineerStudio.Views;
+
+public sealed class ProjectDialog : Window
+{
+    readonly ComboBox existing=new(); readonly TextBox name=new(); readonly TextBox folder=new(); readonly TextBox description=new(); readonly ComboBox stack=new();
+    public string? SelectedProject {get;private set;} public bool EditRequested {get;private set;} public bool DeleteRequested {get;private set;} public string? NewName {get;private set;} public string? DirectoryPath {get;private set;} public string? Description {get;private set;} public string? Stack {get;private set;}
+    public ProjectDialog(IEnumerable<string> projects, ProjectDocument? edit = null)
+    {
+        Title=edit is null ? "Проекты" : "Редактирование проекта"; Width=640; Height=edit is null ? 620 : 560; MinWidth=520; MinHeight=420; MaxHeight=SystemParameters.WorkArea.Height - 40; WindowStartupLocation=WindowStartupLocation.CenterOwner; ResizeMode=ResizeMode.CanResize; Background=(Brush)Application.Current.Resources["PanelBg"];
+        var root=new StackPanel{Margin=new Thickness(26)}; var scroll=new ScrollViewer{VerticalScrollBarVisibility=ScrollBarVisibility.Auto, HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled, Content=root}; root.Children.Add(new TextBlock{Text=Title,FontSize=24,FontWeight=FontWeights.SemiBold,Foreground=(Brush)Application.Current.Resources["Text"]}); root.Children.Add(new TextBlock{Text="Управляйте проектом и технологическим стеком",Foreground=(Brush)Application.Current.Resources["Muted"],Margin=new Thickness(0,4,0,18)});
+        if(edit is null) { existing.ItemsSource=projects.ToList(); if(existing.Items.Count>0) existing.SelectedIndex=0; root.Children.Add(existing); var actions=new StackPanel{Orientation=Orientation.Horizontal}; var open=new Button{Content="Открыть",Padding=new Thickness(14,8,14,8),Margin=new Thickness(0,8,8,12)}; open.Click+=(s,e)=>{SelectedProject=existing.SelectedItem?.ToString();if(SelectedProject!=null)DialogResult=true;}; actions.Children.Add(open); var editButton=new Button{Content="Изменить",Padding=new Thickness(14,8,14,8),Margin=new Thickness(0,8,8,12)}; editButton.Click+=(s,e)=>{SelectedProject=existing.SelectedItem?.ToString();EditRequested=SelectedProject!=null;if(EditRequested)DialogResult=true;}; actions.Children.Add(editButton); var delete=new Button{Content="Удалить",Padding=new Thickness(14,8,14,8),Margin=new Thickness(0,8,0,12)}; delete.Click+=(s,e)=>{SelectedProject=existing.SelectedItem?.ToString();DeleteRequested=SelectedProject!=null;if(DeleteRequested)DialogResult=true;}; actions.Children.Add(delete); root.Children.Add(actions); root.Children.Add(new Separator()); }
+        root.Children.Add(new TextBlock{Text="Название",Foreground=(Brush)Application.Current.Resources["Muted"],Margin=new Thickness(0,12,0,4)}); name.Text=edit?.Name ?? ""; name.Padding=new Thickness(9); root.Children.Add(name);
+        root.Children.Add(new TextBlock{Text="Рабочая папка",Foreground=(Brush)Application.Current.Resources["Muted"],Margin=new Thickness(0,10,0,4)}); var line=new DockPanel(); folder.Text=edit?.WorkingDirectory ?? ""; folder.Padding=new Thickness(9); line.Children.Add(folder); var choose=new Button{Content="Обзор",Margin=new Thickness(8,0,0,0),Padding=new Thickness(12,0,12,0)}; choose.Click+=(s,e)=>{var d=new OpenFolderDialog();if(d.ShowDialog()==true)folder.Text=d.FolderName;}; line.Children.Add(choose); root.Children.Add(line);
+        root.Children.Add(new TextBlock{Text="Стек разработки",Foreground=(Brush)Application.Current.Resources["Muted"],Margin=new Thickness(0,10,0,4)}); stack.ItemsSource=new[]{".NET / WPF","Python","JavaScript / TypeScript","Web / Full-stack","Java","C++","Другой"}; stack.SelectedItem=edit?.Stack ?? "Другой"; root.Children.Add(stack);
+        root.Children.Add(new TextBlock{Text="Описание",Foreground=(Brush)Application.Current.Resources["Muted"],Margin=new Thickness(0,10,0,4)}); description.Text=edit?.Description ?? ""; description.AcceptsReturn=true; description.Height=62; description.Padding=new Thickness(9); root.Children.Add(description);
+        var save=new Button{Content=edit is null ? "Создать проект" : "Сохранить изменения",Padding=new Thickness(14),Margin=new Thickness(0,16,0,0)}; save.Click+=(s,e)=>{if(string.IsNullOrWhiteSpace(name.Text)||string.IsNullOrWhiteSpace(folder.Text)){MessageBox.Show("Укажите название и рабочую папку.");return;}NewName=name.Text.Trim();DirectoryPath=folder.Text.Trim();Description=description.Text.Trim();Stack=stack.SelectedItem?.ToString() ?? "Другой";DialogResult=true;}; root.Children.Add(save); Content=scroll;
+    }
+}

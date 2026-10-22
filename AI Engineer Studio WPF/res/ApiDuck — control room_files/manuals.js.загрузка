@@ -1,0 +1,1154 @@
+// Manual setup guides adapted from the supplied reference.
+window.APIDUCK_MANUALS = {
+  "claude::code-cli::windows": [
+    {
+      "type": "text",
+      "value": "перейти в папку %USERPROFILE%\\.claude\nСоздайте settings.json",
+      "valueEn": "Go to %USERPROFILE%\\.claude.\nCreate settings.json."
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"env\": {\n    \"ANTHROPIC_BASE_URL\": \"https://apiduck.servepics.com\",\n    \"ANTHROPIC_AUTH_TOKEN\": \"ВАШ_API_КЛЮЧ\",\n    \"ANTHROPIC_MODEL\": \"claude-sonnet-4-6\"\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "Создайте apiduck.env",
+      "valueEn": "Create apiduck.env."
+    },
+    {
+      "type": "code",
+      "value": "ANTHROPIC_BASE_URL=https://apiduck.servepics.com\nANTHROPIC_AUTH_TOKEN=ВАШ_API_КЛЮЧ\nANTHROPIC_MODEL=claude-sonnet-4-6"
+    },
+    {
+      "type": "text",
+      "value": "Добавьте переменные окружения",
+      "valueEn": "Add the environment variables."
+    },
+    {
+      "type": "code",
+      "value": "[Environment]::SetEnvironmentVariable(\"ANTHROPIC_BASE_URL\",\"https://apiduck.servepics.com\",\"User\")\n[Environment]::SetEnvironmentVariable(\"ANTHROPIC_AUTH_TOKEN\",\"ВАШ_API_КЛЮЧ\",\"User\")\n[Environment]::SetEnvironmentVariable(\"ANTHROPIC_MODEL\",\"claude-sonnet-4-6\",\"User\")\n[Environment]::SetEnvironmentVariable(\"APIDUCK_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")"
+    }
+  ],
+  "claude::app::windows": [
+    {
+      "type": "text",
+      "value": "Перейти в папку claude3p %LOCALAPPDATA%\\Claude-3p\nОткрыть или создать claude_desktop_config.json и вставить содержимое, подставив api и guid:",
+      "valueEn": "Go to the claude3p folder at %LOCALAPPDATA%\\Claude-3p.\nOpen or create claude_desktop_config.json and paste the following, using your API key and GUID:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"deploymentMode\": \"3p\",\n  \"enterpriseConfig\": {\n    \"inferenceProvider\": \"gateway\",\n    \"inferenceGatewayBaseUrl\": \"https://apiduck.servepics.com\",\n    \"inferenceGatewayApiKey\": \"ВАШ_API_КЛЮЧ\",\n    \"inferenceGatewayAuthScheme\": \"bearer\",\n    \"modelDiscoveryEnabled\": true,\n    \"coworkEgressAllowedHosts\": [\n      \"*\"\n    ]\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "внутри папки claude3p создать папку configLibrary\nв папке configLibrary создать _meta.json с содержимым:",
+      "valueEn": "Create a configLibrary folder inside claude3p.\nCreate _meta.json inside configLibrary with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"appliedId\": \"ВАШ_GUID\",\n  \"entries\": [\n    {\n      \"id\": \"ВАШ_GUID\",\n      \"name\": \"ApiDuck\"\n    }\n  ]\n}"
+    },
+    {
+      "type": "text",
+      "value": "guid сгенерировать командой в powershell:",
+      "valueEn": "Generate a GUID with this PowerShell command:"
+    },
+    {
+      "type": "code",
+      "value": "[guid]::NewGuid()"
+    },
+    {
+      "type": "text",
+      "value": "В папке configLibrary создайте файл guid.json, в название которого подставьте сегенрированный guid, пример названия файла: 3cdb634d-714f-4f76-9dd8-1c82b1b0b45e.json\nСодержимое guid.json",
+      "valueEn": "Inside configLibrary, create a JSON file named after your generated GUID, for example 3cdb634d-714f-4f76-9dd8-1c82b1b0b45e.json.\nUse the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"inferenceProvider\": \"gateway\",\n  \"inferenceGatewayBaseUrl\": \"https://apiduck.servepics.com\",\n  \"inferenceGatewayApiKey\": \"ВАШ_API_КЛЮЧ\",\n  \"inferenceGatewayAuthScheme\": \"bearer\",\n  \"modelDiscoveryEnabled\": true,\n  \"coworkEgressAllowedHosts\": [\n    \"*\"\n  ]\n}"
+    },
+    {
+      "type": "text",
+      "value": "Полностью перезапустите Claude App",
+      "valueEn": "Fully restart Claude App."
+    }
+  ],
+  "others::hermes::windows": [
+    {
+      "type": "text",
+      "value": "перейти в %LOCALAPPDATA%\\hermes\nоткрыть/создать config.yaml и заменить содержимое на",
+      "valueEn": "Go to %LOCALAPPDATA%\\hermes.\nOpen or create config.yaml and replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "custom_providers:\n  - name: \"apiduck\"\n    base_url: \"https://apiduck.servepics.com/v1\"\n    key_env: \"APIDUCK_API_KEY\"\n    api_mode: chat_completions\n    models:\n      \"claude-sonnet-4-6\": {}\n      \"claude-fable-5\": {}\n      \"claude-opus-5\": {}\n      \"claude-opus-4-8\": {}\n      \"claude-opus-4-7\": {}\n      \"claude-opus-4-6\": {}\n      \"claude-sonnet-5\": {}\n      \"claude-haiku-4-5\": {}\n      \"gpt-5.6-luna\": {}\n      \"gpt-5.6-terra\": {}\n      \"gpt-5.6-sol\": {}\n      \"gpt-5.4\": {}\n      \"gpt-5.5\": {}\n      \"gpt-5.4-mini\": {}\n      \"grok-4.5\": {}\n      \"composer-2.5-fast\": {}\n      \"glm-5.2\": {}\n      \"qwen3.7-max\": {}\n      \"qwen3.7-plus\": {}\n      \"kimi-k3\": {}\n      \"kimi-k2.7-code\": {}\n      \"deepseek-v4-pro\": {}\n      \"mimo-v2.5-pro\": {}\n      \"minimax-m3\": {}\n      \"deepseek-v4-flash\": {}\n      \"mimo-v2.5\": {}\n      \"nemotron-3-ultra\": {}\n      \"north-mini-code\": {}\n\nmodel:\n  provider: \"custom:apiduck\"\n  default: \"claude-sonnet-4-6\""
+    },
+    {
+      "type": "text",
+      "value": "открыть/создать .env, заменить содержимое на",
+      "valueEn": "Open or create .env and replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nCHEAPCODE_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "прописать апи в переменные окружения через команду в powershell:",
+      "valueEn": "Add the API key to the environment variables using PowerShell:"
+    },
+    {
+      "type": "code",
+      "value": "$env:APIDUCK_API_KEY = \"ВАШ_API_КЛЮЧ\"\n$env:CHEAPCODE_API_KEY = \"ВАШ_API_КЛЮЧ\""
+    },
+    {
+      "type": "text",
+      "value": "Полность перезапустить hermes desktop",
+      "valueEn": "Fully restart Hermes Desktop."
+    }
+  ],
+  "others::grok::windows": [
+    {
+      "type": "text",
+      "value": "перейти в %USERPROFILE%\\.grok \nсоздать или отредактировать config.toml заменив содержимое на",
+      "valueEn": "Go to %USERPROFILE%\\.grok.\nCreate or edit config.toml and replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "[models]\ndefault = \"grok-4.5\"\ndefault_reasoning_effort = \"medium\"\n\n[model.\"grok-4.5\"]\nmodel = \"grok-4.5\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"grok-4.5\"\ndescription = \"xAI · Grok 4.5\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 512000\nsupports_reasoning_effort = true\nreasoning_effort = \"medium\"\nreasoning_efforts = [\n  { id = \"low\", value = \"low\", label = \"Low Effort\", description = \"Quick reasoning with minimal overhead\", default = false },\n  { id = \"medium\", value = \"medium\", label = \"Medium Effort\", description = \"Balanced reasoning and implementation\", default = true },\n  { id = \"high\", value = \"high\", label = \"High Effort\", description = \"Deep reasoning with extensive implementation\", default = false },\n]\n\n[model.\"grok-composer-2.5-fast\"]\nmodel = \"composer-2.5-fast\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"composer-2.5-fast\"\ndescription = \"xAI · Composer 2.5 Fast\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 200000"
+    }
+  ],
+  "others::opencode::windows": [
+    {
+      "type": "text",
+      "value": "перейти в %USERPROFILE%\\.config/opencode/ создать opencode.jsonc или заменить содержимое на:",
+      "valueEn": "Go to %USERPROFILE%\\.config/opencode/. Create opencode.jsonc or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"$schema\": \"https://opencode.ai/config.json\",\n  \"small_model\": \"apiduck/claude-haiku-4-5\",\n  \"provider\": {\n    \"apiduck\": {\n      \"npm\": \"@ai-sdk/openai-compatible\",\n      \"name\": \"ApiDuck\",\n      \"options\": { \"baseURL\": \"https://apiduck.servepics.com/v1\" },\n      \"models\": {\n        \"gpt-5.6-sol\": {\n          \"name\": \"GPT 5.6 Sol\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-terra\": {\n          \"name\": \"GPT 5.6 Terra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-luna\": {\n          \"name\": \"GPT 5.6 Luna\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.5\": {\n          \"name\": \"GPT 5.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4\": {\n          \"name\": \"GPT 5.4\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4-mini\": {\n          \"name\": \"GPT 5.4 Mini\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 400000,\n            \"input\": 272000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"claude-fable-5\": {\n          \"name\": \"Claude Fable 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-5\": {\n          \"name\": \"Claude Opus 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-8\": {\n          \"name\": \"Claude Opus 4.8\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-7\": {\n          \"name\": \"Claude Opus 4.7\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-6\": {\n          \"name\": \"Claude Opus 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-5\": {\n          \"name\": \"Claude Sonnet 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-4-6\": {\n          \"name\": \"Claude Sonnet 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-haiku-4-5\": {\n          \"name\": \"Claude Haiku 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          }\n        },\n        \"glm-5.2\": {\n          \"name\": \"GLM 5.2\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 32768\n          },\n          \"variants\": {\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"grok-4.5\": {\n          \"name\": \"Grok 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 512000,\n            \"output\": 128000,\n            \"context\": 512000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"composer-2.5-fast\": {\n          \"name\": \"Composer 2.5 Fast\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": false,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 200000,\n            \"output\": 64000,\n            \"context\": 200000\n          }\n        },\n        \"qwen3.7-max\": {\n          \"name\": \"Qwen3.7 Max\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"qwen3.7-plus\": {\n          \"name\": \"Qwen3.7 Plus\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"kimi-k3\": {\n          \"name\": \"Kimi K3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"kimi-k2.7-code\": {\n          \"name\": \"Kimi K2.7 Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 262144\n          }\n        },\n        \"deepseek-v4-pro\": {\n          \"name\": \"DeepSeek V4 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"deepseek-v4-flash\": {\n          \"name\": \"DeepSeek V4 Flash\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"minimax-m3\": {\n          \"name\": \"MiniMax M3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"thinking\": {\n              \"reasoningEffort\": \"thinking\"\n            }\n          }\n        },\n        \"mimo-v2.5-pro\": {\n          \"name\": \"MiMo V2.5 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1048576,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"mimo-v2.5\": {\n          \"name\": \"MiMo V2.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"audio\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"nemotron-3-ultra\": {\n          \"name\": \"Nemotron 3 Ultra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"north-mini-code\": {\n          \"name\": \"North Mini Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 256000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"disabled_providers\": []\n}"
+    },
+    {
+      "type": "text",
+      "value": "открыть opencode и перейти в file - settings. в открвшемся окне выбрать провайдеры и пролистав в самый низ - показать больше провайдеров. в поиск провайдеров ввести ApiDuck, после чего ввести полученный api",
+      "valueEn": "Open OpenCode and go to File → Settings. Select Providers, scroll to the bottom and choose Show more providers. Search for ApiDuck and enter your API key."
+    }
+  ],
+  "others::cursor::windows": [
+    {
+      "type": "text",
+      "value": "перейти в settings - models\nдобавить api со значениями:",
+      "valueEn": "Go to Settings → Models.\nAdd an API configuration with these values:"
+    },
+    {
+      "type": "code",
+      "value": "Base URL : https://apiduck.servepics.com/v1\nAPI key  : ВАШ_API_КЛЮЧ\nModel    : gpt-5.6-terra-cursor"
+    },
+    {
+      "type": "text",
+      "value": "и прописать модели",
+      "valueEn": "Then add the models:"
+    },
+    {
+      "type": "code",
+      "value": "claude-fable-5-cursor\nclaude-opus-5-cursor\nclaude-opus-4-8-cursor \nclaude-opus-4-7-cursor \nclaude-opus-4-6-cursor \ngpt-5.5-cursor \ngpt-5.6-sol-cursor \nclaude-sonnet-5-cursor \nclaude-sonnet-4-6-cursor \ngemini-3.1-pro-cursor \nglm-5.2-cursor \ngpt-5.4-cursor \ngpt-5.6-terra-cursor \nclaude-haiku-4-5-cursor \ngemini-3.5-flash-cursor \ngemini-3.6-flash-cursor \ngpt-5.4-mini-cursor \ngrok-4.5-cursor\ncomposer-2.5-fast-cursor \nminimax-m3-cursor \ndeepseek-v4-pro-cursor \nmimo-v2.5-pro-cursor \ngpt-5.6-luna-cursor \ndeepseek-v4-flash-cursor \ngpt-oss-120b-cursor \nmimo-v2.5-cursor \nnemotron-3-ultra-cursor \nnorth-mini-code-cursor"
+    }
+  ],
+  "chatgpt::vscode::windows": [
+    {
+      "type": "text",
+      "value": "перейти в %USERPROFILE%\\.codex\nСоздать config.toml или заменить его содержимое на:",
+      "valueEn": "Go to %USERPROFILE%\\.codex.\nCreate config.toml or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "Создать auth.json или заменить его содержимое на:",
+      "valueEn": "Create auth.json or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "Создать apiduck.env с содержимым:",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Создать .env с содержимым:",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Задать переменные окружения командами в powershell:",
+      "valueEn": "Set the environment variables with these PowerShell commands:"
+    },
+    {
+      "type": "code",
+      "value": "[Environment]::SetEnvironmentVariable(\"APIDUCK_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")\n[Environment]::SetEnvironmentVariable(\"OPENAI_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")"
+    }
+  ],
+  "chatgpt::app::windows": [
+    {
+      "type": "text",
+      "value": "Полностью закройте codex\nперейти в %USERPROFILE%\\.codex\nСоздать config.toml или заменить его содержимое на:",
+      "valueEn": "Fully close Codex.\nGo to %USERPROFILE%\\.codex.\nCreate config.toml or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "Создать auth.json или заменить его содержимое на:",
+      "valueEn": "Create auth.json or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "Создать apiduck.env с содержимым:",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Создать .env с содержимым:",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Задать переменные окружения командами в powershell:",
+      "valueEn": "Set the environment variables with these PowerShell commands:"
+    },
+    {
+      "type": "code",
+      "value": "[Environment]::SetEnvironmentVariable(\"APIDUCK_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")\n[Environment]::SetEnvironmentVariable(\"OPENAI_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")"
+    }
+  ],
+  "chatgpt::cli::windows": [
+    {
+      "type": "text",
+      "value": "Создать config.toml или заменить его содержимое на:",
+      "valueEn": "Create config.toml or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "Создать auth.json или заменить его содержимое на:",
+      "valueEn": "Create auth.json or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "Создать apiduck.env с содержимым:",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Создать .env с содержимым:",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "Задать переменные окружения командами в powershell:",
+      "valueEn": "Set the environment variables with these PowerShell commands:"
+    },
+    {
+      "type": "code",
+      "value": "[Environment]::SetEnvironmentVariable(\"APIDUCK_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")\n[Environment]::SetEnvironmentVariable(\"OPENAI_API_KEY\",\"ВАШ_API_КЛЮЧ\",\"User\")"
+    }
+  ],
+  "others::kimi::windows": [
+    {
+      "type": "text",
+      "value": "1. Перейдите в папку %USERPROFILE%\\.kimi-code (создайте, если нет).",
+      "valueEn": "1. Go to %USERPROFILE%\\.kimi-code (create the folder if needed)."
+    },
+    {
+      "type": "text",
+      "value": "2. Создайте или отредактируйте config.toml:",
+      "valueEn": "2. Create or edit config.toml:"
+    },
+    {
+      "type": "text",
+      "value": "default_model = \"apiduck/gpt-5.6-terra\"",
+      "valueEn": "default_model = \"apiduck/gpt-5.6-terra\""
+    },
+    {
+      "type": "code",
+      "value": "[thinking]\nenabled = true\n\n[providers.apiduck]\nbase_url = \"https://apiduck.servepics.com/v1\"\ntype = \"openai\"\napi_key = \"ВАШ_API_КЛЮЧ\"\n\n[providers.apiduck.source]\nkind = \"apiJson\"\nurl = \"https://apiduck.servepics.com/kimi-models\"\napiKey = \"ВАШ_API_КЛЮЧ\"\n\n[models.\"apiduck/gpt-5.6-terra\"]\nprovider = \"apiduck\"\nmodel = \"gpt-5.6-terra\"\nmax_context_size = 353000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"OpenAI · GPT 5.6 Terra\"\n\n[models.\"apiduck/claude-sonnet-4-6\"]\nprovider = \"apiduck\"\nmodel = \"claude-sonnet-4-6\"\nmax_context_size = 200000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"Anthropic · Claude Sonnet 4.6\""
+    },
+    {
+      "type": "text",
+      "value": "3. Запустите kimi в консоли.",
+      "valueEn": "3. Run kimi in your terminal."
+    }
+  ],
+  "others::gemini::windows": [
+    {
+      "type": "text",
+      "value": "1. Установите Gemini CLI глобально (если еще не установлен):",
+      "valueEn": "1. Install Gemini CLI globally if it is not installed:"
+    },
+    {
+      "type": "code",
+      "value": "npm install -g @google/gemini-cli"
+    },
+    {
+      "type": "text",
+      "value": "2. Перейдите в папку %USERPROFILE%\\.gemini (создайте, если нет).",
+      "valueEn": "2. Go to %USERPROFILE%\\.gemini (create the folder if needed)."
+    },
+    {
+      "type": "text",
+      "value": "3. Создайте или отредактируйте файл .env:",
+      "valueEn": "3. Create or edit .env:"
+    },
+    {
+      "type": "code",
+      "value": "GEMINI_API_KEY=\"ВАШ_API_КЛЮЧ\"\nGOOGLE_GEMINI_BASE_URL=\"https://apiduck.servepics.com/gemini\"\nGEMINI_MODEL=\"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "4. Создайте или замените settings.json:",
+      "valueEn": "4. Create or replace settings.json:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"security\": {\n    \"auth\": {\n      \"selectedType\": \"gemini-api-key\"\n    }\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "5. Установите переменные в PowerShell:",
+      "valueEn": "5. Set the variables in PowerShell:"
+    },
+    {
+      "type": "code",
+      "value": "[Environment]::SetEnvironmentVariable(\"GEMINI_API_KEY\", \"ВАШ_API_КЛЮЧ\", \"User\")\n[Environment]::SetEnvironmentVariable(\"GOOGLE_GEMINI_BASE_URL\", \"https://apiduck.servepics.com/gemini\", \"User\")\n[Environment]::SetEnvironmentVariable(\"GEMINI_MODEL\", \"gpt-5.6-terra\", \"User\")\n$env:GEMINI_API_KEY = \"ВАШ_API_КЛЮЧ\"\n$env:GOOGLE_GEMINI_BASE_URL = \"https://apiduck.servepics.com/gemini\"\n$env:GEMINI_MODEL = \"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "6. Запустите в консоли: gemini",
+      "valueEn": "6. Run gemini in your terminal."
+    }
+  ],
+  "others::deepseek::windows": [
+    {
+      "type": "text",
+      "value": "1. Запустите DeepSeek Harness через npx:",
+      "valueEn": "1. Start DeepSeek Harness using npx:"
+    },
+    {
+      "type": "code",
+      "value": "$env:DEEPSEEK_API_KEY='ВАШ_API_КЛЮЧ'\n$env:DEEPSEEK_BASE_URL='https://apiduck.servepics.com/v1'\n$env:DSH_MODEL='deepseek-v4-flash'\nnpx @deepseek-ai/dsh web"
+    },
+    {
+      "type": "text",
+      "value": "2. В открывшемся веб-интерфейсе перейдите в Settings → Models.",
+      "valueEn": "2. In the web interface, go to Settings → Models."
+    },
+    {
+      "type": "text",
+      "value": "3. Добавьте Custom Provider для ApiDuck:",
+      "valueEn": "3. Add a Custom Provider for ApiDuck:"
+    },
+    {
+      "type": "code",
+      "value": "Provider ID: apiduck\nDisplay name: ApiDuck\nAPI protocol: OpenAI Completions\nBase URL: https://apiduck.servepics.com/v1\nAPI key: ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "4. В списке моделей укажите:",
+      "valueEn": "4. Add the following models:"
+    },
+    {
+      "type": "code",
+      "value": "Model ID: deepseek-v4-pro\nDisplay name: deepseek-v4-pro\n\nModel ID: deepseek-v4-flash\nDisplay name: deepseek-v4-flash\n\nModel ID: gpt-5.6-terra\nDisplay name: gpt-5.6-terra"
+    },
+    {
+      "type": "text",
+      "value": "5. Нажмите Apply и создайте новую сессию.",
+      "valueEn": "5. Click Apply and create a new session."
+    }
+  ],
+  "claude::code-cli::macos": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен claude, по стандарту ~/.claude\nоткрыть settings.json\nзаменить содержимое на",
+      "valueEn": "Go to the Claude configuration folder, normally ~/.claude.\nOpen settings.json and replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"env\": {\n    \"ANTHROPIC_BASE_URL\": \"https://apiduck.servepics.com\",\n    \"ANTHROPIC_AUTH_TOKEN\": \"ВАШ_API_КЛЮЧ\"\n  }\n}"
+    }
+  ],
+  "others::hermes::macos": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен Hermes, по стандарту /home/.hermes\nсоздать или отредактировать config.yaml",
+      "valueEn": "Go to the Hermes installation folder, normally /home/.hermes.\nCreate or edit config.yaml."
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.hermes\nnano ~/.hermes/config.yaml"
+    },
+    {
+      "type": "text",
+      "value": "в конфиг вставить",
+      "valueEn": "Paste the following into the configuration:"
+    },
+    {
+      "type": "code",
+      "value": "custom_providers:\n  - name: apiduck\n    base_url: https://apiduck.servepics.com/v1\n    key_env: APIDUCK_API_KEY\n    api_mode: chat_completions\n\nmodel:\n  provider: custom:apiduck\n  default: claude-sonnet-4-6"
+    },
+    {
+      "type": "text",
+      "value": "добавить api в профиль оболочки echo 'export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"'",
+      "valueEn": "Add the API key to your shell profile: echo 'export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"'"
+    },
+    {
+      "type": "text",
+      "value": "далее в зависимости от оболочки выполните source ~/.bashrc или source ~/.zshrc",
+      "valueEn": "Then run source ~/.bashrc or source ~/.zshrc, depending on your shell."
+    },
+    {
+      "type": "code",
+      "value": "source ~/.bashrc"
+    },
+    {
+      "type": "text",
+      "value": "проверить установку ключа echo $APIDUCK_API_KEY",
+      "valueEn": "Verify the key: echo $APIDUCK_API_KEY"
+    }
+  ],
+  "others::grok::macos": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен grok, по стандарту /home/.grok/ \nсоздать или отредактировать config.toml \nconfig.toml должен содержать",
+      "valueEn": "Go to the Grok installation folder, normally /home/.grok/.\nCreate or edit config.toml with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "[models]\ndefault = \"grok-4.5\"\ndefault_reasoning_effort = \"medium\"\n\n[model.\"grok-4.5\"]\nmodel = \"grok-4.5\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"grok-4.5\"\ndescription = \"xAI · Grok 4.5\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 512000\nsupports_reasoning_effort = true\nreasoning_effort = \"medium\"\nreasoning_efforts = [\n  { id = \"low\", value = \"low\", label = \"Low Effort\", description = \"Quick reasoning with minimal overhead\", default = false },\n  { id = \"medium\", value = \"medium\", label = \"Medium Effort\", description = \"Balanced reasoning and implementation\", default = true },\n  { id = \"high\", value = \"high\", label = \"High Effort\", description = \"Deep reasoning with extensive implementation\", default = false },\n]\n\n[model.\"grok-composer-2.5-fast\"]\nmodel = \"composer-2.5-fast\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"composer-2.5-fast\"\ndescription = \"xAI · Composer 2.5 Fast\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 200000"
+    }
+  ],
+  "others::opencode::macos": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен opencode, по стандарту /home/.opencode\nсоздать или заменить содержимое opencode.jsonc на",
+      "valueEn": "Go to the OpenCode installation folder, normally /home/.opencode.\nCreate opencode.jsonc or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "// ~/.config/opencode/opencode.json\n{\n  \"$schema\": \"https://opencode.ai/config.json\",\n  \"small_model\": \"apiduck/claude-haiku-4-5\",\n  \"provider\": {\n    \"apiduck\": {\n      \"npm\": \"@ai-sdk/openai-compatible\",\n      \"name\": \"ApiDuck\",\n      \"options\": { \"baseURL\": \"https://apiduck.servepics.com/v1\" },\n      \"models\": {\n        \"gpt-5.6-sol\": {\n          \"name\": \"GPT 5.6 Sol\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-terra\": {\n          \"name\": \"GPT 5.6 Terra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-luna\": {\n          \"name\": \"GPT 5.6 Luna\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.5\": {\n          \"name\": \"GPT 5.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4\": {\n          \"name\": \"GPT 5.4\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4-mini\": {\n          \"name\": \"GPT 5.4 Mini\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 400000,\n            \"input\": 272000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"claude-fable-5\": {\n          \"name\": \"Claude Fable 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-5\": {\n          \"name\": \"Claude Opus 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-8\": {\n          \"name\": \"Claude Opus 4.8\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-7\": {\n          \"name\": \"Claude Opus 4.7\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-6\": {\n          \"name\": \"Claude Opus 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-5\": {\n          \"name\": \"Claude Sonnet 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-4-6\": {\n          \"name\": \"Claude Sonnet 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-haiku-4-5\": {\n          \"name\": \"Claude Haiku 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          }\n        },\n        \"glm-5.2\": {\n          \"name\": \"GLM 5.2\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 32768\n          },\n          \"variants\": {\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"grok-4.5\": {\n          \"name\": \"Grok 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 512000,\n            \"output\": 128000,\n            \"context\": 512000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"composer-2.5-fast\": {\n          \"name\": \"Composer 2.5 Fast\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": false,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 200000,\n            \"output\": 64000,\n            \"context\": 200000\n          }\n        },\n        \"qwen3.7-max\": {\n          \"name\": \"Qwen3.7 Max\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"qwen3.7-plus\": {\n          \"name\": \"Qwen3.7 Plus\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"kimi-k3\": {\n          \"name\": \"Kimi K3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"kimi-k2.7-code\": {\n          \"name\": \"Kimi K2.7 Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 262144\n          }\n        },\n        \"deepseek-v4-pro\": {\n          \"name\": \"DeepSeek V4 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"deepseek-v4-flash\": {\n          \"name\": \"DeepSeek V4 Flash\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"minimax-m3\": {\n          \"name\": \"MiniMax M3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"thinking\": {\n              \"reasoningEffort\": \"thinking\"\n            }\n          }\n        },\n        \"mimo-v2.5-pro\": {\n          \"name\": \"MiMo V2.5 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1048576,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"mimo-v2.5\": {\n          \"name\": \"MiMo V2.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"audio\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"nemotron-3-ultra\": {\n          \"name\": \"Nemotron 3 Ultra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"north-mini-code\": {\n          \"name\": \"North Mini Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 256000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"disabled_providers\": []\n}"
+    },
+    {
+      "type": "text",
+      "value": "в приложении opencode слева сверху выбрать file - settings. в открывшемся окне выбрать провайдеры и пролистать в самый низ. далее выбрать \"показать больше провайдеров\" и в поиск ввесте ApiDuck, после чего вставить полученный api ключ",
+      "valueEn": "In OpenCode, select File → Settings in the top-left corner. Choose Providers, scroll to the bottom and select Show more providers. Search for ApiDuck and paste your API key."
+    }
+  ],
+  "others::cursor::macos": [
+    {
+      "type": "text",
+      "value": "перейти в settings - models\nдобавить api со значениями:",
+      "valueEn": "Go to Settings → Models.\nAdd an API configuration with these values:"
+    },
+    {
+      "type": "code",
+      "value": "Base URL : https://apiduck.servepics.com/v1\nAPI key  : ВАШ_API_КЛЮЧ\nModel    : gpt-5.6-terra-cursor"
+    },
+    {
+      "type": "text",
+      "value": "и прописать модели",
+      "valueEn": "Then add the models:"
+    },
+    {
+      "type": "code",
+      "value": "claude-fable-5-cursor\nclaude-opus-5-cursor\nclaude-opus-4-8-cursor \nclaude-opus-4-7-cursor \nclaude-opus-4-6-cursor \ngpt-5.5-cursor \ngpt-5.6-sol-cursor \nclaude-sonnet-5-cursor \nclaude-sonnet-4-6-cursor \ngemini-3.1-pro-cursor \nglm-5.2-cursor \ngpt-5.4-cursor \ngpt-5.6-terra-cursor \nclaude-haiku-4-5-cursor \ngemini-3.5-flash-cursor \ngemini-3.6-flash-cursor \ngpt-5.4-mini-cursor \ngrok-4.5-cursor\ncomposer-2.5-fast-cursor \nminimax-m3-cursor \ndeepseek-v4-pro-cursor \nmimo-v2.5-pro-cursor \ngpt-5.6-luna-cursor \ndeepseek-v4-flash-cursor \ngpt-oss-120b-cursor \nmimo-v2.5-cursor \nnemotron-3-ultra-cursor \nnorth-mini-code-cursor"
+    }
+  ],
+  "chatgpt::vscode::macos": [
+    {
+      "type": "text",
+      "value": "Создать папку .codex в домашней директории, например в ~/\nв папке .codex создать config.toml с содержимым:",
+      "valueEn": "Create a .codex folder in your home directory (~/).\nCreate config.toml inside .codex with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "в этой же папке создать auth.json с содержимым:",
+      "valueEn": "Create auth.json in the same folder with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "создать .env с содержимым",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "создать apiduck.env с содержимым",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "добавить переменные окружения (в зависимости от оболочки nano ~/.bashrc или nano ~/.zshrc) \nв самый конец файла добавить:",
+      "valueEn": "Add the environment variables to your shell profile (nano ~/.bashrc or nano ~/.zshrc, depending on your shell).\nAppend the following:"
+    },
+    {
+      "type": "code",
+      "value": "export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport OPENAI_API_KEY=\"$APIDUCK_API_KEY\""
+    },
+    {
+      "type": "text",
+      "value": "затем выполните source ~/.bashrc",
+      "valueEn": "Then run source ~/.bashrc."
+    }
+  ],
+  "chatgpt::cli::macos": [
+    {
+      "type": "text",
+      "value": "Создать папку .codex в домашней директории, например в ~/\nв папке .codex создать config.toml с содержимым:",
+      "valueEn": "Create a .codex folder in your home directory (~/).\nCreate config.toml inside .codex with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "в этой же папке создать auth.json с содержимым:",
+      "valueEn": "Create auth.json in the same folder with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "создать .env с содержимым",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "создать apiduck.env с содержимым",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "добавить переменные окружения (в зависимости от оболочки nano ~/.bashrc или nano ~/.zshrc) \nв самый конец файла добавить:",
+      "valueEn": "Add the environment variables to your shell profile (nano ~/.bashrc or nano ~/.zshrc, depending on your shell).\nAppend the following:"
+    },
+    {
+      "type": "code",
+      "value": "export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport OPENAI_API_KEY=\"$APIDUCK_API_KEY\""
+    },
+    {
+      "type": "text",
+      "value": "затем выполните source ~/.bashrc",
+      "valueEn": "Then run source ~/.bashrc."
+    }
+  ],
+  "chatgpt::app::macos": [
+    {
+      "type": "text",
+      "value": "Создать папку .codex в домашней директории, например в ~/\nв папке .codex создать config.toml с содержимым:",
+      "valueEn": "Create a .codex folder in your home directory (~/).\nCreate config.toml inside .codex with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "в этой же папке создать auth.json с содержимым:",
+      "valueEn": "Create auth.json in the same folder with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "создать .env с содержимым",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "создать apiduck.env с содержимым",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "добавить переменные окружения (в зависимости от оболочки nano ~/.bashrc или nano ~/.zshrc) \nв самый конец файла добавить:",
+      "valueEn": "Add the environment variables to your shell profile (nano ~/.bashrc or nano ~/.zshrc, depending on your shell).\nAppend the following:"
+    },
+    {
+      "type": "code",
+      "value": "export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport OPENAI_API_KEY=\"$APIDUCK_API_KEY\""
+    },
+    {
+      "type": "text",
+      "value": "затем выполните source ~/.bashrc",
+      "valueEn": "Then run source ~/.bashrc."
+    }
+  ],
+  "claude::app::macos": [
+    {
+      "type": "text",
+      "value": "1. Полностью закройте Claude App (Cmd + Q).",
+      "valueEn": "1. Fully close Claude App (Cmd + Q)."
+    },
+    {
+      "type": "text",
+      "value": "2. Перейдите в папку ~/Library/Application Support/Claude-3p:",
+      "valueEn": "2. Go to ~/Library/Application Support/Claude-3p:"
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p \"$HOME/Library/Application Support/Claude-3p/configLibrary\""
+    },
+    {
+      "type": "text",
+      "value": "3. Создайте или отредактируйте claude_desktop_config.json:",
+      "valueEn": "3. Create or edit claude_desktop_config.json:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"deploymentMode\": \"3p\",\n  \"enterpriseConfig\": {\n    \"inferenceProvider\": \"gateway\",\n    \"inferenceGatewayBaseUrl\": \"https://apiduck.servepics.com\",\n    \"inferenceGatewayApiKey\": \"ВАШ_API_КЛЮЧ\",\n    \"inferenceGatewayAuthScheme\": \"bearer\",\n    \"modelDiscoveryEnabled\": true,\n    \"coworkEgressAllowedHosts\": [\n      \"*\"\n    ]\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "4. В папке configLibrary создайте _meta.json:",
+      "valueEn": "4. Create _meta.json inside configLibrary:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"appliedId\": \"3cdb634d-714f-4f76-9dd8-1c82b1b0b45e\",\n  \"entries\": [\n    {\n      \"id\": \"3cdb634d-714f-4f76-9dd8-1c82b1b0b45e\",\n      \"name\": \"ApiDuck\"\n    }\n  ]\n}"
+    },
+    {
+      "type": "text",
+      "value": "5. В папке configLibrary создайте файл 3cdb634d-714f-4f76-9dd8-1c82b1b0b45e.json:",
+      "valueEn": "5. Inside configLibrary, create 3cdb634d-714f-4f76-9dd8-1c82b1b0b45e.json:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"inferenceProvider\": \"gateway\",\n  \"inferenceGatewayBaseUrl\": \"https://apiduck.servepics.com\",\n  \"inferenceGatewayApiKey\": \"ВАШ_API_КЛЮЧ\",\n  \"inferenceGatewayAuthScheme\": \"bearer\",\n  \"modelDiscoveryEnabled\": true,\n  \"coworkEgressAllowedHosts\": [\n    \"*\"\n  ]\n}"
+    },
+    {
+      "type": "text",
+      "value": "6. Запустите Claude App.",
+      "valueEn": "6. Start Claude App."
+    }
+  ],
+  "others::kimi::macos": [
+    {
+      "type": "text",
+      "value": "1. Перейдите в папку ~/.kimi-code (создайте, если нет):",
+      "valueEn": "1. Go to ~/.kimi-code (create the folder if needed):"
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.kimi-code"
+    },
+    {
+      "type": "text",
+      "value": "2. Создайте или отредактируйте config.toml:",
+      "valueEn": "2. Create or edit config.toml:"
+    },
+    {
+      "type": "text",
+      "value": "default_model = \"apiduck/gpt-5.6-terra\"",
+      "valueEn": "default_model = \"apiduck/gpt-5.6-terra\""
+    },
+    {
+      "type": "code",
+      "value": "[thinking]\nenabled = true\n\n[providers.apiduck]\nbase_url = \"https://apiduck.servepics.com/v1\"\ntype = \"openai\"\napi_key = \"ВАШ_API_КЛЮЧ\"\n\n[providers.apiduck.source]\nkind = \"apiJson\"\nurl = \"https://apiduck.servepics.com/kimi-models\"\napiKey = \"ВАШ_API_КЛЮЧ\"\n\n[models.\"apiduck/gpt-5.6-terra\"]\nprovider = \"apiduck\"\nmodel = \"gpt-5.6-terra\"\nmax_context_size = 353000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"OpenAI · GPT 5.6 Terra\"\n\n[models.\"apiduck/claude-sonnet-4-6\"]\nprovider = \"apiduck\"\nmodel = \"claude-sonnet-4-6\"\nmax_context_size = 200000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"Anthropic · Claude Sonnet 4.6\""
+    },
+    {
+      "type": "text",
+      "value": "3. Запустите kimi в консоли.",
+      "valueEn": "3. Run kimi in your terminal."
+    }
+  ],
+  "others::gemini::macos": [
+    {
+      "type": "text",
+      "value": "1. Установите Gemini CLI:",
+      "valueEn": "1. Install Gemini CLI:"
+    },
+    {
+      "type": "code",
+      "value": "npm install -g @google/gemini-cli"
+    },
+    {
+      "type": "text",
+      "value": "2. Перейдите в папку ~/.gemini:",
+      "valueEn": "2. Go to ~/.gemini:"
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.gemini"
+    },
+    {
+      "type": "text",
+      "value": "3. Создайте ~/.gemini/.env:",
+      "valueEn": "3. Create ~/.gemini/.env:"
+    },
+    {
+      "type": "code",
+      "value": "GEMINI_API_KEY=\"ВАШ_API_КЛЮЧ\"\nGOOGLE_GEMINI_BASE_URL=\"https://apiduck.servepics.com/gemini\"\nGEMINI_MODEL=\"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "4. Создайте ~/.gemini/settings.json:",
+      "valueEn": "4. Create ~/.gemini/settings.json:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"security\": {\n    \"auth\": {\n      \"selectedType\": \"gemini-api-key\"\n    }\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "5. Экспортируйте переменные в ~/.bashrc или ~/.zshrc:",
+      "valueEn": "5. Export the variables in ~/.bashrc or ~/.zshrc:"
+    },
+    {
+      "type": "code",
+      "value": "export GEMINI_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport GOOGLE_GEMINI_BASE_URL=\"https://apiduck.servepics.com/gemini\"\nexport GEMINI_MODEL=\"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "6. Запустите: gemini",
+      "valueEn": "6. Run gemini."
+    }
+  ],
+  "others::deepseek::macos": [
+    {
+      "type": "text",
+      "value": "1. Запустите DeepSeek Harness через npx:",
+      "valueEn": "1. Start DeepSeek Harness using npx:"
+    },
+    {
+      "type": "code",
+      "value": "export DEEPSEEK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport DEEPSEEK_BASE_URL=\"https://apiduck.servepics.com/v1\"\nexport DSH_MODEL=\"deepseek-v4-flash\"\nnpx @deepseek-ai/dsh web"
+    },
+    {
+      "type": "text",
+      "value": "2. В веб-интерфейсе перейдите в Settings → Models.",
+      "valueEn": "2. In the web interface, go to Settings → Models."
+    },
+    {
+      "type": "text",
+      "value": "3. Добавьте Custom Provider для ApiDuck:",
+      "valueEn": "3. Add a Custom Provider for ApiDuck:"
+    },
+    {
+      "type": "code",
+      "value": "Provider ID: apiduck\nDisplay name: ApiDuck\nAPI protocol: OpenAI Completions\nBase URL: https://apiduck.servepics.com/v1\nAPI key: ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "4. В списке моделей укажите:",
+      "valueEn": "4. Add the following models:"
+    },
+    {
+      "type": "code",
+      "value": "Model ID: deepseek-v4-pro\nDisplay name: deepseek-v4-pro\n\nModel ID: deepseek-v4-flash\nDisplay name: deepseek-v4-flash"
+    },
+    {
+      "type": "text",
+      "value": "5. Нажмите Apply и создайте новую сессию.",
+      "valueEn": "5. Click Apply and create a new session."
+    }
+  ],
+  "claude::code-cli::linux": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен claude, по стандарту ~/.claude\nоткрыть settings.json\nзаменить содержимое на",
+      "valueEn": "Go to the Claude configuration folder, normally ~/.claude.\nOpen settings.json and replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"env\": {\n    \"ANTHROPIC_BASE_URL\": \"https://apiduck.servepics.com\",\n    \"ANTHROPIC_AUTH_TOKEN\": \"ВАШ_API_КЛЮЧ\"\n  }\n}"
+    }
+  ],
+  "others::hermes::linux": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен Hermes, по стандарту /home/.hermes\nсоздать или отредактировать config.yaml",
+      "valueEn": "Go to the Hermes installation folder, normally /home/.hermes.\nCreate or edit config.yaml."
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.hermes\nnano ~/.hermes/config.yaml"
+    },
+    {
+      "type": "text",
+      "value": "в конфиг вставить",
+      "valueEn": "Paste the following into the configuration:"
+    },
+    {
+      "type": "code",
+      "value": "custom_providers:\n  - name: apiduck\n    base_url: https://apiduck.servepics.com/v1\n    key_env: APIDUCK_API_KEY\n    api_mode: chat_completions\n\nmodel:\n  provider: custom:apiduck\n  default: claude-sonnet-4-6"
+    },
+    {
+      "type": "text",
+      "value": "добавить api в профиль оболочки echo 'export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"'",
+      "valueEn": "Add the API key to your shell profile: echo 'export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"'"
+    },
+    {
+      "type": "text",
+      "value": "далее в зависимости от оболочки выполните source ~/.bashrc или source ~/.zshrc",
+      "valueEn": "Then run source ~/.bashrc or source ~/.zshrc, depending on your shell."
+    },
+    {
+      "type": "code",
+      "value": "source ~/.bashrc"
+    },
+    {
+      "type": "text",
+      "value": "проверить установку ключа echo $APIDUCK_API_KEY",
+      "valueEn": "Verify the key: echo $APIDUCK_API_KEY"
+    }
+  ],
+  "others::grok::linux": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен grok, по стандарту /home/.grok/ \nсоздать или отредактировать config.toml \nconfig.toml должен содержать",
+      "valueEn": "Go to the Grok installation folder, normally /home/.grok/.\nCreate or edit config.toml with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "[models]\ndefault = \"grok-4.5\"\ndefault_reasoning_effort = \"medium\"\n\n[model.\"grok-4.5\"]\nmodel = \"grok-4.5\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"grok-4.5\"\ndescription = \"xAI · Grok 4.5\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 512000\nsupports_reasoning_effort = true\nreasoning_effort = \"medium\"\nreasoning_efforts = [\n  { id = \"low\", value = \"low\", label = \"Low Effort\", description = \"Quick reasoning with minimal overhead\", default = false },\n  { id = \"medium\", value = \"medium\", label = \"Medium Effort\", description = \"Balanced reasoning and implementation\", default = true },\n  { id = \"high\", value = \"high\", label = \"High Effort\", description = \"Deep reasoning with extensive implementation\", default = false },\n]\n\n[model.\"grok-composer-2.5-fast\"]\nmodel = \"composer-2.5-fast\"\nbase_url = \"https://apiduck.servepics.com/v1\"\nname = \"composer-2.5-fast\"\ndescription = \"xAI · Composer 2.5 Fast\"\napi_key = \"ВАШ_API_КЛЮЧ\"\napi_backend = \"chat_completions\"\ncontext_window = 200000"
+    }
+  ],
+  "others::opencode::linux": [
+    {
+      "type": "text",
+      "value": "перейти в папку, куда установлен opencode, по стандарту /home/.opencode\nсоздать или заменить содержимое opencode.jsonc на",
+      "valueEn": "Go to the OpenCode installation folder, normally /home/.opencode.\nCreate opencode.jsonc or replace its contents with:"
+    },
+    {
+      "type": "code",
+      "value": "// ~/.config/opencode/opencode.json\n{\n  \"$schema\": \"https://opencode.ai/config.json\",\n  \"small_model\": \"apiduck/claude-haiku-4-5\",\n  \"provider\": {\n    \"apiduck\": {\n      \"npm\": \"@ai-sdk/openai-compatible\",\n      \"name\": \"ApiDuck\",\n      \"options\": { \"baseURL\": \"https://apiduck.servepics.com/v1\" },\n      \"models\": {\n        \"gpt-5.6-sol\": {\n          \"name\": \"GPT 5.6 Sol\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-terra\": {\n          \"name\": \"GPT 5.6 Terra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.6-luna\": {\n          \"name\": \"GPT 5.6 Luna\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 353000,\n            \"input\": 225000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"gpt-5.5\": {\n          \"name\": \"GPT 5.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4\": {\n          \"name\": \"GPT 5.4\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1050000,\n            \"input\": 922000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"gpt-5.4-mini\": {\n          \"name\": \"GPT 5.4 Mini\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 400000,\n            \"input\": 272000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            }\n          }\n        },\n        \"claude-fable-5\": {\n          \"name\": \"Claude Fable 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-5\": {\n          \"name\": \"Claude Opus 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-8\": {\n          \"name\": \"Claude Opus 4.8\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-7\": {\n          \"name\": \"Claude Opus 4.7\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-opus-4-6\": {\n          \"name\": \"Claude Opus 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-5\": {\n          \"name\": \"Claude Sonnet 5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"xhigh\": {\n              \"reasoningEffort\": \"xhigh\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-sonnet-4-6\": {\n          \"name\": \"Claude Sonnet 4.6\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"claude-haiku-4-5\": {\n          \"name\": \"Claude Haiku 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"pdf\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 200000,\n            \"output\": 64000\n          }\n        },\n        \"glm-5.2\": {\n          \"name\": \"GLM 5.2\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 32768\n          },\n          \"variants\": {\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"grok-4.5\": {\n          \"name\": \"Grok 4.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 512000,\n            \"output\": 128000,\n            \"context\": 512000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"composer-2.5-fast\": {\n          \"name\": \"Composer 2.5 Fast\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": false,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"input\": 200000,\n            \"output\": 64000,\n            \"context\": 200000\n          }\n        },\n        \"qwen3.7-max\": {\n          \"name\": \"Qwen3.7 Max\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"qwen3.7-plus\": {\n          \"name\": \"Qwen3.7 Plus\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 65536\n          }\n        },\n        \"kimi-k3\": {\n          \"name\": \"Kimi K3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"kimi-k2.7-code\": {\n          \"name\": \"Kimi K2.7 Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": false,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 262144,\n            \"output\": 262144\n          }\n        },\n        \"deepseek-v4-pro\": {\n          \"name\": \"DeepSeek V4 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"deepseek-v4-flash\": {\n          \"name\": \"DeepSeek V4 Flash\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 384000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            },\n            \"max\": {\n              \"reasoningEffort\": \"max\"\n            }\n          }\n        },\n        \"minimax-m3\": {\n          \"name\": \"MiniMax M3\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 131072\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"thinking\": {\n              \"reasoningEffort\": \"thinking\"\n            }\n          }\n        },\n        \"mimo-v2.5-pro\": {\n          \"name\": \"MiMo V2.5 Pro\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1048576,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"mimo-v2.5\": {\n          \"name\": \"MiMo V2.5\",\n          \"modalities\": {\n            \"input\": [\n              \"text\",\n              \"image\",\n              \"audio\",\n              \"video\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": true,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"nemotron-3-ultra\": {\n          \"name\": \"Nemotron 3 Ultra\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 1000000,\n            \"output\": 128000\n          },\n          \"variants\": {\n            \"low\": {\n              \"reasoningEffort\": \"low\"\n            },\n            \"medium\": {\n              \"reasoningEffort\": \"medium\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        },\n        \"north-mini-code\": {\n          \"name\": \"North Mini Code\",\n          \"modalities\": {\n            \"input\": [\n              \"text\"\n            ],\n            \"output\": [\n              \"text\"\n            ]\n          },\n          \"attachment\": false,\n          \"reasoning\": true,\n          \"temperature\": true,\n          \"tool_call\": true,\n          \"limit\": {\n            \"context\": 256000,\n            \"output\": 64000\n          },\n          \"variants\": {\n            \"none\": {\n              \"reasoningEffort\": \"none\"\n            },\n            \"high\": {\n              \"reasoningEffort\": \"high\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"disabled_providers\": []\n}"
+    },
+    {
+      "type": "text",
+      "value": "в приложении opencode слева сверху выбрать file - settings. в открывшемся окне выбрать провайдеры и пролистать в самый низ. далее выбрать \"показать больше провайдеров\" и в поиск ввесте ApiDuck, после чего вставить полученный api ключ",
+      "valueEn": "In OpenCode, select File → Settings in the top-left corner. Choose Providers, scroll to the bottom and select Show more providers. Search for ApiDuck and paste your API key."
+    }
+  ],
+  "others::cursor::linux": [
+    {
+      "type": "text",
+      "value": "перейти в settings - models\nдобавить api со значениями:",
+      "valueEn": "Go to Settings → Models.\nAdd an API configuration with these values:"
+    },
+    {
+      "type": "code",
+      "value": "Base URL : https://apiduck.servepics.com/v1\nAPI key  : ВАШ_API_КЛЮЧ\nModel    : gpt-5.6-terra-cursor"
+    },
+    {
+      "type": "text",
+      "value": "и прописать модели",
+      "valueEn": "Then add the models:"
+    },
+    {
+      "type": "code",
+      "value": "claude-fable-5-cursor\nclaude-opus-5-cursor\nclaude-opus-4-8-cursor \nclaude-opus-4-7-cursor \nclaude-opus-4-6-cursor \ngpt-5.5-cursor \ngpt-5.6-sol-cursor \nclaude-sonnet-5-cursor \nclaude-sonnet-4-6-cursor \ngemini-3.1-pro-cursor \nglm-5.2-cursor \ngpt-5.4-cursor \ngpt-5.6-terra-cursor \nclaude-haiku-4-5-cursor \ngemini-3.5-flash-cursor \ngemini-3.6-flash-cursor \ngpt-5.4-mini-cursor \ngrok-4.5-cursor\ncomposer-2.5-fast-cursor \nminimax-m3-cursor \ndeepseek-v4-pro-cursor \nmimo-v2.5-pro-cursor \ngpt-5.6-luna-cursor \ndeepseek-v4-flash-cursor \ngpt-oss-120b-cursor \nmimo-v2.5-cursor \nnemotron-3-ultra-cursor \nnorth-mini-code-cursor"
+    }
+  ],
+  "chatgpt::vscode::linux": [
+    {
+      "type": "text",
+      "value": "Создать папку .codex в домашней директории, например в ~/\nв папке .codex создать config.toml с содержимым:",
+      "valueEn": "Create a .codex folder in your home directory (~/).\nCreate config.toml inside .codex with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "в этой же папке создать auth.json с содержимым:",
+      "valueEn": "Create auth.json in the same folder with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "создать .env с содержимым",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "создать apiduck.env с содержимым",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "добавить переменные окружения (в зависимости от оболочки nano ~/.bashrc или nano ~/.zshrc) \nв самый конец файла добавить:",
+      "valueEn": "Add the environment variables to your shell profile (nano ~/.bashrc or nano ~/.zshrc, depending on your shell).\nAppend the following:"
+    },
+    {
+      "type": "code",
+      "value": "export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport OPENAI_API_KEY=\"$APIDUCK_API_KEY\""
+    },
+    {
+      "type": "text",
+      "value": "затем выполните source ~/.bashrc",
+      "valueEn": "Then run source ~/.bashrc."
+    }
+  ],
+  "chatgpt::cli::linux": [
+    {
+      "type": "text",
+      "value": "Создать папку .codex в домашней директории, например в ~/\nв папке .codex создать config.toml с содержимым:",
+      "valueEn": "Create a .codex folder in your home directory (~/).\nCreate config.toml inside .codex with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "model = \"gpt-5.6-terra\"\nmodel_reasoning_effort = \"high\"\nmodel_provider = \"apiduck\"\n\n[model_providers.apiduck]\nname = \"ApiDuck\"\nbase_url = \"https://apiduck.servepics.com/backend-api/codex\"\nwire_api = \"responses\"\nenv_key = \"APIDUCK_API_KEY\"\nsupports_websockets = false\nrequires_openai_auth = true"
+    },
+    {
+      "type": "text",
+      "value": "в этой же папке создать auth.json с содержимым:",
+      "valueEn": "Create auth.json in the same folder with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"auth_mode\": \"apikey\",\n  \"OPENAI_API_KEY\": \"ВАШ_API_КЛЮЧ\"\n}"
+    },
+    {
+      "type": "text",
+      "value": "создать .env с содержимым",
+      "valueEn": "Create .env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "создать apiduck.env с содержимым",
+      "valueEn": "Create apiduck.env with the following contents:"
+    },
+    {
+      "type": "code",
+      "value": "APIDUCK_API_KEY=ВАШ_API_КЛЮЧ\nOPENAI_API_KEY=ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "добавить переменные окружения (в зависимости от оболочки nano ~/.bashrc или nano ~/.zshrc) \nв самый конец файла добавить:",
+      "valueEn": "Add the environment variables to your shell profile (nano ~/.bashrc or nano ~/.zshrc, depending on your shell).\nAppend the following:"
+    },
+    {
+      "type": "code",
+      "value": "export APIDUCK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport OPENAI_API_KEY=\"$APIDUCK_API_KEY\""
+    },
+    {
+      "type": "text",
+      "value": "затем выполните source ~/.bashrc",
+      "valueEn": "Then run source ~/.bashrc."
+    }
+  ],
+  "others::kimi::linux": [
+    {
+      "type": "text",
+      "value": "1. Перейдите в папку ~/.kimi-code (создайте, если нет):",
+      "valueEn": "1. Go to ~/.kimi-code (create the folder if needed):"
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.kimi-code"
+    },
+    {
+      "type": "text",
+      "value": "2. Создайте или отредактируйте config.toml:",
+      "valueEn": "2. Create or edit config.toml:"
+    },
+    {
+      "type": "text",
+      "value": "default_model = \"apiduck/gpt-5.6-terra\"",
+      "valueEn": "default_model = \"apiduck/gpt-5.6-terra\""
+    },
+    {
+      "type": "code",
+      "value": "[thinking]\nenabled = true\n\n[providers.apiduck]\nbase_url = \"https://apiduck.servepics.com/v1\"\ntype = \"openai\"\napi_key = \"ВАШ_API_КЛЮЧ\"\n\n[providers.apiduck.source]\nkind = \"apiJson\"\nurl = \"https://apiduck.servepics.com/kimi-models\"\napiKey = \"ВАШ_API_КЛЮЧ\"\n\n[models.\"apiduck/gpt-5.6-terra\"]\nprovider = \"apiduck\"\nmodel = \"gpt-5.6-terra\"\nmax_context_size = 353000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"OpenAI · GPT 5.6 Terra\"\n\n[models.\"apiduck/claude-sonnet-4-6\"]\nprovider = \"apiduck\"\nmodel = \"claude-sonnet-4-6\"\nmax_context_size = 200000\ncapabilities = [ \"tool_use\", \"thinking\", \"image_in\" ]\ndisplay_name = \"Anthropic · Claude Sonnet 4.6\""
+    },
+    {
+      "type": "text",
+      "value": "3. Запустите kimi в консоли.",
+      "valueEn": "3. Run kimi in your terminal."
+    }
+  ],
+  "others::gemini::linux": [
+    {
+      "type": "text",
+      "value": "1. Установите Gemini CLI:",
+      "valueEn": "1. Install Gemini CLI:"
+    },
+    {
+      "type": "code",
+      "value": "npm install -g @google/gemini-cli"
+    },
+    {
+      "type": "text",
+      "value": "2. Перейдите в папку ~/.gemini:",
+      "valueEn": "2. Go to ~/.gemini:"
+    },
+    {
+      "type": "code",
+      "value": "mkdir -p ~/.gemini"
+    },
+    {
+      "type": "text",
+      "value": "3. Создайте ~/.gemini/.env:",
+      "valueEn": "3. Create ~/.gemini/.env:"
+    },
+    {
+      "type": "code",
+      "value": "GEMINI_API_KEY=\"ВАШ_API_КЛЮЧ\"\nGOOGLE_GEMINI_BASE_URL=\"https://apiduck.servepics.com/gemini\"\nGEMINI_MODEL=\"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "4. Создайте ~/.gemini/settings.json:",
+      "valueEn": "4. Create ~/.gemini/settings.json:"
+    },
+    {
+      "type": "code",
+      "value": "{\n  \"security\": {\n    \"auth\": {\n      \"selectedType\": \"gemini-api-key\"\n    }\n  }\n}"
+    },
+    {
+      "type": "text",
+      "value": "5. Экспортируйте переменные в ~/.bashrc или ~/.zshrc:",
+      "valueEn": "5. Export the variables in ~/.bashrc or ~/.zshrc:"
+    },
+    {
+      "type": "code",
+      "value": "export GEMINI_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport GOOGLE_GEMINI_BASE_URL=\"https://apiduck.servepics.com/gemini\"\nexport GEMINI_MODEL=\"gpt-5.6-terra\""
+    },
+    {
+      "type": "text",
+      "value": "6. Запустите: gemini",
+      "valueEn": "6. Run gemini."
+    }
+  ],
+  "others::deepseek::linux": [
+    {
+      "type": "text",
+      "value": "1. Запустите DeepSeek Harness через npx:",
+      "valueEn": "1. Start DeepSeek Harness using npx:"
+    },
+    {
+      "type": "code",
+      "value": "export DEEPSEEK_API_KEY=\"ВАШ_API_КЛЮЧ\"\nexport DEEPSEEK_BASE_URL=\"https://apiduck.servepics.com/v1\"\nexport DSH_MODEL=\"deepseek-v4-flash\"\nnpx @deepseek-ai/dsh web"
+    },
+    {
+      "type": "text",
+      "value": "2. В веб-интерфейсе перейдите в Settings → Models.",
+      "valueEn": "2. In the web interface, go to Settings → Models."
+    },
+    {
+      "type": "text",
+      "value": "3. Добавьте Custom Provider для ApiDuck:",
+      "valueEn": "3. Add a Custom Provider for ApiDuck:"
+    },
+    {
+      "type": "code",
+      "value": "Provider ID: apiduck\nDisplay name: ApiDuck\nAPI protocol: OpenAI Completions\nBase URL: https://apiduck.servepics.com/v1\nAPI key: ВАШ_API_КЛЮЧ"
+    },
+    {
+      "type": "text",
+      "value": "4. В списке моделей укажите:",
+      "valueEn": "4. Add the following models:"
+    },
+    {
+      "type": "code",
+      "value": "Model ID: deepseek-v4-pro\nDisplay name: deepseek-v4-pro\n\nModel ID: deepseek-v4-flash\nDisplay name: deepseek-v4-flash"
+    },
+    {
+      "type": "text",
+      "value": "5. Нажмите Apply и создайте новую сессию.",
+      "valueEn": "5. Click Apply and create a new session."
+    }
+  ]
+};

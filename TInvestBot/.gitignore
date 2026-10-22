@@ -1,0 +1,22 @@
+
+# AI Engineer Studio
+.vs/
+bin/
+obj/
+node_modules/
+__pycache__/
+.env
+.env.*
+*.pem
+*.key
+artifacts/
+backups/
+
+!.env.example
+.venv/
+.pytest_cache/
+res_extracted.txt
+t.*
+state/
+
+.venv314/

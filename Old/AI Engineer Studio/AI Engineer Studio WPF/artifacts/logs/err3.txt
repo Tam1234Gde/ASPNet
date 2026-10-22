@@ -1,0 +1,19 @@
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\Services\ProjectStore.cs(9,41): warning CS8619: Допустимость значения NULL в значении типа "IOrderedEnumerable<string?>" не соответствует целевому типу "IEnumerable<string>". [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(44,57): error CS0103: Имя "ContextCount" не существует в текущем контексте. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(59,9): error CS0103: Имя "ContextCount" не существует в текущем контексте. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(61,196): warning CS8600: Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(74,30): warning CS0169: Поле "MainWindow.generationCts" никогда не используется. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+
+Ошибка сборки.
+
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\Services\ProjectStore.cs(9,41): warning CS8619: Допустимость значения NULL в значении типа "IOrderedEnumerable<string?>" не соответствует целевому типу "IEnumerable<string>". [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(61,196): warning CS8600: Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(74,30): warning CS0169: Поле "MainWindow.generationCts" никогда не используется. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(44,57): error CS0103: Имя "ContextCount" не существует в текущем контексте. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\MainWindow.xaml.cs(59,9): error CS0103: Имя "ContextCount" не существует в текущем контексте. [C:\Users\User\Desktop\BetaCMD 0.1\projects\ANew\AI Engineer Studio WPF\AIEngineerStudio.Wpf.csproj]
+    Предупреждений: 3
+    Ошибок: 2
+
+Прошло времени 00:00:00.89

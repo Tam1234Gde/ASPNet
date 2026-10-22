@@ -1,0 +1,1817 @@
+{
+  "UpdatedAt": "2026-10-18T13:45:16.9639266Z",
+  "Files": [
+    {
+      "Path": "$null",
+      "Length": 114,
+      "LastWriteUtc": "2026-09-28T11:11:03Z",
+      "Hash": null
+    },
+    {
+      "Path": ".gitignore",
+      "Length": 108,
+      "LastWriteUtc": "2026-09-24T16:14:05Z",
+      "Hash": null
+    },
+    {
+      "Path": "0)",
+      "Length": 0,
+      "LastWriteUtc": "2026-10-03T13:18:19.0603097Z",
+      "Hash": null
+    },
+    {
+      "Path": "AIEngineerStudio.Wpf.csproj",
+      "Length": 1828,
+      "LastWriteUtc": "2026-10-18T13:39:46.478007Z",
+      "Hash": null
+    },
+    {
+      "Path": "AIEngineerStudio.Wpf.csproj.user",
+      "Length": 348,
+      "LastWriteUtc": "2026-10-01T17:45:08.1835967Z",
+      "Hash": null
+    },
+    {
+      "Path": "AIEngineerStudio.Wpf.slnx",
+      "Length": 198,
+      "LastWriteUtc": "2026-10-18T13:36:10.3437599Z",
+      "Hash": null
+    },
+    {
+      "Path": "app.manifest",
+      "Length": 375,
+      "LastWriteUtc": "2026-09-22T18:12:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "App.xaml",
+      "Length": 12396,
+      "LastWriteUtc": "2026-09-23T17:58:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "App.xaml.cs",
+      "Length": 96,
+      "LastWriteUtc": "2026-09-22T07:51:36Z",
+      "Hash": null
+    },
+    {
+      "Path": "build.cmd",
+      "Length": 260,
+      "LastWriteUtc": "2026-09-29T16:37:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "DEVELOPMENT.md",
+      "Length": 1209,
+      "LastWriteUtc": "2026-09-23T10:54:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "generatedpng",
+      "Length": 1678538,
+      "LastWriteUtc": "2026-09-24T12:33:30Z",
+      "Hash": null
+    },
+    {
+      "Path": "KNOWN_ISSUES.md",
+      "Length": 7130,
+      "LastWriteUtc": "2026-09-24T16:11:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "PROJECT_CONTEXT.md",
+      "Length": 6084,
+      "LastWriteUtc": "2026-09-24T16:11:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "README.md",
+      "Length": 2295,
+      "LastWriteUtc": "2026-09-24T16:11:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "screen.png",
+      "Length": 1066160,
+      "LastWriteUtc": "2026-09-23T15:58:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "versions",
+      "Length": 4863,
+      "LastWriteUtc": "2026-10-01T14:32:16Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/AIEngineerStudio.Wpf.csproj",
+      "Length": 1203,
+      "LastWriteUtc": "2026-09-29T17:20:13Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/neural_bridge.py",
+      "Length": 10500,
+      "LastWriteUtc": "2026-09-23T18:01:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/versions",
+      "Length": 1590,
+      "LastWriteUtc": "2026-09-28T12:14:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Domain/Models/Attachment.cs",
+      "Length": 381,
+      "LastWriteUtc": "2026-09-24T11:52:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Domain/Models/ChatModels.cs",
+      "Length": 431,
+      "LastWriteUtc": "2026-10-01T13:54:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Domain/Models/ModelCatalog.cs",
+      "Length": 11498,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Domain/Models/ProjectDocument.cs",
+      "Length": 523,
+      "LastWriteUtc": "2026-09-29T17:16:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Domain/Models/RemoteProject.cs",
+      "Length": 1046,
+      "LastWriteUtc": "2026-09-29T17:32:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/AttachmentService.cs",
+      "Length": 16154,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/ComputerControlService.cs",
+      "Length": 2476,
+      "LastWriteUtc": "2026-09-22T18:01:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/ExplorerFileService.cs",
+      "Length": 3084,
+      "LastWriteUtc": "2026-09-24T13:26:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/GitVersionService.cs",
+      "Length": 5304,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/MediaApiException.cs",
+      "Length": 3091,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/MediaResponseReader.cs",
+      "Length": 3973,
+      "LastWriteUtc": "2026-09-24T12:27:32Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/NeuralBridgeService.cs",
+      "Length": 2253,
+      "LastWriteUtc": "2026-09-22T10:36:40Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/ProjectFileService.cs",
+      "Length": 1447,
+      "LastWriteUtc": "2026-09-22T10:09:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/ProjectStore.cs",
+      "Length": 1403,
+      "LastWriteUtc": "2026-09-29T16:51:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/RemoteProjectService.cs",
+      "Length": 6988,
+      "LastWriteUtc": "2026-09-29T19:22:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/SettingsStore.cs",
+      "Length": 4385,
+      "LastWriteUtc": "2026-09-24T13:03:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Infrastructure/Services/TokenBalanceService.cs",
+      "Length": 4743,
+      "LastWriteUtc": "2026-09-28T12:01:59Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Models/ChatType.cs",
+      "Length": 102,
+      "LastWriteUtc": "2026-10-01T13:52:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/MainWindow.Attachments.cs",
+      "Length": 24363,
+      "LastWriteUtc": "2026-10-01T13:50:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/MainWindow.Explorer.cs",
+      "Length": 12906,
+      "LastWriteUtc": "2026-09-24T13:28:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/MainWindow.xaml",
+      "Length": 16372,
+      "LastWriteUtc": "2026-10-01T13:47:58Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/MainWindow.xaml.cs",
+      "Length": 51309,
+      "LastWriteUtc": "2026-10-01T13:50:03Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/UI/MarkdownRenderer.cs",
+      "Length": 10839,
+      "LastWriteUtc": "2026-09-23T11:57:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/UI/ThemeManager.cs",
+      "Length": 815,
+      "LastWriteUtc": "2026-09-22T10:07:18Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/Dialogs.cs",
+      "Length": 14933,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/ModelPickerWindow.xaml",
+      "Length": 6258,
+      "LastWriteUtc": "2026-09-24T11:43:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/ModelPickerWindow.xaml.cs",
+      "Length": 3400,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/ProjectDialog.cs",
+      "Length": 4962,
+      "LastWriteUtc": "2026-09-29T17:03:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/RemoteProjectDialog.cs",
+      "Length": 5784,
+      "LastWriteUtc": "2026-09-29T19:23:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-02-21-chat-modes/src/Presentation/Views/StudioWindow.cs",
+      "Length": 3929,
+      "LastWriteUtc": "2026-09-24T16:04:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/AIEngineerStudio.Wpf.csproj",
+      "Length": 1320,
+      "LastWriteUtc": "2026-10-01T14:02:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/versions",
+      "Length": 2433,
+      "LastWriteUtc": "2026-10-01T14:03:46Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/docs/DUAL_CHAT.md",
+      "Length": 2345,
+      "LastWriteUtc": "2026-10-01T14:04:05Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/src/Presentation/MainWindow.Attachments.cs",
+      "Length": 24363,
+      "LastWriteUtc": "2026-10-01T13:50:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/src/Presentation/MainWindow.xaml",
+      "Length": 16372,
+      "LastWriteUtc": "2026-10-01T13:47:58Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/src/Presentation/MainWindow.xaml.cs",
+      "Length": 53035,
+      "LastWriteUtc": "2026-10-01T14:03:46Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/tools/neural_bridge.py",
+      "Length": 11099,
+      "LastWriteUtc": "2026-10-01T14:02:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/2026-10-01-dual-chat-171300/tools/test_dual_chat.py",
+      "Length": 2285,
+      "LastWriteUtc": "2026-10-01T14:03:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/AIEngineerStudio.Wpf.csproj",
+      "Length": 1322,
+      "LastWriteUtc": "2026-10-01T14:14:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/versions",
+      "Length": 3643,
+      "LastWriteUtc": "2026-10-01T14:17:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Domain/Models/Attachment.cs",
+      "Length": 381,
+      "LastWriteUtc": "2026-09-24T11:52:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Domain/Models/ChatModels.cs",
+      "Length": 431,
+      "LastWriteUtc": "2026-10-01T13:54:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Domain/Models/ModelCatalog.cs",
+      "Length": 11498,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Domain/Models/ProjectDocument.cs",
+      "Length": 523,
+      "LastWriteUtc": "2026-09-29T17:16:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Domain/Models/RemoteProject.cs",
+      "Length": 1046,
+      "LastWriteUtc": "2026-09-29T17:32:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/AttachmentService.cs",
+      "Length": 16154,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/ComputerControlService.cs",
+      "Length": 2476,
+      "LastWriteUtc": "2026-09-22T18:01:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/ExplorerFileService.cs",
+      "Length": 3084,
+      "LastWriteUtc": "2026-09-24T13:26:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/GitVersionService.cs",
+      "Length": 5304,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/MediaApiException.cs",
+      "Length": 3091,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/MediaResponseReader.cs",
+      "Length": 3973,
+      "LastWriteUtc": "2026-09-24T12:27:32Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/NeuralBridgeService.cs",
+      "Length": 2253,
+      "LastWriteUtc": "2026-09-22T10:36:40Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/ProjectFileService.cs",
+      "Length": 1447,
+      "LastWriteUtc": "2026-09-22T10:09:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/ProjectStore.cs",
+      "Length": 1403,
+      "LastWriteUtc": "2026-09-29T16:51:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/RemoteProjectService.cs",
+      "Length": 6988,
+      "LastWriteUtc": "2026-09-29T19:22:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/SettingsStore.cs",
+      "Length": 4385,
+      "LastWriteUtc": "2026-09-24T13:03:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/SharedChatContext.cs",
+      "Length": 1686,
+      "LastWriteUtc": "2026-10-01T14:14:39Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Infrastructure/Services/TokenBalanceService.cs",
+      "Length": 4743,
+      "LastWriteUtc": "2026-09-28T12:01:59Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Models/ChatType.cs",
+      "Length": 102,
+      "LastWriteUtc": "2026-10-01T13:52:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/MainWindow.Attachments.cs",
+      "Length": 24992,
+      "LastWriteUtc": "2026-10-01T14:14:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/MainWindow.Explorer.cs",
+      "Length": 12906,
+      "LastWriteUtc": "2026-09-24T13:28:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/MainWindow.xaml",
+      "Length": 16372,
+      "LastWriteUtc": "2026-10-01T13:47:58Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/MainWindow.xaml.cs",
+      "Length": 55377,
+      "LastWriteUtc": "2026-10-01T14:16:54Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/UI/MarkdownRenderer.cs",
+      "Length": 10839,
+      "LastWriteUtc": "2026-09-23T11:57:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/UI/ThemeManager.cs",
+      "Length": 815,
+      "LastWriteUtc": "2026-09-22T10:07:18Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/Dialogs.cs",
+      "Length": 14933,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/ModelPickerWindow.xaml",
+      "Length": 6258,
+      "LastWriteUtc": "2026-09-24T11:43:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/ModelPickerWindow.xaml.cs",
+      "Length": 3400,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/ProjectDialog.cs",
+      "Length": 4962,
+      "LastWriteUtc": "2026-09-29T17:03:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/RemoteProjectDialog.cs",
+      "Length": 5784,
+      "LastWriteUtc": "2026-09-29T19:23:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/src/Presentation/Views/StudioWindow.cs",
+      "Length": 3929,
+      "LastWriteUtc": "2026-09-24T16:04:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/agent.py",
+      "Length": 45182,
+      "LastWriteUtc": "2026-09-22T14:27:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/complete_dual_chat.py",
+      "Length": 8252,
+      "LastWriteUtc": "2026-10-01T14:02:27Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/create_architecture_document.py",
+      "Length": 30572,
+      "LastWriteUtc": "2026-09-23T10:53:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/finalize_dual_chat.py",
+      "Length": 2610,
+      "LastWriteUtc": "2026-10-01T14:03:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/finish_chat_isolation.py",
+      "Length": 6940,
+      "LastWriteUtc": "2026-10-01T14:14:05Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/finish_chat_status.py",
+      "Length": 1444,
+      "LastWriteUtc": "2026-10-01T14:16:50Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/neural_bridge.py",
+      "Length": 11099,
+      "LastWriteUtc": "2026-10-01T14:02:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/20261001-interactive-172250/tools/test_dual_chat.py",
+      "Length": 2285,
+      "LastWriteUtc": "2026-10-01T14:03:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-end-fix/ChatMessageList.cs",
+      "Length": 3667,
+      "LastWriteUtc": "2026-10-01T16:48:20.5248608Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-end-fix/MainWindow.ChatView.cs",
+      "Length": 7224,
+      "LastWriteUtc": "2026-10-01T16:49:05.6390967Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-performance/MainWindow.Attachments.cs",
+      "Length": 25225,
+      "LastWriteUtc": "2026-10-01T14:27:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-performance/MainWindow.Clarification.cs",
+      "Length": 11311,
+      "LastWriteUtc": "2026-10-01T14:27:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-performance/MainWindow.Explorer.cs",
+      "Length": 12906,
+      "LastWriteUtc": "2026-09-24T13:28:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-performance/MainWindow.xaml",
+      "Length": 16709,
+      "LastWriteUtc": "2026-10-01T14:32:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/chat-performance/MainWindow.xaml.cs",
+      "Length": 56977,
+      "LastWriteUtc": "2026-10-01T14:25:28Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-completion-20261002-211619/MainWindow.xaml.cs",
+      "Length": 54592,
+      "LastWriteUtc": "2026-10-02T18:05:30.8088689Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-completion-20261002-211619/RemoteProjectDialog.cs",
+      "Length": 6988,
+      "LastWriteUtc": "2026-10-02T18:09:26.3325028Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-completion-20261002-211619/RemoteProjectService.cs",
+      "Length": 12468,
+      "LastWriteUtc": "2026-10-02T18:09:10.9500908Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-completion-20261002-211619/WindowsDeployment.ps1",
+      "Length": 6539,
+      "LastWriteUtc": "2026-10-02T17:04:21.321146Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-windows/MainWindow.xaml.cs",
+      "Length": 55821,
+      "LastWriteUtc": "2026-10-01T18:01:27.6367261Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-windows/RemoteProject.cs",
+      "Length": 1046,
+      "LastWriteUtc": "2026-09-29T17:32:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-windows/RemoteProjectDialog.cs",
+      "Length": 5784,
+      "LastWriteUtc": "2026-09-29T19:23:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "backups/ssh-windows/RemoteProjectService.cs",
+      "Length": 6988,
+      "LastWriteUtc": "2026-09-29T19:22:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/AI_Engineer_Studio_Architecture_and_Agent_Guide.docx",
+      "Length": 46998,
+      "LastWriteUtc": "2026-09-23T09:57:10Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/AI_OPTIMIZATION.md",
+      "Length": 2537,
+      "LastWriteUtc": "2026-10-08T18:00:17.1012805Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/API_PARITY.md",
+      "Length": 2706,
+      "LastWriteUtc": "2026-10-03T19:24:12.1745452Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/ATTACHMENTS.md",
+      "Length": 4141,
+      "LastWriteUtc": "2026-09-24T11:59:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/CHAT_PERFORMANCE.md",
+      "Length": 5188,
+      "LastWriteUtc": "2026-10-01T16:37:16.0337533Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/CHAT_PROJECT_ANALYSIS.md",
+      "Length": 1285,
+      "LastWriteUtc": "2026-10-07T17:30:44.9401887Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/DUAL_CHAT.md",
+      "Length": 4926,
+      "LastWriteUtc": "2026-10-01T14:17:26Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/REMOTE_PROJECTS.md",
+      "Length": 3922,
+      "LastWriteUtc": "2026-10-02T18:32:19.3625353Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/WEBSITEDEV.md",
+      "Length": 4193,
+      "LastWriteUtc": "2026-10-03T13:24:05.5699661Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/WEB_API_IMPLEMENTATION.md",
+      "Length": 2005,
+      "LastWriteUtc": "2026-10-18T13:42:02.892129Z",
+      "Hash": null
+    },
+    {
+      "Path": "docs/WEB_STUDIO_REQUIREMENTS.md",
+      "Length": 4379,
+      "LastWriteUtc": "2026-10-18T13:31:44.6489953Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/appsettings.json",
+      "Length": 724,
+      "LastWriteUtc": "2026-09-24T07:58:47Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/build.log",
+      "Length": 967,
+      "LastWriteUtc": "2026-09-24T08:00:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.csproj",
+      "Length": 780,
+      "LastWriteUtc": "2026-09-24T08:08:35Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.sln",
+      "Length": 3919,
+      "LastWriteUtc": "2026-09-24T07:58:58Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/compile-after-fix.log",
+      "Length": 1541,
+      "LastWriteUtc": "2026-09-24T08:08:50Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/compile-final.log",
+      "Length": 674,
+      "LastWriteUtc": "2026-09-24T08:09:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/compile.log",
+      "Length": 216891,
+      "LastWriteUtc": "2026-09-24T08:08:06Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Program.cs",
+      "Length": 1429,
+      "LastWriteUtc": "2026-09-24T07:58:40Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/README.md",
+      "Length": 3665,
+      "LastWriteUtc": "2026-09-24T07:47:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/train_model.py",
+      "Length": 1065,
+      "LastWriteUtc": "2026-09-24T07:46:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/versions",
+      "Length": 549,
+      "LastWriteUtc": "2026-09-24T08:09:16Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/backups/2026-09-24_1108_compile-fix/BybitBot.csproj.bak",
+      "Length": 719,
+      "LastWriteUtc": "2026-09-24T07:48:32Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/backups/2026-09-24_1108_compile-fix/MainWindow.xaml.cs.bak",
+      "Length": 3715,
+      "LastWriteUtc": "2026-09-24T08:00:59Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/backups/2026-09-24_1108_compile-fix/Tests.cs.bak",
+      "Length": 621,
+      "LastWriteUtc": "2026-09-24T07:48:59Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/App.xaml",
+      "Length": 386,
+      "LastWriteUtc": "2026-09-24T07:58:57Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/App.xaml.cs",
+      "Length": 223,
+      "LastWriteUtc": "2026-09-24T07:58:57Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/AssemblyInfo.cs",
+      "Length": 643,
+      "LastWriteUtc": "2026-09-24T07:58:57Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/BybitBot.Desktop.csproj",
+      "Length": 259,
+      "LastWriteUtc": "2026-09-24T07:59:04Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/MainWindow.xaml",
+      "Length": 3184,
+      "LastWriteUtc": "2026-09-24T07:59:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/BybitBot.Desktop/MainWindow.xaml.cs",
+      "Length": 3748,
+      "LastWriteUtc": "2026-09-24T08:08:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Core/BotOptions.cs",
+      "Length": 2332,
+      "LastWriteUtc": "2026-09-24T07:57:52Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Core/RiskManager.cs",
+      "Length": 970,
+      "LastWriteUtc": "2026-09-24T07:45:51Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Core/TradingWorker.cs",
+      "Length": 3856,
+      "LastWriteUtc": "2026-09-24T07:58:37Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Domain/Models.cs",
+      "Length": 627,
+      "LastWriteUtc": "2026-09-24T07:44:41Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Infrastructure/Bybit/BybitClient.cs",
+      "Length": 4437,
+      "LastWriteUtc": "2026-09-24T07:45:11Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Infrastructure/Bybit/BybitSignatureGenerator.cs",
+      "Length": 519,
+      "LastWriteUtc": "2026-09-24T07:44:47Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/Infrastructure/MarketData/SlidingBarWindow.cs",
+      "Length": 512,
+      "LastWriteUtc": "2026-09-24T07:45:20Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/ML/AiSignalFilter.cs",
+      "Length": 4252,
+      "LastWriteUtc": "2026-09-24T07:58:19Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/ML/FeatureCalculator.cs",
+      "Length": 936,
+      "LastWriteUtc": "2026-09-24T07:45:29Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/ML/OnnxInferenceService.cs",
+      "Length": 966,
+      "LastWriteUtc": "2026-09-24T07:45:37Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/res/API DUCK \u2014 \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438.html",
+      "Length": 431583,
+      "LastWriteUtc": "2026-09-24T07:53:47Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/tests/BybitBot.Tests/BybitBot.Tests.csproj",
+      "Length": 411,
+      "LastWriteUtc": "2026-09-24T07:46:52Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/BybitBot/tests/BybitBot.Tests/Tests.cs",
+      "Length": 656,
+      "LastWriteUtc": "2026-09-24T08:09:12Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/Apple.json",
+      "Length": 248,
+      "LastWriteUtc": "2026-09-24T16:22:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/Binance.json",
+      "Length": 351,
+      "LastWriteUtc": "2026-09-24T17:39:16Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/BybitBot.json",
+      "Length": 21608,
+      "LastWriteUtc": "2026-09-24T17:18:16Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/CORETECH AI Engineer Studio.json",
+      "Length": 147982,
+      "LastWriteUtc": "2026-09-28T12:05:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/TInvestBot.json",
+      "Length": 189387,
+      "LastWriteUtc": "2026-09-27T19:50:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "projects/Projects/\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430.json",
+      "Length": 444,
+      "LastWriteUtc": "2026-09-24T16:52:42Z",
+      "Hash": null
+    },
+    {
+      "Path": "Properties/PublishProfiles/FolderProfile.pubxml",
+      "Length": 392,
+      "LastWriteUtc": "2026-09-22T18:43:36Z",
+      "Hash": null
+    },
+    {
+      "Path": "Properties/PublishProfiles/FolderProfile.pubxml.user",
+      "Length": 373,
+      "LastWriteUtc": "2026-10-01T17:45:13.66467Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room.html",
+      "Length": 28388,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/app.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 37111,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/catalog.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 8408,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/i18n.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 14282,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/manuals.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 132283,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/media.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 11758,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "res/ApiDuck \u2014 control room_files/styles.css",
+      "Length": 61170,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/Attachment.cs",
+      "Length": 381,
+      "LastWriteUtc": "2026-09-24T11:52:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/ChatModels.cs",
+      "Length": 496,
+      "LastWriteUtc": "2026-10-01T14:25:28Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/ConversationCard.cs",
+      "Length": 4280,
+      "LastWriteUtc": "2026-10-01T18:03:18.846585Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/ModelCatalog.cs",
+      "Length": 11498,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/ProjectDocument.cs",
+      "Length": 700,
+      "LastWriteUtc": "2026-10-01T17:30:35.4394414Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Domain/Models/RemoteProject.cs",
+      "Length": 1754,
+      "LastWriteUtc": "2026-10-02T17:02:54.7518967Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ApiConfiguration.cs",
+      "Length": 2339,
+      "LastWriteUtc": "2026-10-03T19:20:35.8180218Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/AttachmentService.cs",
+      "Length": 16169,
+      "LastWriteUtc": "2026-10-03T19:19:37.8457493Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ComputerControlService.cs",
+      "Length": 2476,
+      "LastWriteUtc": "2026-09-22T18:01:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ExplorerFileService.cs",
+      "Length": 3084,
+      "LastWriteUtc": "2026-09-24T13:26:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/GitVersionService.cs",
+      "Length": 5304,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/MediaApiException.cs",
+      "Length": 3091,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/MediaResponseReader.cs",
+      "Length": 3973,
+      "LastWriteUtc": "2026-09-24T12:27:32Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/NeuralBridgeService.cs",
+      "Length": 2253,
+      "LastWriteUtc": "2026-09-22T10:36:40Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ProjectFileService.cs",
+      "Length": 1447,
+      "LastWriteUtc": "2026-09-22T10:09:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ProjectOptimizationService.cs",
+      "Length": 6592,
+      "LastWriteUtc": "2026-10-08T17:59:56.367436Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/ProjectStore.cs",
+      "Length": 1403,
+      "LastWriteUtc": "2026-09-29T16:51:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/RemoteProjectService.cs",
+      "Length": 13839,
+      "LastWriteUtc": "2026-10-02T18:29:50.9043464Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/SettingsStore.cs",
+      "Length": 4560,
+      "LastWriteUtc": "2026-10-08T18:18:20.2204926Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/SharedChatContext.cs",
+      "Length": 1686,
+      "LastWriteUtc": "2026-10-01T14:14:39Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/TokenBalanceService.cs",
+      "Length": 4434,
+      "LastWriteUtc": "2026-10-03T19:18:53.9995704Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/WindowsDeployment.ps1",
+      "Length": 6539,
+      "LastWriteUtc": "2026-10-02T17:04:21.321146Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Infrastructure/Services/WorkspaceLease.cs",
+      "Length": 1265,
+      "LastWriteUtc": "2026-10-03T13:17:55.2957183Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Models/ChatType.cs",
+      "Length": 102,
+      "LastWriteUtc": "2026-10-01T13:52:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.Attachments.cs",
+      "Length": 25264,
+      "LastWriteUtc": "2026-10-01T16:18:01.1268138Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.ChatView.cs",
+      "Length": 9679,
+      "LastWriteUtc": "2026-10-01T17:30:35.4532925Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.Clarification.cs",
+      "Length": 15473,
+      "LastWriteUtc": "2026-10-01T18:04:27.8713891Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.Explorer.cs",
+      "Length": 12906,
+      "LastWriteUtc": "2026-09-24T13:28:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.SurveyActions.cs",
+      "Length": 9007,
+      "LastWriteUtc": "2026-10-01T17:32:07.6669551Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.xaml",
+      "Length": 16998,
+      "LastWriteUtc": "2026-10-01T17:30:35.4512923Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/MainWindow.xaml.cs",
+      "Length": 61862,
+      "LastWriteUtc": "2026-10-08T18:21:14.7765034Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/UI/ChatMessageList.cs",
+      "Length": 4439,
+      "LastWriteUtc": "2026-10-01T17:59:29.0038839Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/UI/MarkdownRenderer.cs",
+      "Length": 10839,
+      "LastWriteUtc": "2026-09-23T11:57:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/UI/ThemeManager.cs",
+      "Length": 815,
+      "LastWriteUtc": "2026-09-22T10:07:18Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/Dialogs.cs",
+      "Length": 16872,
+      "LastWriteUtc": "2026-10-08T18:19:03.8755001Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/ModelPickerWindow.xaml",
+      "Length": 6258,
+      "LastWriteUtc": "2026-09-24T11:43:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/ModelPickerWindow.xaml.cs",
+      "Length": 3400,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/ProjectDialog.cs",
+      "Length": 4962,
+      "LastWriteUtc": "2026-09-29T17:03:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/RemoteProjectDialog.cs",
+      "Length": 8223,
+      "LastWriteUtc": "2026-10-02T18:30:40.7585966Z",
+      "Hash": null
+    },
+    {
+      "Path": "src/Presentation/Views/StudioWindow.cs",
+      "Length": 3929,
+      "LastWriteUtc": "2026-09-24T16:04:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/agent.py",
+      "Length": 45182,
+      "LastWriteUtc": "2026-09-22T14:27:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/complete_dual_chat.py",
+      "Length": 8252,
+      "LastWriteUtc": "2026-10-01T14:02:27Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/context_optimizer.py",
+      "Length": 14036,
+      "LastWriteUtc": "2026-10-08T17:54:52.3124315Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/conversation_project.py",
+      "Length": 5394,
+      "LastWriteUtc": "2026-10-07T17:25:35.2162478Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/create_architecture_document.py",
+      "Length": 30572,
+      "LastWriteUtc": "2026-09-23T10:53:02Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/finalize_dual_chat.py",
+      "Length": 2610,
+      "LastWriteUtc": "2026-10-01T14:03:15Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/finish_chat_isolation.py",
+      "Length": 6940,
+      "LastWriteUtc": "2026-10-01T14:14:05Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/finish_chat_status.py",
+      "Length": 1444,
+      "LastWriteUtc": "2026-10-01T14:16:50Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/finish_ssh_service.py",
+      "Length": 7017,
+      "LastWriteUtc": "2026-10-02T18:29:34.2195403Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/neural_bridge.py",
+      "Length": 18964,
+      "LastWriteUtc": "2026-10-18T13:41:32.3580829Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/patch_conversation.py",
+      "Length": 8265,
+      "LastWriteUtc": "2026-10-07T17:26:24.0770114Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/setup_web_leases.py",
+      "Length": 1887,
+      "LastWriteUtc": "2026-10-03T13:22:29.9030113Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/test_dual_chat.py",
+      "Length": 2285,
+      "LastWriteUtc": "2026-10-01T14:03:38Z",
+      "Hash": null
+    },
+    {
+      "Path": "tools/upgrade_surveys.py",
+      "Length": 11631,
+      "LastWriteUtc": "2026-10-01T17:30:25.9673054Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/AIEngineerStudio.WebSiteDev.csproj",
+      "Length": 1938,
+      "LastWriteUtc": "2026-10-18T13:39:55.282308Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/AIEngineerStudio.WebSiteDev.csproj.user",
+      "Length": 359,
+      "LastWriteUtc": "2026-10-03T15:54:39.5453328Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/app.manifest",
+      "Length": 375,
+      "LastWriteUtc": "2026-09-22T18:12:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/App.xaml",
+      "Length": 12396,
+      "LastWriteUtc": "2026-09-23T17:58:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/App.xaml.cs",
+      "Length": 96,
+      "LastWriteUtc": "2026-09-22T07:51:36Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/Properties/PublishProfiles/FolderProfile.pubxml",
+      "Length": 392,
+      "LastWriteUtc": "2026-09-22T18:43:36Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/Properties/PublishProfiles/FolderProfile.pubxml.user",
+      "Length": 455,
+      "LastWriteUtc": "2026-10-04T15:52:21.8332375Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room.html",
+      "Length": 28388,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/app.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 37111,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/catalog.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 8408,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/i18n.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 14282,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/manuals.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 132283,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/media.js.\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430",
+      "Length": 11758,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/res/ApiDuck \u2014 control room_files/styles.css",
+      "Length": 61170,
+      "LastWriteUtc": "2026-09-28T10:57:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/Attachment.cs",
+      "Length": 381,
+      "LastWriteUtc": "2026-09-24T11:52:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/ChatModels.cs",
+      "Length": 496,
+      "LastWriteUtc": "2026-10-01T14:25:28Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/ConversationCard.cs",
+      "Length": 4280,
+      "LastWriteUtc": "2026-10-01T18:03:18.846585Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/ModelCatalog.cs",
+      "Length": 11498,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/ProjectDocument.cs",
+      "Length": 758,
+      "LastWriteUtc": "2026-10-03T13:15:02.4581864Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/RemoteProject.cs",
+      "Length": 1754,
+      "LastWriteUtc": "2026-10-02T17:02:54.7518967Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Domain/Models/WebProjectSettings.cs",
+      "Length": 640,
+      "LastWriteUtc": "2026-10-03T13:14:56.2366897Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ApiConfiguration.cs",
+      "Length": 2339,
+      "LastWriteUtc": "2026-10-03T19:21:42.4659767Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/AttachmentService.cs",
+      "Length": 16169,
+      "LastWriteUtc": "2026-10-03T19:19:52.9603855Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ComputerControlService.cs",
+      "Length": 2476,
+      "LastWriteUtc": "2026-09-22T18:01:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ExplorerFileService.cs",
+      "Length": 3084,
+      "LastWriteUtc": "2026-09-24T13:26:44Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/GitVersionService.cs",
+      "Length": 5304,
+      "LastWriteUtc": "2026-09-24T16:08:14Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/MediaApiException.cs",
+      "Length": 3091,
+      "LastWriteUtc": "2026-09-24T12:51:01Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/MediaResponseReader.cs",
+      "Length": 3973,
+      "LastWriteUtc": "2026-09-24T12:27:32Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/NeuralBridgeService.cs",
+      "Length": 2253,
+      "LastWriteUtc": "2026-09-22T10:36:40Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ProjectFileService.cs",
+      "Length": 1447,
+      "LastWriteUtc": "2026-09-22T10:09:08Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ProjectOptimizationService.cs",
+      "Length": 3512,
+      "LastWriteUtc": "2026-10-08T18:00:03.0552611Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/ProjectStore.cs",
+      "Length": 1403,
+      "LastWriteUtc": "2026-09-29T16:51:34Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/RemoteProjectService.cs",
+      "Length": 13839,
+      "LastWriteUtc": "2026-10-02T18:29:50.9043464Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/SettingsStore.cs",
+      "Length": 4571,
+      "LastWriteUtc": "2026-10-08T18:18:26.2106836Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/SharedChatContext.cs",
+      "Length": 1686,
+      "LastWriteUtc": "2026-10-01T14:14:39Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/TokenBalanceService.cs",
+      "Length": 4434,
+      "LastWriteUtc": "2026-10-03T19:19:20.0089882Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/WebProcess.cs",
+      "Length": 4630,
+      "LastWriteUtc": "2026-10-03T13:14:37.8996237Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/WindowsDeployment.ps1",
+      "Length": 6539,
+      "LastWriteUtc": "2026-10-02T17:04:21.321146Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Infrastructure/Services/WorkspaceLease.cs",
+      "Length": 1265,
+      "LastWriteUtc": "2026-10-03T13:18:19.2013101Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Models/ChatType.cs",
+      "Length": 102,
+      "LastWriteUtc": "2026-10-01T13:52:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.Attachments.cs",
+      "Length": 25264,
+      "LastWriteUtc": "2026-10-01T16:18:01.1268138Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.ChatView.cs",
+      "Length": 9679,
+      "LastWriteUtc": "2026-10-01T17:30:35.4532925Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.Clarification.cs",
+      "Length": 15473,
+      "LastWriteUtc": "2026-10-01T18:04:27.8713891Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.Explorer.cs",
+      "Length": 12906,
+      "LastWriteUtc": "2026-09-24T13:28:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.SurveyActions.cs",
+      "Length": 9007,
+      "LastWriteUtc": "2026-10-01T17:32:07.6669551Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.Web.cs",
+      "Length": 9814,
+      "LastWriteUtc": "2026-10-03T13:17:31.4764957Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.xaml",
+      "Length": 17138,
+      "LastWriteUtc": "2026-10-03T13:13:51.0480003Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/MainWindow.xaml.cs",
+      "Length": 62712,
+      "LastWriteUtc": "2026-10-08T18:18:40.9876724Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/UI/ChatMessageList.cs",
+      "Length": 4439,
+      "LastWriteUtc": "2026-10-01T17:59:29.0038839Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/UI/MarkdownRenderer.cs",
+      "Length": 10839,
+      "LastWriteUtc": "2026-09-23T11:57:48Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/UI/ThemeManager.cs",
+      "Length": 815,
+      "LastWriteUtc": "2026-10-03T13:13:51.0480003Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/Dialogs.cs",
+      "Length": 16872,
+      "LastWriteUtc": "2026-10-08T18:19:23.2616002Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/ModelPickerWindow.xaml",
+      "Length": 6258,
+      "LastWriteUtc": "2026-09-24T11:43:24Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/ModelPickerWindow.xaml.cs",
+      "Length": 3400,
+      "LastWriteUtc": "2026-09-24T11:41:21Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/ProjectDialog.cs",
+      "Length": 4962,
+      "LastWriteUtc": "2026-09-29T17:03:00Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/RemoteProjectDialog.cs",
+      "Length": 8223,
+      "LastWriteUtc": "2026-10-02T18:30:40.7585966Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/src/Presentation/Views/StudioWindow.cs",
+      "Length": 3929,
+      "LastWriteUtc": "2026-09-24T16:04:23Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/tools/context_optimizer.py",
+      "Length": 14036,
+      "LastWriteUtc": "2026-10-08T17:54:52.3124315Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/tools/conversation_project.py",
+      "Length": 5394,
+      "LastWriteUtc": "2026-10-07T17:26:39.4489767Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebSiteDev/tools/neural_bridge.py",
+      "Length": 18609,
+      "LastWriteUtc": "2026-10-18T13:41:41.6137191Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/appsettings.json",
+      "Length": 197,
+      "LastWriteUtc": "2026-10-18T13:39:23.6950682Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Program.cs",
+      "Length": 6020,
+      "LastWriteUtc": "2026-10-18T13:38:34.2127974Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/WebStudioApi.csproj",
+      "Length": 531,
+      "LastWriteUtc": "2026-10-18T13:36:09.8556295Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/WebStudioApi.http",
+      "Length": 137,
+      "LastWriteUtc": "2026-10-18T13:35:33.2172383Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Data/identity.db",
+      "Length": 4096,
+      "LastWriteUtc": "2026-10-18T13:44:30.6395084Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Data/identity.db-shm",
+      "Length": 32768,
+      "LastWriteUtc": "2026-10-18T13:44:30.7543278Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Data/identity.db-wal",
+      "Length": 119512,
+      "LastWriteUtc": "2026-10-18T13:44:31.1044789Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Data/IdentityData.cs",
+      "Length": 239,
+      "LastWriteUtc": "2026-10-18T13:37:09.1959642Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Properties/launchSettings.json",
+      "Length": 358,
+      "LastWriteUtc": "2026-10-18T13:35:33.1533316Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Services/AuditService.cs",
+      "Length": 661,
+      "LastWriteUtc": "2026-10-18T13:37:29.5535169Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Services/BridgeService.cs",
+      "Length": 1828,
+      "LastWriteUtc": "2026-10-18T13:37:48.3138969Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/Services/PathGuard.cs",
+      "Length": 886,
+      "LastWriteUtc": "2026-10-18T13:37:19.2894629Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/wwwroot/app.css",
+      "Length": 1133,
+      "LastWriteUtc": "2026-10-18T13:39:01.2075069Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/wwwroot/app.js",
+      "Length": 1770,
+      "LastWriteUtc": "2026-10-18T13:39:17.2165068Z",
+      "Hash": null
+    },
+    {
+      "Path": "WebStudioApi/wwwroot/index.html",
+      "Length": 1015,
+      "LastWriteUtc": "2026-10-18T13:38:45.7757622Z",
+      "Hash": null
+    }
+  ]
+}

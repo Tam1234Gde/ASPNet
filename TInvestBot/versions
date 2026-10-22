@@ -1,0 +1,23 @@
+2026.09.25.1
+- Migrated adapter and project metadata to t-tech-investments 1.51.0.
+- Added read-only Sandbox diagnostics and unified file logging in state/bot.log.
+- Added safe --observe single-cycle mode; it never submits orders.
+- Added durable pending-order journal protection and SDK compatibility tests.
+- Verified live read-only Sandbox: account accessible; SBER market data available; 30 candles, 20 bids, 20 asks, 1 last price; zero balance/positions/orders.
+- AI observe attempt reached DUCK but ended in ReadTimeout at 30 seconds; no order was sent.
+2026.09.25.1306 — v2026.09.25.01
+- Повторно настроено окружение из .env.
+- Установлены python-dotenv, aiohttp, pydantic, loguru, pytest, httpx.
+- Подтверждены конфигурация, AI-проверка, dry-run и 10 тестов.
+- Зафиксирована проблема: пакет tinkoff-investments недоступен в текущем индексе Python 3.10; реальные broker/API проверки не выполнялись.
+
+Validation: 17 tests passed; compileall OK; pip check OK; offline dry-run OK. Second online observe with 90-second AI timeout also failed with ReadTimeout. SDK Sentry telemetry SSL warning observed; TLS verification unchanged. See RUNBOOK.md.
+
+
+2026.09.25.141001
+- Increased .env AI_TIMEOUT_SECONDS from 30 to 180 seconds; verified effective Settings and HTTPX client timeout.
+- Backed up .env and versions to C:\Users\User\Desktop\TInvestBot_backup_20260925_140815_ai_timeout before changes.
+- Online app.ai_check succeeded in 63.86 seconds: valid JSON directive, action HOLD; synthetic connectivity snapshot only, no broker connection or orders.
+- Regression checks: 17 tests passed; 16 SDK FIGI deprecation warnings.
+
+2026-09-25 Telegram control: private allowlist, confirmations, durable settings, notifications, sequential multi-instrument analysis, RUB exposure/cash checks. Backup: Backups/telegram_20260925_192958. Tests: 33 passed. Live Telegram/Sandbox acceptance pending credentials. See TELEGRAM_RUNBOOK.md.

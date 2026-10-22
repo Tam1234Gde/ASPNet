@@ -1,0 +1,313 @@
+// Media models definitions with endpoints, pricing and code examples
+window.APIDUCK_MEDIA_MODELS = [
+  {
+    id: "gpt-image-2",
+    name: "GPT Image 2",
+    type: "image",
+    desc: "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Это отдельный способ доступа — независимо от чата в личном кабинете.",
+    pricing: [
+      { label: "low (1024x1024)", val: "50K" },
+      { label: "medium (1536x1024)", val: "100K" },
+      { label: "high (2048x1024)", val: "150K" }
+    ],
+    note: "Количество n: 1, 2 или 4 изображения за один запрос.",
+    endpoints: [
+      { label: "Generation", path: "/v1/images/generations" },
+      { label: "Edit", path: "/v1/images/edits" },
+      { label: "Responses", path: "/v1/responses" }
+    ],
+    examples: [
+      {
+        title: "Генерация картинки (POST /v1/images/generations, JSON body)",
+        code: (base, key) => `curl ${base}/v1/images/generations \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2",
+    "prompt": "Clean product mockup of a coding assistant dashboard, crisp UI, neutral background",
+    "size": "1024x1024",
+    "quality": "low",
+    "n": 1,
+    "response_format": "b64_json"
+  }'`
+      },
+      {
+        title: "Редактирование картинки (POST /v1/images/edits, multipart/form-data)",
+        code: (base, key) => `curl ${base}/v1/images/edits \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'model=gpt-image-2' \\
+  -F 'image=@input.png' \\
+  -F 'prompt=Replace the background with a clean white studio scene' \\
+  -F 'size=1024x1024' \\
+  -F 'quality=low'`
+      },
+      {
+        title: "Responses API (POST /v1/responses)",
+        code: (base, key) => `curl ${base}/v1/responses \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2",
+    "input": "Create a cinematic illustration of a programmer working at night",
+    "size": "1536x1024",
+    "quality": "medium",
+    "n": 1
+  }'`
+      }
+    ]
+  },
+  {
+    id: "gpt-image-2.5-flare",
+    name: "GPT Image 2.5 Flare",
+    type: "image",
+    desc: "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Улучшенная цветопередача и детализация мелких деталей.",
+    pricing: [
+      { label: "low", val: "50K" },
+      { label: "medium", val: "100K" },
+      { label: "high", val: "150K" }
+    ],
+    note: "Количество n: 1, 2 или 4 изображения.",
+    endpoints: [
+      { label: "Generation", path: "/v1/images/generations" },
+      { label: "Edit", path: "/v1/images/edits" },
+      { label: "Responses", path: "/v1/responses" }
+    ],
+    examples: [
+      {
+        title: "Генерация картинки (POST /v1/images/generations)",
+        code: (base, key) => `curl ${base}/v1/images/generations \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2.5-flare",
+    "prompt": "Clean product mockup of a coding assistant dashboard, crisp UI, neutral background",
+    "size": "1024x1024",
+    "quality": "low",
+    "n": 1,
+    "response_format": "b64_json"
+  }'`
+      },
+      {
+        title: "Редактирование картинки (POST /v1/images/edits)",
+        code: (base, key) => `curl ${base}/v1/images/edits \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'model=gpt-image-2.5-flare' \\
+  -F 'image=@input.png' \\
+  -F 'prompt=Replace the background with a clean white studio scene' \\
+  -F 'size=1024x1024' \\
+  -F 'quality=low'`
+      },
+      {
+        title: "Responses API (POST /v1/responses)",
+        code: (base, key) => `curl ${base}/v1/responses \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2.5-flare",
+    "input": "Create a cinematic illustration of a programmer working at night",
+    "size": "1536x1024",
+    "quality": "medium",
+    "n": 1
+  }'`
+      }
+    ]
+  },
+  {
+    id: "gpt-image-2.5-sunburst",
+    name: "GPT Image 2.5 Sunburst",
+    type: "image",
+    desc: "Вызывайте модель через OpenAI-совместимые image endpoint'ы ApiDuck. Высокий динамический диапазон и насыщенные текстуры.",
+    pricing: [
+      { label: "low", val: "50K" },
+      { label: "medium", val: "100K" },
+      { label: "high", val: "150K" }
+    ],
+    note: "Количество n: 1, 2 или 4 изображения.",
+    endpoints: [
+      { label: "Generation", path: "/v1/images/generations" },
+      { label: "Edit", path: "/v1/images/edits" },
+      { label: "Responses", path: "/v1/responses" }
+    ],
+    examples: [
+      {
+        title: "Генерация картинки (POST /v1/images/generations)",
+        code: (base, key) => `curl ${base}/v1/images/generations \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2.5-sunburst",
+    "prompt": "Clean product mockup of a coding assistant dashboard, crisp UI, neutral background",
+    "size": "1024x1024",
+    "quality": "low",
+    "n": 1,
+    "response_format": "b64_json"
+  }'`
+      },
+      {
+        title: "Редактирование картинки (POST /v1/images/edits)",
+        code: (base, key) => `curl ${base}/v1/images/edits \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'model=gpt-image-2.5-sunburst' \\
+  -F 'image=@input.png' \\
+  -F 'prompt=Replace the background with a clean white studio scene' \\
+  -F 'size=1024x1024' \\
+  -F 'quality=low'`
+      },
+      {
+        title: "Responses API (POST /v1/responses)",
+        code: (base, key) => `curl ${base}/v1/responses \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-image-2.5-sunburst",
+    "input": "Create a cinematic illustration of a programmer working at night",
+    "size": "1536x1024",
+    "quality": "medium",
+    "n": 1
+  }'`
+      }
+    ]
+  },
+  {
+    id: "nano-banana-2",
+    name: "Nano Banana 2",
+    type: "image",
+    desc: "Быстрая и экономичная генерация изображений через OpenAI image endpoint'ы ApiDuck.",
+    pricing: [
+      { label: "low (фиксированно)", val: "100K" }
+    ],
+    note: "Количество n: 1, 2 или 4 изображения.",
+    endpoints: [
+      { label: "Generation", path: "/v1/images/generations" },
+      { label: "Edit", path: "/v1/images/edits" },
+      { label: "Responses", path: "/v1/responses" }
+    ],
+    examples: [
+      {
+        title: "Генерация картинки (POST /v1/images/generations)",
+        code: (base, key) => `curl ${base}/v1/images/generations \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "nano-banana-2",
+    "prompt": "Clean product mockup of a coding assistant dashboard, crisp UI, neutral background",
+    "size": "1024x1024",
+    "quality": "low",
+    "n": 1,
+    "response_format": "b64_json"
+  }'`
+      },
+      {
+        title: "Редактирование картинки (POST /v1/images/edits)",
+        code: (base, key) => `curl ${base}/v1/images/edits \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'model=nano-banana-2' \\
+  -F 'image=@input.png' \\
+  -F 'prompt=Replace the background with a clean white studio scene' \\
+  -F 'size=1024x1024' \\
+  -F 'quality=low'`
+      },
+      {
+        title: "Responses API (POST /v1/responses)",
+        code: (base, key) => `curl ${base}/v1/responses \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "nano-banana-2",
+    "input": "Create a cinematic illustration of a programmer working at night",
+    "size": "1536x1024",
+    "quality": "low",
+    "n": 1
+  }'`
+      }
+    ]
+  },
+  {
+    id: "grok-imagine-image",
+    name: "Grok Imagine",
+    type: "image",
+    desc: "Генерация и редактирование изображений через xAI Grok Imagine API на ApiDuck.",
+    pricing: [
+      { label: "low", val: "100K" },
+      { label: "medium", val: "250K" },
+      { label: "high", val: "350K" }
+    ],
+    note: "Количество n: 1, 2 или 4. Редактирование: 250K за 1K или 350K за 2K, плюс 50K за каждый референс.",
+    endpoints: [
+      { label: "Generation", path: "/v1/images/generations" },
+      { label: "Edit", path: "/v1/images/edits" },
+      { label: "Responses", path: "/v1/responses" }
+    ],
+    examples: [
+      {
+        title: "Генерация картинки (POST /v1/images/generations)",
+        code: (base, key) => `curl ${base}/v1/images/generations \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "grok-imagine-image",
+    "prompt": "Clean product mockup of a coding assistant dashboard, crisp UI, neutral background",
+    "size": "1024x1024",
+    "quality": "low",
+    "n": 1,
+    "response_format": "b64_json"
+  }'`
+      },
+      {
+        title: "Редактирование картинки (POST /v1/images/edits)",
+        code: (base, key) => `curl ${base}/v1/images/edits \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'model=grok-imagine-image' \\
+  -F 'image=@input.png' \\
+  -F 'prompt=Replace the background with a clean white studio scene' \\
+  -F 'size=1024x1024' \\
+  -F 'quality=low'`
+      },
+      {
+        title: "Responses API (POST /v1/responses)",
+        code: (base, key) => `curl ${base}/v1/responses \\
+  -H "Authorization: Bearer ${key}" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "grok-imagine-image",
+    "input": "Create a cinematic illustration of a programmer working at night",
+    "size": "1536x1024",
+    "quality": "medium",
+    "n": 1
+  }'`
+      }
+    ]
+  },
+  {
+    id: "gpt-4o-transcribe",
+    name: "gpt-4o-transcribe (Audio)",
+    type: "audio",
+    desc: "Вызывайте модель через Transcript API ApiDuck. Отправляйте multipart/form-data с WAV-файлом и model.",
+    pricing: [
+      { label: "Тариф", val: "Коэф. ×1" },
+      { label: "Макс. размер", val: "до 25 MiB" }
+    ],
+    note: "Итоговое списание зависит от проверенной длительности аудиофайла. Сейчас принимается WAV до 25 MiB. Модель upstream выбирается сервером.",
+    endpoints: [
+      { label: "Transcription", path: "/v1/audio/transcriptions" }
+    ],
+    examples: [
+      {
+        title: "Базовая транскрибация (POST /v1/audio/transcriptions, multipart/form-data)",
+        code: (base, key) => `curl ${base}/v1/audio/transcriptions \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'file=@audio.wav' \\
+  -F 'model=gpt-4o-transcribe'`
+      },
+      {
+        title: "С указанием языка (опциональный language)",
+        code: (base, key) => `curl ${base}/v1/audio/transcriptions \\
+  -H "Authorization: Bearer ${key}" \\
+  -F 'file=@meeting.wav' \\
+  -F 'model=gpt-4o-transcribe' \\
+  -F 'language=ru' \\
+  -F 'response_format=json'`
+      }
+    ]
+  }
+];
